@@ -11,7 +11,11 @@ class Store extends ChangeNotifier {
 
   FirebaseFirestore get db => FirebaseFirestore.instance;
   String get uuid => const Uuid().v4();
-  String get uid => FirebaseAuth.instance.currentUser!.uid;
+
+  /// Firebase Authentication が管理する現在のユーザー。
+  /// 勘弁のため Non-null operator を使っているので、
+  /// サインアウトしている可能性がある画面では使用しないように注意する。
+  User get currentUser => FirebaseAuth.instance.currentUser!;
 
   /// 現在開いている BottomNavigationBar のタブ番号
   int tabIndex = 0;
