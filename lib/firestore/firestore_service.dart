@@ -3,6 +3,19 @@ import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/models/category/category.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
 
+Future<List<Category>> fetchCategories({required CollectionReference collectionRef}) async {
+  final qs = await collectionRef
+      .withConverter<Category>(
+        fromFirestore: (snapshot, _) => Category.fromDocumentSnapshot(snapshot),
+        toFirestore: (obj, _) => obj.toJson(),
+      )
+      .where('isDeleted', isEqualTo: false)
+      .orderBy('order')
+      .get();
+  final result = qs.docs.map((qds) => qds.data()).toList();
+  return result;
+}
+
 Future<void> setData({
   required DocumentReference docRef,
   required Map<String, dynamic> data,

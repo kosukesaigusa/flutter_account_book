@@ -10,10 +10,10 @@ class CategoryAddPageViewModel extends ChangeNotifier {
   void changeName(String s) {
     name = s;
     if (name.isEmpty) {
-      errorBudget = '入力してください。';
+      errorName = '入力してください。';
     }
     if (name.length > 20) {
-      errorBudget = '20 文字以内で入力してください。';
+      errorName = '20 文字以内で入力してください。';
     }
     validate();
     notifyListeners();

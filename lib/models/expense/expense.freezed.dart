@@ -24,21 +24,26 @@ class _$ExpenseTearOff {
       {@DocumentReferenceNullableConverter()
           DocumentReference<Object?>? reference,
       @TimestampConverter()
+          DateTime? paidAt,
+      @TimestampConverter()
           DateTime? createdAt,
       @TimestampConverter()
           DateTime? updatedAt,
       bool isDeleted = false,
       required String name,
       required int price,
+      int satisfaction = 3,
       @DocumentReferenceConverter()
           required DocumentReference<Object?> categoryRef}) {
     return _Expense(
       reference: reference,
+      paidAt: paidAt,
       createdAt: createdAt,
       updatedAt: updatedAt,
       isDeleted: isDeleted,
       name: name,
       price: price,
+      satisfaction: satisfaction,
       categoryRef: categoryRef,
     );
   }
@@ -57,12 +62,15 @@ mixin _$Expense {
   DocumentReference<Object?>? get reference =>
       throw _privateConstructorUsedError;
   @TimestampConverter()
+  DateTime? get paidAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   bool get isDeleted => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
+  int get satisfaction => throw _privateConstructorUsedError;
   @DocumentReferenceConverter()
   DocumentReference<Object?> get categoryRef =>
       throw _privateConstructorUsedError;
@@ -80,12 +88,15 @@ abstract class $ExpenseCopyWith<$Res> {
       {@DocumentReferenceNullableConverter()
           DocumentReference<Object?>? reference,
       @TimestampConverter()
+          DateTime? paidAt,
+      @TimestampConverter()
           DateTime? createdAt,
       @TimestampConverter()
           DateTime? updatedAt,
       bool isDeleted,
       String name,
       int price,
+      int satisfaction,
       @DocumentReferenceConverter()
           DocumentReference<Object?> categoryRef});
 }
@@ -101,11 +112,13 @@ class _$ExpenseCopyWithImpl<$Res> implements $ExpenseCopyWith<$Res> {
   @override
   $Res call({
     Object? reference = freezed,
+    Object? paidAt = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? isDeleted = freezed,
     Object? name = freezed,
     Object? price = freezed,
+    Object? satisfaction = freezed,
     Object? categoryRef = freezed,
   }) {
     return _then(_value.copyWith(
@@ -113,6 +126,10 @@ class _$ExpenseCopyWithImpl<$Res> implements $ExpenseCopyWith<$Res> {
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
               as DocumentReference<Object?>?,
+      paidAt: paidAt == freezed
+          ? _value.paidAt
+          : paidAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -132,6 +149,10 @@ class _$ExpenseCopyWithImpl<$Res> implements $ExpenseCopyWith<$Res> {
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
+              as int,
+      satisfaction: satisfaction == freezed
+          ? _value.satisfaction
+          : satisfaction // ignore: cast_nullable_to_non_nullable
               as int,
       categoryRef: categoryRef == freezed
           ? _value.categoryRef
@@ -150,12 +171,15 @@ abstract class _$ExpenseCopyWith<$Res> implements $ExpenseCopyWith<$Res> {
       {@DocumentReferenceNullableConverter()
           DocumentReference<Object?>? reference,
       @TimestampConverter()
+          DateTime? paidAt,
+      @TimestampConverter()
           DateTime? createdAt,
       @TimestampConverter()
           DateTime? updatedAt,
       bool isDeleted,
       String name,
       int price,
+      int satisfaction,
       @DocumentReferenceConverter()
           DocumentReference<Object?> categoryRef});
 }
@@ -172,11 +196,13 @@ class __$ExpenseCopyWithImpl<$Res> extends _$ExpenseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? reference = freezed,
+    Object? paidAt = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? isDeleted = freezed,
     Object? name = freezed,
     Object? price = freezed,
+    Object? satisfaction = freezed,
     Object? categoryRef = freezed,
   }) {
     return _then(_Expense(
@@ -184,6 +210,10 @@ class __$ExpenseCopyWithImpl<$Res> extends _$ExpenseCopyWithImpl<$Res>
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
               as DocumentReference<Object?>?,
+      paidAt: paidAt == freezed
+          ? _value.paidAt
+          : paidAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -204,6 +234,10 @@ class __$ExpenseCopyWithImpl<$Res> extends _$ExpenseCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
+      satisfaction: satisfaction == freezed
+          ? _value.satisfaction
+          : satisfaction // ignore: cast_nullable_to_non_nullable
+              as int,
       categoryRef: categoryRef == freezed
           ? _value.categoryRef
           : categoryRef // ignore: cast_nullable_to_non_nullable
@@ -217,11 +251,13 @@ class __$ExpenseCopyWithImpl<$Res> extends _$ExpenseCopyWithImpl<$Res>
 class _$_Expense implements _Expense {
   const _$_Expense(
       {@DocumentReferenceNullableConverter() this.reference,
+      @TimestampConverter() this.paidAt,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       this.isDeleted = false,
       required this.name,
       required this.price,
+      this.satisfaction = 3,
       @DocumentReferenceConverter() required this.categoryRef});
 
   factory _$_Expense.fromJson(Map<String, dynamic> json) =>
@@ -230,6 +266,9 @@ class _$_Expense implements _Expense {
   @override
   @DocumentReferenceNullableConverter()
   final DocumentReference<Object?>? reference;
+  @override
+  @TimestampConverter()
+  final DateTime? paidAt;
   @override
   @TimestampConverter()
   final DateTime? createdAt;
@@ -243,13 +282,16 @@ class _$_Expense implements _Expense {
   final String name;
   @override
   final int price;
+  @JsonKey(defaultValue: 3)
+  @override
+  final int satisfaction;
   @override
   @DocumentReferenceConverter()
   final DocumentReference<Object?> categoryRef;
 
   @override
   String toString() {
-    return 'Expense(reference: $reference, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, price: $price, categoryRef: $categoryRef)';
+    return 'Expense(reference: $reference, paidAt: $paidAt, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, price: $price, satisfaction: $satisfaction, categoryRef: $categoryRef)';
   }
 
   @override
@@ -259,6 +301,8 @@ class _$_Expense implements _Expense {
             (identical(other.reference, reference) ||
                 const DeepCollectionEquality()
                     .equals(other.reference, reference)) &&
+            (identical(other.paidAt, paidAt) ||
+                const DeepCollectionEquality().equals(other.paidAt, paidAt)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -272,6 +316,9 @@ class _$_Expense implements _Expense {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.price, price) ||
                 const DeepCollectionEquality().equals(other.price, price)) &&
+            (identical(other.satisfaction, satisfaction) ||
+                const DeepCollectionEquality()
+                    .equals(other.satisfaction, satisfaction)) &&
             (identical(other.categoryRef, categoryRef) ||
                 const DeepCollectionEquality()
                     .equals(other.categoryRef, categoryRef)));
@@ -281,11 +328,13 @@ class _$_Expense implements _Expense {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(reference) ^
+      const DeepCollectionEquality().hash(paidAt) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(isDeleted) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(price) ^
+      const DeepCollectionEquality().hash(satisfaction) ^
       const DeepCollectionEquality().hash(categoryRef);
 
   @JsonKey(ignore: true)
@@ -304,12 +353,15 @@ abstract class _Expense implements Expense {
       {@DocumentReferenceNullableConverter()
           DocumentReference<Object?>? reference,
       @TimestampConverter()
+          DateTime? paidAt,
+      @TimestampConverter()
           DateTime? createdAt,
       @TimestampConverter()
           DateTime? updatedAt,
       bool isDeleted,
       required String name,
       required int price,
+      int satisfaction,
       @DocumentReferenceConverter()
           required DocumentReference<Object?> categoryRef}) = _$_Expense;
 
@@ -319,6 +371,9 @@ abstract class _Expense implements Expense {
   @DocumentReferenceNullableConverter()
   DocumentReference<Object?>? get reference =>
       throw _privateConstructorUsedError;
+  @override
+  @TimestampConverter()
+  DateTime? get paidAt => throw _privateConstructorUsedError;
   @override
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -331,6 +386,8 @@ abstract class _Expense implements Expense {
   String get name => throw _privateConstructorUsedError;
   @override
   int get price => throw _privateConstructorUsedError;
+  @override
+  int get satisfaction => throw _privateConstructorUsedError;
   @override
   @DocumentReferenceConverter()
   DocumentReference<Object?> get categoryRef =>

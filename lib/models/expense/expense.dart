@@ -10,11 +10,13 @@ part 'expense.g.dart';
 class Expense with _$Expense {
   const factory Expense({
     @DocumentReferenceNullableConverter() DocumentReference? reference,
+    @TimestampConverter() DateTime? paidAt,
     @TimestampConverter() DateTime? createdAt,
     @TimestampConverter() DateTime? updatedAt,
     @Default(false) bool isDeleted,
     required String name,
     required int price,
+    @Default(3) int satisfaction,
     @DocumentReferenceConverter() required DocumentReference categoryRef,
   }) = _Expense;
 
