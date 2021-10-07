@@ -19,9 +19,12 @@ dependencies:
   flutter_spinkit: ^5.0.0
   freezed_annotation: ^0.14.2
   gap: ^2.0.0
+  google_sign_in: ^5.1.1
   keyboard_actions: ^3.4.0
   package_info: ^2.0.2
+  provider: ^6.0.0
   shared_preferences: ^2.0.6
+  sign_button: ^2.0.1
   uuid: ^3.0.4
 
 dev_dependencies:
