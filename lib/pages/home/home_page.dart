@@ -7,26 +7,28 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Store>(builder: (context, store, child) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('ホーム'),
-        ),
-        body: Stack(
-          children: <Widget>[
-            IndexedStack(
-              index: store.tabIndex,
-              children: stackedPages,
-            ),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: bottomNavBarItems,
-          currentIndex: store.tabIndex,
-          onTap: store.changeTab,
-        ),
-      );
-    });
+    return Consumer<Store>(
+      builder: (context, store, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('ホーム'),
+          ),
+          body: Stack(
+            children: <Widget>[
+              IndexedStack(
+                index: store.tabIndex,
+                children: stackedPages,
+              ),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: bottomNavBarItems,
+            currentIndex: store.tabIndex,
+            onTap: store.changeTab,
+          ),
+        );
+      },
+    );
   }
 
   /// ホーム・シェア・マイページの 3 画面
