@@ -11,7 +11,7 @@ Future<void> main() async {
   runApp(
     ChangeNotifierProvider<Store>.value(
       value: store,
-      builder: (context, child) => App(),
+      builder: (context, child) => const App(),
     ),
   );
 }

@@ -13,7 +13,7 @@ class Store extends ChangeNotifier {
   String get uuid => const Uuid().v4();
   String get uid => FirebaseAuth.instance.currentUser!.uid;
 
-  /// Googleサインイン。成功するとtrueを返す。
+  /// Sign in with Google を実行して UserCredential を返す
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final googleUser = await GoogleSignIn().signIn();
