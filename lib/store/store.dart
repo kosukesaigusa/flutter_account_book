@@ -47,4 +47,10 @@ class Store extends ChangeNotifier {
       return null;
     }
   }
+
+  /// サインアウトする
+  Future<void> signOut() async {
+    tabIndex = 0;
+    await FirebaseAuth.instance.signOut();
+  }
 }

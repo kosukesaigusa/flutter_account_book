@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_account_book/componentns/util_components/centered_spinkit_circle.dart';
 import 'package:flutter_account_book/constatnts/calendar/calendar_constants.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
@@ -14,34 +13,34 @@ class CalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CalendarViewModel>(
-      builder: (context, vm, child) => StreamBuilder<List<Expense>>(
-        stream: expenseSteam(vm.year, vm.month),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CenteredSpinkitCircle();
-          }
-          if (snapshot.hasData) {
-            final data = snapshot.data!;
-            vm.clear();
-            for (final d in data) {
-              final paidAt = d.paidAt;
-              if (paidAt != null) {
-                final key = paidAt.day;
-                vm.calculateExpense(key, d.price);
+      builder: (context, vm, child) => Column(
+        children: [
+          CalendarMonthHandlingWidget(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: weekdayRow,
+          ),
+          StreamBuilder<List<Expense>>(
+            stream: expenseSteam(vm.year, vm.month),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CalendarBody(showEmptyCell: true);
               }
-            }
-          }
-          return Column(
-            children: [
-              CalendarMonthHandlingWidget(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: weekdayRow,
-              ),
-              CalendarBody(),
-            ],
-          );
-        },
+              if (snapshot.hasData) {
+                final data = snapshot.data!;
+                vm.clear();
+                for (final d in data) {
+                  final paidAt = d.paidAt;
+                  if (paidAt != null) {
+                    final key = paidAt.day;
+                    vm.calculateExpense(key, d.price);
+                  }
+                }
+              }
+              return const CalendarBody();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -84,6 +83,8 @@ class CalendarMonthHandlingWidget extends StatelessWidget {
 
 /// カレンダーの本体
 class CalendarBody extends StatelessWidget {
+  const CalendarBody({this.showEmptyCell = false});
+  final bool showEmptyCell;
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<CalendarViewModel>(context);
@@ -95,7 +96,10 @@ class CalendarBody extends StatelessWidget {
       final weekRowChildren = <Widget>[];
       for (var j = 0; j < 7; j++) {
         final number = i * 7 + j + 1 - (weekDayOfFirstDay - 1);
-        weekRowChildren.add(CalendarDateCell(number));
+        weekRowChildren.add(CalendarDateCell(
+          number: number,
+          showEmptyCell: showEmptyCell,
+        ));
       }
       children.add(Row(children: weekRowChildren));
     }
@@ -104,8 +108,12 @@ class CalendarBody extends StatelessWidget {
 }
 
 class CalendarDateCell extends StatelessWidget {
-  const CalendarDateCell(this.number);
+  const CalendarDateCell({
+    required this.number,
+    required this.showEmptyCell,
+  });
   final int number;
+  final bool showEmptyCell;
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<CalendarViewModel>(context);

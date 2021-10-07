@@ -5,6 +5,8 @@ import 'package:flutter_account_book/pages/category_add/category_add_page.dart';
 import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
+import 'package:flutter_account_book/view_models/category/category_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,16 +16,27 @@ class HomePage extends StatelessWidget {
     return Consumer<Store>(
       builder: (context, store, child) {
         return Scaffold(
+          drawer: drawer(context),
           appBar: AppBar(
             title: const Text('ホーム'),
           ),
-          body: Stack(
-            children: <Widget>[
-              IndexedStack(
-                index: store.tabIndex,
-                children: stackedPages,
+          body: MultiProvider(
+            providers: [
+              ChangeNotifierProvider<CalendarViewModel>.value(
+                value: CalendarViewModel(),
+              ),
+              ChangeNotifierProvider<CategoryViewModel>.value(
+                value: CategoryViewModel(),
               ),
             ],
+            child: Stack(
+              children: <Widget>[
+                IndexedStack(
+                  index: store.tabIndex,
+                  children: stackedPages,
+                ),
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
@@ -73,3 +86,64 @@ class HomePage extends StatelessWidget {
     ),
   ];
 }
+
+Widget drawerHeader(BuildContext context) {
+  return DrawerHeader(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [],
+    ),
+  );
+}
+
+/// ドロワー
+Drawer drawer(BuildContext context) => Drawer(
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                drawerHeader(context),
+                signOutDrawerItem(context),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+ListTile signOutDrawerItem(BuildContext context) => ListTile(
+      leading: const Icon(Icons.logout_outlined),
+      title: const Text('サインアウト'),
+      onTap: () async {
+        await showDialog<void>(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              title: const Text('確認'),
+              content: const Text('サインアウトしても良いですか？'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    'キャンセル',
+                    style: TextStyle(color: Theme.of(context).disabledColor),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                TextButton(
+                  child: const Text('サインアウトする'),
+                  onPressed: () async {
+                    await Store().signOut();
+                    await Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/sign-in/',
+                      (route) => false,
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );

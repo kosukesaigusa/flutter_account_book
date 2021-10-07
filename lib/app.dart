@@ -2,9 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/pages/home/home_page.dart';
 import 'package:flutter_account_book/pages/sign_in/sign_in_page.dart';
-import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
-import 'package:flutter_account_book/view_models/category/category_view_model.dart';
-import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -22,21 +19,14 @@ class App extends StatelessWidget {
             return const SizedBox();
           }
           if (snapshot.hasData) {
-            return MultiProvider(
-              providers: [
-                ChangeNotifierProvider<CalendarViewModel>.value(
-                  value: CalendarViewModel(),
-                ),
-                ChangeNotifierProvider<CategoryViewModel>.value(
-                  value: CategoryViewModel(),
-                ),
-              ],
-              child: HomePage(),
-            );
+            return HomePage();
           }
           return SignInPage();
         },
       ),
+      routes: {
+        '/sign-in/': (context) => SignInPage(),
+      },
     );
   }
 }

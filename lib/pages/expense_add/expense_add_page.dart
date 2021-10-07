@@ -147,7 +147,7 @@ class ExpenseAddPage extends StatelessWidget {
                             Navigator.pop(context);
                           }
                         : null,
-                    child: const Text('カテゴリーを登録する'),
+                    child: const Text('支出を登録する'),
                   ),
                 ],
               ),
