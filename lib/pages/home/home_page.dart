@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_account_book/pages/calendar/calendart_page.dart';
+import 'package:flutter_account_book/pages/calendar/calendar_page.dart';
 import 'package:flutter_account_book/pages/category/category_page.dart';
 import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
