@@ -13,6 +13,15 @@ class Store extends ChangeNotifier {
   String get uuid => const Uuid().v4();
   String get uid => FirebaseAuth.instance.currentUser!.uid;
 
+  /// 現在開いている BottomNavigationBar のタブ番号
+  int tabIndex = 0;
+
+  /// BottomNavigationBar のタブの切り替え
+  void changeTab(int index) {
+    tabIndex = index;
+    notifyListeners();
+  }
+
   /// Sign in with Google を実行して UserCredential を返す
   Future<UserCredential?> signInWithGoogle() async {
     try {
