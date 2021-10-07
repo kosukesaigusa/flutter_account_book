@@ -16,6 +16,7 @@ _$_Category _$_$_CategoryFromJson(Map<String, dynamic> json) {
         const TimestampConverter().fromJson(json['updatedAt'] as Timestamp?),
     isDeleted: json['isDeleted'] as bool? ?? false,
     name: json['name'] as String,
+    budget: json['budget'] as int,
     order: json['order'] as int? ?? 0,
   );
 }
@@ -28,5 +29,6 @@ Map<String, dynamic> _$_$_CategoryToJson(_$_Category instance) =>
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'isDeleted': instance.isDeleted,
       'name': instance.name,
+      'budget': instance.budget,
       'order': instance.order,
     };

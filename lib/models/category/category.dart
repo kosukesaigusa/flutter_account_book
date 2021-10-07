@@ -14,6 +14,7 @@ class Category with _$Category {
     @TimestampConverter() DateTime? updatedAt,
     @Default(false) bool isDeleted,
     required String name,
+    required int budget,
     @Default(0) int order,
   }) = _Category;
 

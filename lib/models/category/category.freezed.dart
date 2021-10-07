@@ -29,6 +29,7 @@ class _$CategoryTearOff {
           DateTime? updatedAt,
       bool isDeleted = false,
       required String name,
+      required int budget,
       int order = 0}) {
     return _Category(
       reference: reference,
@@ -36,6 +37,7 @@ class _$CategoryTearOff {
       updatedAt: updatedAt,
       isDeleted: isDeleted,
       name: name,
+      budget: budget,
       order: order,
     );
   }
@@ -59,6 +61,7 @@ mixin _$Category {
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   bool get isDeleted => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  int get budget => throw _privateConstructorUsedError;
   int get order => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -80,6 +83,7 @@ abstract class $CategoryCopyWith<$Res> {
           DateTime? updatedAt,
       bool isDeleted,
       String name,
+      int budget,
       int order});
 }
 
@@ -98,6 +102,7 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
     Object? updatedAt = freezed,
     Object? isDeleted = freezed,
     Object? name = freezed,
+    Object? budget = freezed,
     Object? order = freezed,
   }) {
     return _then(_value.copyWith(
@@ -121,6 +126,10 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      budget: budget == freezed
+          ? _value.budget
+          : budget // ignore: cast_nullable_to_non_nullable
+              as int,
       order: order == freezed
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
@@ -143,6 +152,7 @@ abstract class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
           DateTime? updatedAt,
       bool isDeleted,
       String name,
+      int budget,
       int order});
 }
 
@@ -162,6 +172,7 @@ class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? isDeleted = freezed,
     Object? name = freezed,
+    Object? budget = freezed,
     Object? order = freezed,
   }) {
     return _then(_Category(
@@ -185,6 +196,10 @@ class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      budget: budget == freezed
+          ? _value.budget
+          : budget // ignore: cast_nullable_to_non_nullable
+              as int,
       order: order == freezed
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
@@ -202,6 +217,7 @@ class _$_Category implements _Category {
       @TimestampConverter() this.updatedAt,
       this.isDeleted = false,
       required this.name,
+      required this.budget,
       this.order = 0});
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
@@ -221,13 +237,15 @@ class _$_Category implements _Category {
   final bool isDeleted;
   @override
   final String name;
+  @override
+  final int budget;
   @JsonKey(defaultValue: 0)
   @override
   final int order;
 
   @override
   String toString() {
-    return 'Category(reference: $reference, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, order: $order)';
+    return 'Category(reference: $reference, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, budget: $budget, order: $order)';
   }
 
   @override
@@ -248,6 +266,8 @@ class _$_Category implements _Category {
                     .equals(other.isDeleted, isDeleted)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.budget, budget) ||
+                const DeepCollectionEquality().equals(other.budget, budget)) &&
             (identical(other.order, order) ||
                 const DeepCollectionEquality().equals(other.order, order)));
   }
@@ -260,6 +280,7 @@ class _$_Category implements _Category {
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(isDeleted) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(budget) ^
       const DeepCollectionEquality().hash(order);
 
   @JsonKey(ignore: true)
@@ -283,6 +304,7 @@ abstract class _Category implements Category {
           DateTime? updatedAt,
       bool isDeleted,
       required String name,
+      required int budget,
       int order}) = _$_Category;
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
@@ -301,6 +323,8 @@ abstract class _Category implements Category {
   bool get isDeleted => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
+  @override
+  int get budget => throw _privateConstructorUsedError;
   @override
   int get order => throw _privateConstructorUsedError;
   @override
