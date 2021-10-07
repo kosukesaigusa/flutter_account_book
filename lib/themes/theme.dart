@@ -92,3 +92,15 @@ const TextStyle whiteBold12 = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );
+
+const TextStyle blue12 = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.normal,
+  color: Colors.blue,
+);
+
+const TextStyle red12 = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.normal,
+  color: Colors.red,
+);

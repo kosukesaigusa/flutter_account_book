@@ -24,15 +24,18 @@ Future<void> setData({
   await docRef.set(data, SetOptions(merge: merge));
 }
 
-Stream<List<Expense>> expenseSteam() {
+/// 指定した月の支出データをストリームで取得する
+Stream<List<Expense>> expenseSteam(int year, int month) {
+  final startAtTimestamp = Timestamp.fromDate(DateTime(year, month));
+  final endAtTimestamp = Timestamp.fromDate(DateTime(year, month + 1, 0));
   final qsStream = FirestorePath.expenseCollectionRef
       .withConverter<Expense>(
         fromFirestore: (snapshot, _) => Expense.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),
       )
       .where('isDeleted', isEqualTo: false)
-      .orderBy('createdAt')
-      .snapshots();
+      .orderBy('paidAt')
+      .startAt([startAtTimestamp]).endAt([endAtTimestamp]).snapshots();
   final result = qsStream.map((qs) => qs.docs.map((qds) => qds.data()).toList());
   return result;
 }
