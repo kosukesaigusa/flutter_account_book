@@ -1,9 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/models/category/category.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
 
+Future<void> setData({
+  required DocumentReference docRef,
+  required Map<String, dynamic> data,
+  bool merge = true,
+}) async {
+  await docRef.set(data, SetOptions(merge: merge));
+}
+
 Stream<List<Expense>> expenseSteam() {
-  final qsStream = FirestorePath.expenseCollectionRef()
+  final qsStream = FirestorePath.expenseCollectionRef
       .withConverter<Expense>(
         fromFirestore: (snapshot, _) => Expense.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),
@@ -16,7 +25,7 @@ Stream<List<Expense>> expenseSteam() {
 }
 
 Stream<List<Category>> categorySteam() {
-  final qsStream = FirestorePath.cateogoryCollectionRef()
+  final qsStream = FirestorePath.cateogoryCollectionRef
       .withConverter<Category>(
         fromFirestore: (snapshot, _) => Category.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),
