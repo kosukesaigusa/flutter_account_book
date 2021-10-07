@@ -16,7 +16,6 @@ class Expense with _$Expense {
     required String name,
     required int price,
     @DocumentReferenceConverter() required DocumentReference categoryRef,
-    @DocumentReferenceConverter() required DocumentReference requiredReference,
   }) = _Expense;
 
   factory Expense.fromJson(Map<String, dynamic> json) => _$ExpenseFromJson(json);

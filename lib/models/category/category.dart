@@ -14,7 +14,7 @@ class Category with _$Category {
     @TimestampConverter() DateTime? updatedAt,
     @Default(false) bool isDeleted,
     required String name,
-    @DocumentReferenceConverter() required DocumentReference requiredReference,
+    @Default(0) int order,
   }) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);

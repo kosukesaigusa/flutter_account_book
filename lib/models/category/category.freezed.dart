@@ -29,15 +29,14 @@ class _$CategoryTearOff {
           DateTime? updatedAt,
       bool isDeleted = false,
       required String name,
-      @DocumentReferenceConverter()
-          required DocumentReference<Object?> requiredReference}) {
+      int order = 0}) {
     return _Category(
       reference: reference,
       createdAt: createdAt,
       updatedAt: updatedAt,
       isDeleted: isDeleted,
       name: name,
-      requiredReference: requiredReference,
+      order: order,
     );
   }
 
@@ -60,9 +59,7 @@ mixin _$Category {
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   bool get isDeleted => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  @DocumentReferenceConverter()
-  DocumentReference<Object?> get requiredReference =>
-      throw _privateConstructorUsedError;
+  int get order => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -83,8 +80,7 @@ abstract class $CategoryCopyWith<$Res> {
           DateTime? updatedAt,
       bool isDeleted,
       String name,
-      @DocumentReferenceConverter()
-          DocumentReference<Object?> requiredReference});
+      int order});
 }
 
 /// @nodoc
@@ -102,7 +98,7 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
     Object? updatedAt = freezed,
     Object? isDeleted = freezed,
     Object? name = freezed,
-    Object? requiredReference = freezed,
+    Object? order = freezed,
   }) {
     return _then(_value.copyWith(
       reference: reference == freezed
@@ -125,10 +121,10 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      requiredReference: requiredReference == freezed
-          ? _value.requiredReference
-          : requiredReference // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+      order: order == freezed
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -147,8 +143,7 @@ abstract class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
           DateTime? updatedAt,
       bool isDeleted,
       String name,
-      @DocumentReferenceConverter()
-          DocumentReference<Object?> requiredReference});
+      int order});
 }
 
 /// @nodoc
@@ -167,7 +162,7 @@ class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? isDeleted = freezed,
     Object? name = freezed,
-    Object? requiredReference = freezed,
+    Object? order = freezed,
   }) {
     return _then(_Category(
       reference: reference == freezed
@@ -190,10 +185,10 @@ class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      requiredReference: requiredReference == freezed
-          ? _value.requiredReference
-          : requiredReference // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+      order: order == freezed
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -207,7 +202,7 @@ class _$_Category implements _Category {
       @TimestampConverter() this.updatedAt,
       this.isDeleted = false,
       required this.name,
-      @DocumentReferenceConverter() required this.requiredReference});
+      this.order = 0});
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
       _$_$_CategoryFromJson(json);
@@ -226,13 +221,13 @@ class _$_Category implements _Category {
   final bool isDeleted;
   @override
   final String name;
+  @JsonKey(defaultValue: 0)
   @override
-  @DocumentReferenceConverter()
-  final DocumentReference<Object?> requiredReference;
+  final int order;
 
   @override
   String toString() {
-    return 'Category(reference: $reference, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, requiredReference: $requiredReference)';
+    return 'Category(reference: $reference, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, order: $order)';
   }
 
   @override
@@ -253,9 +248,8 @@ class _$_Category implements _Category {
                     .equals(other.isDeleted, isDeleted)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.requiredReference, requiredReference) ||
-                const DeepCollectionEquality()
-                    .equals(other.requiredReference, requiredReference)));
+            (identical(other.order, order) ||
+                const DeepCollectionEquality().equals(other.order, order)));
   }
 
   @override
@@ -266,7 +260,7 @@ class _$_Category implements _Category {
       const DeepCollectionEquality().hash(updatedAt) ^
       const DeepCollectionEquality().hash(isDeleted) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(requiredReference);
+      const DeepCollectionEquality().hash(order);
 
   @JsonKey(ignore: true)
   @override
@@ -289,8 +283,7 @@ abstract class _Category implements Category {
           DateTime? updatedAt,
       bool isDeleted,
       required String name,
-      @DocumentReferenceConverter()
-          required DocumentReference<Object?> requiredReference}) = _$_Category;
+      int order}) = _$_Category;
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
 
@@ -309,9 +302,7 @@ abstract class _Category implements Category {
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  @DocumentReferenceConverter()
-  DocumentReference<Object?> get requiredReference =>
-      throw _privateConstructorUsedError;
+  int get order => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CategoryCopyWith<_Category> get copyWith =>
