@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 Future<void> pushPage({
   required BuildContext context,
   required Widget page,
+  bool fullscreenDialog = false,
 }) async {
   await Navigator.of(context).push<void>(
-    MaterialPageRoute(builder: (context) => page),
+    MaterialPageRoute(
+      builder: (context) => page,
+      fullscreenDialog: fullscreenDialog,
+    ),
   );
 }
 

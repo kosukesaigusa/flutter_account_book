@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/pages/calendar/calendar_page.dart';
 import 'package:flutter_account_book/pages/category/category_page.dart';
+import 'package:flutter_account_book/pages/category_add/category_add_page.dart';
+import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:provider/provider.dart';
@@ -26,11 +28,19 @@ class HomePage extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
               if (store.tabIndex == 0) {
-                showFloatingSnackBar(context, 'カレンダータブが開かれています。');
+                await pushPage(
+                  context: context,
+                  page: ExpenseAddPage(),
+                  fullscreenDialog: true,
+                );
                 return;
               }
               if (store.tabIndex == 1) {
-                showFloatingSnackBar(context, 'カテゴリータブが開かれています。');
+                await pushPage(
+                  context: context,
+                  page: CategoryAddPage(),
+                  fullscreenDialog: true,
+                );
                 return;
               }
             },
