@@ -34,7 +34,7 @@ class _$ExpenseTearOff {
       required int price,
       int satisfaction = 3,
       @DocumentReferenceConverter()
-          required DocumentReference<Object?> categoryRef}) {
+          required DocumentReference<Object?> expenseCategoryRef}) {
     return _Expense(
       reference: reference,
       paidAt: paidAt,
@@ -44,7 +44,7 @@ class _$ExpenseTearOff {
       name: name,
       price: price,
       satisfaction: satisfaction,
-      categoryRef: categoryRef,
+      expenseCategoryRef: expenseCategoryRef,
     );
   }
 
@@ -72,7 +72,7 @@ mixin _$Expense {
   int get price => throw _privateConstructorUsedError;
   int get satisfaction => throw _privateConstructorUsedError;
   @DocumentReferenceConverter()
-  DocumentReference<Object?> get categoryRef =>
+  DocumentReference<Object?> get expenseCategoryRef =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -98,7 +98,7 @@ abstract class $ExpenseCopyWith<$Res> {
       int price,
       int satisfaction,
       @DocumentReferenceConverter()
-          DocumentReference<Object?> categoryRef});
+          DocumentReference<Object?> expenseCategoryRef});
 }
 
 /// @nodoc
@@ -119,7 +119,7 @@ class _$ExpenseCopyWithImpl<$Res> implements $ExpenseCopyWith<$Res> {
     Object? name = freezed,
     Object? price = freezed,
     Object? satisfaction = freezed,
-    Object? categoryRef = freezed,
+    Object? expenseCategoryRef = freezed,
   }) {
     return _then(_value.copyWith(
       reference: reference == freezed
@@ -154,9 +154,9 @@ class _$ExpenseCopyWithImpl<$Res> implements $ExpenseCopyWith<$Res> {
           ? _value.satisfaction
           : satisfaction // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryRef: categoryRef == freezed
-          ? _value.categoryRef
-          : categoryRef // ignore: cast_nullable_to_non_nullable
+      expenseCategoryRef: expenseCategoryRef == freezed
+          ? _value.expenseCategoryRef
+          : expenseCategoryRef // ignore: cast_nullable_to_non_nullable
               as DocumentReference<Object?>,
     ));
   }
@@ -181,7 +181,7 @@ abstract class _$ExpenseCopyWith<$Res> implements $ExpenseCopyWith<$Res> {
       int price,
       int satisfaction,
       @DocumentReferenceConverter()
-          DocumentReference<Object?> categoryRef});
+          DocumentReference<Object?> expenseCategoryRef});
 }
 
 /// @nodoc
@@ -203,7 +203,7 @@ class __$ExpenseCopyWithImpl<$Res> extends _$ExpenseCopyWithImpl<$Res>
     Object? name = freezed,
     Object? price = freezed,
     Object? satisfaction = freezed,
-    Object? categoryRef = freezed,
+    Object? expenseCategoryRef = freezed,
   }) {
     return _then(_Expense(
       reference: reference == freezed
@@ -238,9 +238,9 @@ class __$ExpenseCopyWithImpl<$Res> extends _$ExpenseCopyWithImpl<$Res>
           ? _value.satisfaction
           : satisfaction // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryRef: categoryRef == freezed
-          ? _value.categoryRef
-          : categoryRef // ignore: cast_nullable_to_non_nullable
+      expenseCategoryRef: expenseCategoryRef == freezed
+          ? _value.expenseCategoryRef
+          : expenseCategoryRef // ignore: cast_nullable_to_non_nullable
               as DocumentReference<Object?>,
     ));
   }
@@ -258,7 +258,7 @@ class _$_Expense implements _Expense {
       required this.name,
       required this.price,
       this.satisfaction = 3,
-      @DocumentReferenceConverter() required this.categoryRef});
+      @DocumentReferenceConverter() required this.expenseCategoryRef});
 
   factory _$_Expense.fromJson(Map<String, dynamic> json) =>
       _$_$_ExpenseFromJson(json);
@@ -287,11 +287,11 @@ class _$_Expense implements _Expense {
   final int satisfaction;
   @override
   @DocumentReferenceConverter()
-  final DocumentReference<Object?> categoryRef;
+  final DocumentReference<Object?> expenseCategoryRef;
 
   @override
   String toString() {
-    return 'Expense(reference: $reference, paidAt: $paidAt, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, price: $price, satisfaction: $satisfaction, categoryRef: $categoryRef)';
+    return 'Expense(reference: $reference, paidAt: $paidAt, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, price: $price, satisfaction: $satisfaction, expenseCategoryRef: $expenseCategoryRef)';
   }
 
   @override
@@ -319,9 +319,9 @@ class _$_Expense implements _Expense {
             (identical(other.satisfaction, satisfaction) ||
                 const DeepCollectionEquality()
                     .equals(other.satisfaction, satisfaction)) &&
-            (identical(other.categoryRef, categoryRef) ||
+            (identical(other.expenseCategoryRef, expenseCategoryRef) ||
                 const DeepCollectionEquality()
-                    .equals(other.categoryRef, categoryRef)));
+                    .equals(other.expenseCategoryRef, expenseCategoryRef)));
   }
 
   @override
@@ -335,7 +335,7 @@ class _$_Expense implements _Expense {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(price) ^
       const DeepCollectionEquality().hash(satisfaction) ^
-      const DeepCollectionEquality().hash(categoryRef);
+      const DeepCollectionEquality().hash(expenseCategoryRef);
 
   @JsonKey(ignore: true)
   @override
@@ -363,7 +363,7 @@ abstract class _Expense implements Expense {
       required int price,
       int satisfaction,
       @DocumentReferenceConverter()
-          required DocumentReference<Object?> categoryRef}) = _$_Expense;
+          required DocumentReference<Object?> expenseCategoryRef}) = _$_Expense;
 
   factory _Expense.fromJson(Map<String, dynamic> json) = _$_Expense.fromJson;
 
@@ -390,7 +390,7 @@ abstract class _Expense implements Expense {
   int get satisfaction => throw _privateConstructorUsedError;
   @override
   @DocumentReferenceConverter()
-  DocumentReference<Object?> get categoryRef =>
+  DocumentReference<Object?> get expenseCategoryRef =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

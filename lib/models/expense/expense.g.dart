@@ -19,8 +19,8 @@ _$_Expense _$_$_ExpenseFromJson(Map<String, dynamic> json) {
     name: json['name'] as String,
     price: json['price'] as int,
     satisfaction: json['satisfaction'] as int? ?? 3,
-    categoryRef: const DocumentReferenceConverter()
-        .fromJson(json['categoryRef'] as DocumentReference<Object?>),
+    expenseCategoryRef: const DocumentReferenceConverter()
+        .fromJson(json['expenseCategoryRef'] as DocumentReference<Object?>),
   );
 }
 
@@ -35,6 +35,6 @@ Map<String, dynamic> _$_$_ExpenseToJson(_$_Expense instance) =>
       'name': instance.name,
       'price': instance.price,
       'satisfaction': instance.satisfaction,
-      'categoryRef':
-          const DocumentReferenceConverter().toJson(instance.categoryRef),
+      'expenseCategoryRef': const DocumentReferenceConverter()
+          .toJson(instance.expenseCategoryRef),
     };

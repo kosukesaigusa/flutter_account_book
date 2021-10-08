@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
-import 'package:flutter_account_book/models/category/category.dart';
+import 'package:flutter_account_book/models/expense_category/expense_category.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 
 class ExpenseAddPageViewModel extends ChangeNotifier {
@@ -12,7 +12,7 @@ class ExpenseAddPageViewModel extends ChangeNotifier {
   int? price;
   String? errorName;
   String? errorPrice;
-  List<Category> categories = [];
+  List<ExpenseCategory> categories = [];
   int selectedCategoryIndex = 0;
 
   Future<void> init() async {

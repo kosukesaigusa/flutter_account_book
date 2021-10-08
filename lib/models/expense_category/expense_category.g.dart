@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dart';
+part of 'expense_category.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Category _$_$_CategoryFromJson(Map<String, dynamic> json) {
-  return _$_Category(
+_$_ExpenseCategory _$_$_ExpenseCategoryFromJson(Map<String, dynamic> json) {
+  return _$_ExpenseCategory(
     reference: const DocumentReferenceNullableConverter()
         .fromJson(json['reference'] as DocumentReference<Object?>?),
     createdAt:
@@ -21,7 +21,7 @@ _$_Category _$_$_CategoryFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_CategoryToJson(_$_Category instance) =>
+Map<String, dynamic> _$_$_ExpenseCategoryToJson(_$_ExpenseCategory instance) =>
     <String, dynamic>{
       'reference':
           const DocumentReferenceNullableConverter().toJson(instance.reference),

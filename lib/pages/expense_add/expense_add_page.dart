@@ -133,7 +133,7 @@ class ExpenseAddPage extends StatelessWidget {
                             final expense = Expense(
                               name: vm.name,
                               price: vm.price!,
-                              categoryRef: ref,
+                              expenseCategoryRef: ref,
                             );
                             await setData(
                               docRef: FirestorePath.expenseCollectionRef.doc(store.uuid),

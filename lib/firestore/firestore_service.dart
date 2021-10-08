@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
-import 'package:flutter_account_book/models/category/category.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
+import 'package:flutter_account_book/models/expense_category/expense_category.dart';
 import 'package:flutter_account_book/models/income/income.dart';
 
 /// 指定した月の支出一覧を取得する
@@ -36,10 +36,10 @@ Future<List<Income>> fetchIncomes(int year, int month) async {
   return result;
 }
 
-Future<List<Category>> fetchCategories() async {
+Future<List<ExpenseCategory>> fetchCategories() async {
   final qs = await FirestorePath.cateogoryCollectionRef
-      .withConverter<Category>(
-        fromFirestore: (snapshot, _) => Category.fromDocumentSnapshot(snapshot),
+      .withConverter<ExpenseCategory>(
+        fromFirestore: (snapshot, _) => ExpenseCategory.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),
       )
       .where('isDeleted', isEqualTo: false)
@@ -73,10 +73,10 @@ Stream<List<Expense>> expenseSteam(int year, int month) {
   return result;
 }
 
-Stream<List<Category>> categorySteam() {
+Stream<List<ExpenseCategory>> categorySteam() {
   final qsStream = FirestorePath.cateogoryCollectionRef
-      .withConverter<Category>(
-        fromFirestore: (snapshot, _) => Category.fromDocumentSnapshot(snapshot),
+      .withConverter<ExpenseCategory>(
+        fromFirestore: (snapshot, _) => ExpenseCategory.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),
       )
       .where('isDeleted', isEqualTo: false)

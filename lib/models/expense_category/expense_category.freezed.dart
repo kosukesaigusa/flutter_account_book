@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'category.dart';
+part of 'expense_category.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,15 +12,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Category _$CategoryFromJson(Map<String, dynamic> json) {
-  return _Category.fromJson(json);
+ExpenseCategory _$ExpenseCategoryFromJson(Map<String, dynamic> json) {
+  return _ExpenseCategory.fromJson(json);
 }
 
 /// @nodoc
-class _$CategoryTearOff {
-  const _$CategoryTearOff();
+class _$ExpenseCategoryTearOff {
+  const _$ExpenseCategoryTearOff();
 
-  _Category call(
+  _ExpenseCategory call(
       {@DocumentReferenceNullableConverter()
           DocumentReference<Object?>? reference,
       @TimestampConverter()
@@ -31,7 +31,7 @@ class _$CategoryTearOff {
       required String name,
       required int budget,
       int order = 0}) {
-    return _Category(
+    return _ExpenseCategory(
       reference: reference,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -42,16 +42,16 @@ class _$CategoryTearOff {
     );
   }
 
-  Category fromJson(Map<String, Object> json) {
-    return Category.fromJson(json);
+  ExpenseCategory fromJson(Map<String, Object> json) {
+    return ExpenseCategory.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Category = _$CategoryTearOff();
+const $ExpenseCategory = _$ExpenseCategoryTearOff();
 
 /// @nodoc
-mixin _$Category {
+mixin _$ExpenseCategory {
   @DocumentReferenceNullableConverter()
   DocumentReference<Object?>? get reference =>
       throw _privateConstructorUsedError;
@@ -66,14 +66,15 @@ mixin _$Category {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CategoryCopyWith<Category> get copyWith =>
+  $ExpenseCategoryCopyWith<ExpenseCategory> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CategoryCopyWith<$Res> {
-  factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
-      _$CategoryCopyWithImpl<$Res>;
+abstract class $ExpenseCategoryCopyWith<$Res> {
+  factory $ExpenseCategoryCopyWith(
+          ExpenseCategory value, $Res Function(ExpenseCategory) then) =
+      _$ExpenseCategoryCopyWithImpl<$Res>;
   $Res call(
       {@DocumentReferenceNullableConverter()
           DocumentReference<Object?>? reference,
@@ -88,12 +89,13 @@ abstract class $CategoryCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
-  _$CategoryCopyWithImpl(this._value, this._then);
+class _$ExpenseCategoryCopyWithImpl<$Res>
+    implements $ExpenseCategoryCopyWith<$Res> {
+  _$ExpenseCategoryCopyWithImpl(this._value, this._then);
 
-  final Category _value;
+  final ExpenseCategory _value;
   // ignore: unused_field
-  final $Res Function(Category) _then;
+  final $Res Function(ExpenseCategory) _then;
 
   @override
   $Res call({
@@ -139,9 +141,11 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
-  factory _$CategoryCopyWith(_Category value, $Res Function(_Category) then) =
-      __$CategoryCopyWithImpl<$Res>;
+abstract class _$ExpenseCategoryCopyWith<$Res>
+    implements $ExpenseCategoryCopyWith<$Res> {
+  factory _$ExpenseCategoryCopyWith(
+          _ExpenseCategory value, $Res Function(_ExpenseCategory) then) =
+      __$ExpenseCategoryCopyWithImpl<$Res>;
   @override
   $Res call(
       {@DocumentReferenceNullableConverter()
@@ -157,13 +161,15 @@ abstract class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
-    implements _$CategoryCopyWith<$Res> {
-  __$CategoryCopyWithImpl(_Category _value, $Res Function(_Category) _then)
-      : super(_value, (v) => _then(v as _Category));
+class __$ExpenseCategoryCopyWithImpl<$Res>
+    extends _$ExpenseCategoryCopyWithImpl<$Res>
+    implements _$ExpenseCategoryCopyWith<$Res> {
+  __$ExpenseCategoryCopyWithImpl(
+      _ExpenseCategory _value, $Res Function(_ExpenseCategory) _then)
+      : super(_value, (v) => _then(v as _ExpenseCategory));
 
   @override
-  _Category get _value => super._value as _Category;
+  _ExpenseCategory get _value => super._value as _ExpenseCategory;
 
   @override
   $Res call({
@@ -175,7 +181,7 @@ class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
     Object? budget = freezed,
     Object? order = freezed,
   }) {
-    return _then(_Category(
+    return _then(_ExpenseCategory(
       reference: reference == freezed
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
@@ -210,8 +216,8 @@ class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Category implements _Category {
-  const _$_Category(
+class _$_ExpenseCategory implements _ExpenseCategory {
+  const _$_ExpenseCategory(
       {@DocumentReferenceNullableConverter() this.reference,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
@@ -220,8 +226,8 @@ class _$_Category implements _Category {
       required this.budget,
       this.order = 0});
 
-  factory _$_Category.fromJson(Map<String, dynamic> json) =>
-      _$_$_CategoryFromJson(json);
+  factory _$_ExpenseCategory.fromJson(Map<String, dynamic> json) =>
+      _$_$_ExpenseCategoryFromJson(json);
 
   @override
   @DocumentReferenceNullableConverter()
@@ -245,13 +251,13 @@ class _$_Category implements _Category {
 
   @override
   String toString() {
-    return 'Category(reference: $reference, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, budget: $budget, order: $order)';
+    return 'ExpenseCategory(reference: $reference, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, name: $name, budget: $budget, order: $order)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Category &&
+        (other is _ExpenseCategory &&
             (identical(other.reference, reference) ||
                 const DeepCollectionEquality()
                     .equals(other.reference, reference)) &&
@@ -285,17 +291,17 @@ class _$_Category implements _Category {
 
   @JsonKey(ignore: true)
   @override
-  _$CategoryCopyWith<_Category> get copyWith =>
-      __$CategoryCopyWithImpl<_Category>(this, _$identity);
+  _$ExpenseCategoryCopyWith<_ExpenseCategory> get copyWith =>
+      __$ExpenseCategoryCopyWithImpl<_ExpenseCategory>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_CategoryToJson(this);
+    return _$_$_ExpenseCategoryToJson(this);
   }
 }
 
-abstract class _Category implements Category {
-  const factory _Category(
+abstract class _ExpenseCategory implements ExpenseCategory {
+  const factory _ExpenseCategory(
       {@DocumentReferenceNullableConverter()
           DocumentReference<Object?>? reference,
       @TimestampConverter()
@@ -305,9 +311,10 @@ abstract class _Category implements Category {
       bool isDeleted,
       required String name,
       required int budget,
-      int order}) = _$_Category;
+      int order}) = _$_ExpenseCategory;
 
-  factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
+  factory _ExpenseCategory.fromJson(Map<String, dynamic> json) =
+      _$_ExpenseCategory.fromJson;
 
   @override
   @DocumentReferenceNullableConverter()
@@ -329,6 +336,6 @@ abstract class _Category implements Category {
   int get order => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CategoryCopyWith<_Category> get copyWith =>
+  _$ExpenseCategoryCopyWith<_ExpenseCategory> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
-import 'package:flutter_account_book/models/category/category.dart';
+import 'package:flutter_account_book/models/expense_category/expense_category.dart';
 import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/category_add/category_add_page_view_model.dart';
@@ -60,11 +60,12 @@ class CategoryAddPage extends StatelessWidget {
                             showFloatingSnackBar(context, 'ネットワーク接続がありません。');
                             return;
                           }
-                          final category = Category(name: vm.name, budget: vm.budget!);
+                          final expenseCategory =
+                              ExpenseCategory(name: vm.name, budget: vm.budget!);
                           await setData(
                             docRef: FirestorePath.cateogoryCollectionRef.doc(store.uuid),
                             data: <String, dynamic>{
-                              ...category.toJson(),
+                              ...expenseCategory.toJson(),
                               'createdAt': FieldValue.serverTimestamp(),
                               'updatedAt': FieldValue.serverTimestamp(),
                             },
