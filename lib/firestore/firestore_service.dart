@@ -2,9 +2,42 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/models/category/category.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
+import 'package:flutter_account_book/models/income/income.dart';
 
-Future<List<Category>> fetchCategories({required CollectionReference collectionRef}) async {
-  final qs = await collectionRef
+/// 指定した月の支出一覧を取得する
+Future<List<Expense>> fetchExpenses(int year, int month) async {
+  final startAtTimestamp = Timestamp.fromDate(DateTime(year, month));
+  final endAtTimestamp = Timestamp.fromDate(DateTime(year, month + 1, 0));
+  final qs = await FirestorePath.expenseCollectionRef
+      .withConverter<Expense>(
+        fromFirestore: (snapshot, _) => Expense.fromDocumentSnapshot(snapshot),
+        toFirestore: (obj, _) => obj.toJson(),
+      )
+      .where('isDeleted', isEqualTo: false)
+      .orderBy('paidAt')
+      .startAt([startAtTimestamp]).endAt([endAtTimestamp]).get();
+  final result = qs.docs.map((qds) => qds.data()).toList();
+  return result;
+}
+
+/// 指定した月の収入一覧を取得する
+Future<List<Income>> fetchIncomes(int year, int month) async {
+  final startAtTimestamp = Timestamp.fromDate(DateTime(year, month));
+  final endAtTimestamp = Timestamp.fromDate(DateTime(year, month + 1, 0));
+  final qs = await FirestorePath.incomeCollectionRef
+      .withConverter<Income>(
+        fromFirestore: (snapshot, _) => Income.fromDocumentSnapshot(snapshot),
+        toFirestore: (obj, _) => obj.toJson(),
+      )
+      .where('isDeleted', isEqualTo: false)
+      .orderBy('earnedAt')
+      .startAt([startAtTimestamp]).endAt([endAtTimestamp]).get();
+  final result = qs.docs.map((qds) => qds.data()).toList();
+  return result;
+}
+
+Future<List<Category>> fetchCategories() async {
+  final qs = await FirestorePath.cateogoryCollectionRef
       .withConverter<Category>(
         fromFirestore: (snapshot, _) => Category.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),

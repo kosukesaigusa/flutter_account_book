@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
 import 'package:flutter_account_book/models/category/category.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
@@ -17,7 +16,7 @@ class ExpenseAddPageViewModel extends ChangeNotifier {
   int selectedCategoryIndex = 0;
 
   Future<void> init() async {
-    categories = await fetchCategories(collectionRef: FirestorePath.cateogoryCollectionRef);
+    categories = await fetchCategories();
     notifyListeners();
   }
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/constatnts/calendar/calendar_constants.dart';
-import 'package:flutter_account_book/firestore/firestore_service.dart';
-import 'package:flutter_account_book/models/expense/expense.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/datetime/datetime.dart';
 import 'package:flutter_account_book/utils/price/price_formatter.dart';
@@ -20,26 +18,7 @@ class CalendarWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: weekdayRow,
           ),
-          StreamBuilder<List<Expense>>(
-            stream: expenseSteam(vm.year, vm.month),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CalendarBody(showEmptyCell: true);
-              }
-              if (snapshot.hasData) {
-                final data = snapshot.data!;
-                vm.clear();
-                for (final d in data) {
-                  final paidAt = d.paidAt;
-                  if (paidAt != null) {
-                    final key = paidAt.day;
-                    vm.calculateExpense(key, d.price);
-                  }
-                }
-              }
-              return const CalendarBody();
-            },
-          ),
+          const CalendarBody(),
         ],
       ),
     );
@@ -138,26 +117,28 @@ class CalendarDateCell extends StatelessWidget {
         child: CalendarDateText(number: number, selected: number == vm.day),
       ),
     );
-    children.add(
-      const Flexible(
-        child: Text(
-          '収入',
-          style: red12,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
+    if (!showEmptyCell) {
+      children.add(
+        const Flexible(
+          child: Text(
+            '収入',
+            style: blue12,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
         ),
-      ),
-    );
-    children.add(
-      Flexible(
-        child: Text(
-          vm.expenseMap[number] == null ? '' : '${priceFormatter.format(vm.expenseMap[number])}',
-          style: blue12,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
+      );
+      children.add(
+        Flexible(
+          child: Text(
+            vm.expenseMap[number] == null ? '' : '${priceFormatter.format(vm.expenseMap[number])}',
+            style: red12,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
         ),
-      ),
-    );
+      );
+    }
     return Expanded(
       child: Container(
         decoration: BoxDecoration(

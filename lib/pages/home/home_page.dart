@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
           body: MultiProvider(
             providers: [
               ChangeNotifierProvider<CalendarViewModel>.value(
-                value: CalendarViewModel(),
+                value: CalendarViewModel()..fetchExpensesAndIncomes(),
               ),
               ChangeNotifierProvider<CategoryViewModel>.value(
                 value: CategoryViewModel(),
@@ -46,6 +46,7 @@ class HomePage extends StatelessWidget {
                   page: ExpenseAddPage(),
                   fullscreenDialog: true,
                 );
+                await CalendarViewModel().fetchExpensesAndIncomes();
                 return;
               }
               if (store.tabIndex == 1) {
