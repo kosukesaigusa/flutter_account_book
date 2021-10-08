@@ -11,6 +11,9 @@ class CalendarViewModel extends ChangeNotifier {
 
   final store = Store();
 
+  /// カレンダーに表示するデータを準備中かどうか
+  bool ready = false;
+
   /// 表示・選択中の年月日
   int year = DateTime.now().year;
   int month = DateTime.now().month;
@@ -30,15 +33,18 @@ class CalendarViewModel extends ChangeNotifier {
 
   /// 表示中の月の支出を取得する
   Future<void> fetchExpensesAndIncomes() async {
+    getReady();
     expenses = await fetchExpenses(year, month);
     incomes = await fetchIncomes(year, month);
     aggregateExpenses();
     aggregateIncomes();
+    gotReady();
     notifyListeners();
   }
 
   /// expenseMap を集計する
   void aggregateExpenses() {
+    expenseMap.clear();
     for (final expense in expenses) {
       final paidAt = expense.paidAt;
       if (paidAt != null) {
@@ -55,6 +61,7 @@ class CalendarViewModel extends ChangeNotifier {
 
   /// incomeMap を集計する
   void aggregateIncomes() {
+    incomeMap.clear();
     for (final income in incomes) {
       final earnedAt = income.earnedAt;
       if (earnedAt != null) {
@@ -84,26 +91,31 @@ class CalendarViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showNextMonth() {
+  Future<void> showNextMonth() async {
     final nextMonth = DateTime(year, month + 1);
     year = nextMonth.year;
     month = nextMonth.month;
     day = 1;
-    clear();
+    await fetchExpensesAndIncomes();
     notifyListeners();
   }
 
-  void showPreviousMonth() {
+  Future<void> showPreviousMonth() async {
     final previousMonth = DateTime(year, month - 1);
     year = previousMonth.year;
     month = previousMonth.month;
     day = 1;
-    clear();
+    await fetchExpensesAndIncomes();
     notifyListeners();
   }
 
-  void clear() {
-    incomeMap.clear();
-    expenseMap.clear();
+  void getReady() {
+    ready = false;
+    notifyListeners();
+  }
+
+  void gotReady() {
+    ready = true;
+    notifyListeners();
   }
 }

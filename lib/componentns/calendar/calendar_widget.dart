@@ -18,7 +18,7 @@ class CalendarWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: weekdayRow,
           ),
-          const CalendarBody(),
+          CalendarBody(showEmptyCalendar: !vm.ready),
         ],
       ),
     );
@@ -62,8 +62,8 @@ class CalendarMonthHandlingWidget extends StatelessWidget {
 
 /// カレンダーの本体
 class CalendarBody extends StatelessWidget {
-  const CalendarBody({this.showEmptyCell = false});
-  final bool showEmptyCell;
+  const CalendarBody({this.showEmptyCalendar = false});
+  final bool showEmptyCalendar;
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<CalendarViewModel>(context);
@@ -77,7 +77,7 @@ class CalendarBody extends StatelessWidget {
         final number = i * 7 + j + 1 - (weekDayOfFirstDay - 1);
         weekRowChildren.add(CalendarDateCell(
           number: number,
-          showEmptyCell: showEmptyCell,
+          showEmptyCalendar: showEmptyCalendar,
         ));
       }
       children.add(Row(children: weekRowChildren));
@@ -89,10 +89,10 @@ class CalendarBody extends StatelessWidget {
 class CalendarDateCell extends StatelessWidget {
   const CalendarDateCell({
     required this.number,
-    required this.showEmptyCell,
+    required this.showEmptyCalendar,
   });
   final int number;
-  final bool showEmptyCell;
+  final bool showEmptyCalendar;
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<CalendarViewModel>(context);
@@ -117,7 +117,7 @@ class CalendarDateCell extends StatelessWidget {
         child: CalendarDateText(number: number, selected: number == vm.day),
       ),
     );
-    if (!showEmptyCell) {
+    if (!showEmptyCalendar) {
       children.add(
         const Flexible(
           child: Text(
