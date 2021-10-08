@@ -31,9 +31,9 @@ class CalendarViewModel extends ChangeNotifier {
   /// 表示中の月の支出を取得する
   Future<void> fetchExpensesAndIncomes() async {
     expenses = await fetchExpenses(year, month);
-    // incomes = await fetchIncomes(year, month);
+    incomes = await fetchIncomes(year, month);
     aggregateExpenses();
-    // aggregateIncomes();
+    aggregateIncomes();
     notifyListeners();
   }
 
