@@ -57,5 +57,7 @@
 		</dict>
 	</array>
 	<!-- End of the Google Sign-in Section -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
 </dict>
 </plist>
