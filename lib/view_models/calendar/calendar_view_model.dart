@@ -21,17 +21,28 @@ class CalendarViewModel extends ChangeNotifier {
 
   /// 表示中の月・日の支出一覧
   List<Expense> expenses = [];
-  List<Expense> expensesOfDay = [];
+  final List<Expense> expensesOfDay = [];
 
   /// 表示中の月・日の収入一覧
   List<Income> incomes = [];
-  List<Income> incomesOfDay = [];
+  final List<Income> incomesOfDay = [];
 
   /// 表示中の月の日付ごとの収入の合計
   final incomeMap = <int, int>{};
 
   /// 表示中の月の日付ごとの支出の合計
   final expenseMap = <int, int>{};
+
+  /// 表示中の月の変動費の合計金額
+  int totalExpensePrice = 0;
+
+  /// 表示中の月の固定費の合計金額
+  int totalFixedFeePrice = 106663;
+
+  /// 表示中の月の収入の合計金額
+  int totalIncomePrice = 0;
+
+  /// 表示中の月の固定費の合計金額
 
   /// 表示中の月の支出・収入を取得する
   Future<void> fetchExpensesAndIncomes() async {
@@ -44,9 +55,15 @@ class CalendarViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// expenseMap を集計してカレンダーの各セルに表示する内容と
-  /// カレンダー下部に表示する指定された日付の収入のリストを作成する
+  /// expenses を集計して
+  ///
+  /// - カレンダーの各セルに表示する内容
+  /// - カレンダー上部に表示する支出のサマリー
+  /// - カレンダー下部に表示する指定された日付の支出のリスト
+  ///
+  /// を作成する
   void aggregateExpenses() {
+    totalExpensePrice = 0;
     expenseMap.clear();
     expensesOfDay.clear();
     for (final expense in expenses) {
@@ -62,12 +79,19 @@ class CalendarViewModel extends ChangeNotifier {
           expensesOfDay.add(expense);
         }
       }
+      totalExpensePrice += expense.price;
     }
   }
 
-  /// incomeMap を集計してカレンダーの各セルに表示する内容と
-  /// カレンダー下部に表示する指定された日付の収入のリストを作成する
+  /// incomes を集計して
+  ///
+  /// - カレンダーの各セルに表示する内容
+  /// - カレンダー上部に表示する収入のサマリー
+  /// - カレンダー下部に表示する指定された日付の収入のリスト
+  ///
+  /// を作成する
   void aggregateIncomes() {
+    totalIncomePrice += 0;
     incomeMap.clear();
     incomesOfDay.clear();
     for (final income in incomes) {
@@ -83,6 +107,7 @@ class CalendarViewModel extends ChangeNotifier {
           incomesOfDay.add(income);
         }
       }
+      totalIncomePrice += income.price;
     }
   }
 

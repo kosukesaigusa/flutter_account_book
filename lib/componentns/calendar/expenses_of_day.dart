@@ -34,16 +34,14 @@ class ExpensesOfDaySliverList extends StatelessWidget {
                         horizontal: 16,
                         vertical: 4,
                       ),
-                      child: Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(child: Text(vm.expensesOfDay[index].name)),
-                            Text(
-                              '${priceFormatter.format(vm.expensesOfDay[index].price)} 円',
-                              style: bold,
-                            ),
-                          ],
-                        ),
+                      child: Row(
+                        children: [
+                          Expanded(child: Text(vm.expensesOfDay[index].name)),
+                          Text(
+                            '${priceFormatter.format(vm.expensesOfDay[index].price)} 円',
+                            style: bold,
+                          ),
+                        ],
                       ),
                     ),
                   ),
