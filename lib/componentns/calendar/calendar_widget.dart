@@ -13,7 +13,6 @@ class CalendarWidget extends StatelessWidget {
     return Consumer<CalendarViewModel>(
       builder: (context, vm, child) => Column(
         children: [
-          CalendarMonthHandlingWidget(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: weekdayRow,
@@ -34,30 +33,6 @@ class CalendarWidget extends StatelessWidget {
       ),
     ),
   );
-}
-
-/// カレンダー上部の年月を表示・操作するウィジェット
-class CalendarMonthHandlingWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final vm = Provider.of<CalendarViewModel>(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          icon: const Icon(Icons.arrow_back_ios_outlined),
-          onPressed: vm.showPreviousMonth,
-          iconSize: arrowIconSize,
-        ),
-        Text('${vm.year}年 ${vm.month}月', style: bold16),
-        IconButton(
-          icon: const Icon(Icons.arrow_forward_ios_outlined),
-          onPressed: vm.showNextMonth,
-          iconSize: arrowIconSize,
-        ),
-      ],
-    );
-  }
 }
 
 /// カレンダーの本体

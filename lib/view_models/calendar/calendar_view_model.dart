@@ -19,11 +19,13 @@ class CalendarViewModel extends ChangeNotifier {
   int month = DateTime.now().month;
   int day = DateTime.now().day;
 
-  /// 表示中の月の支出一覧
+  /// 表示中の月・日の支出一覧
   List<Expense> expenses = [];
+  List<Expense> expensesOfDay = [];
 
-  /// 表示中の月の収入一覧
+  /// 表示中の月・日の収入一覧
   List<Income> incomes = [];
+  List<Income> incomesOfDay = [];
 
   /// 表示中の月の日付ごとの収入の合計
   final incomeMap = <int, int>{};
@@ -31,7 +33,7 @@ class CalendarViewModel extends ChangeNotifier {
   /// 表示中の月の日付ごとの支出の合計
   final expenseMap = <int, int>{};
 
-  /// 表示中の月の支出を取得する
+  /// 表示中の月の支出・収入を取得する
   Future<void> fetchExpensesAndIncomes() async {
     getReady();
     expenses = await fetchExpenses(year, month);
@@ -42,35 +44,69 @@ class CalendarViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// expenseMap を集計する
+  /// expenseMap を集計してカレンダーの各セルに表示する内容と
+  /// カレンダー下部に表示する指定された日付の収入のリストを作成する
   void aggregateExpenses() {
     expenseMap.clear();
+    expensesOfDay.clear();
     for (final expense in expenses) {
       final paidAt = expense.paidAt;
       if (paidAt != null) {
-        final day = paidAt.day;
-        final price = expenseMap[day];
+        final price = expenseMap[paidAt.day];
         if (price == null) {
-          expenseMap[day] = expense.price;
+          expenseMap[paidAt.day] = expense.price;
         } else {
-          expenseMap[day] = price + expense.price;
+          expenseMap[paidAt.day] = price + expense.price;
+        }
+        if (paidAt.day == day) {
+          expensesOfDay.add(expense);
         }
       }
     }
   }
 
-  /// incomeMap を集計する
+  /// incomeMap を集計してカレンダーの各セルに表示する内容と
+  /// カレンダー下部に表示する指定された日付の収入のリストを作成する
   void aggregateIncomes() {
     incomeMap.clear();
+    incomesOfDay.clear();
     for (final income in incomes) {
       final earnedAt = income.earnedAt;
       if (earnedAt != null) {
-        final day = earnedAt.day;
-        final price = incomeMap[day];
+        final price = incomeMap[earnedAt.day];
         if (price == null) {
-          incomeMap[day] = income.price;
+          incomeMap[earnedAt.day] = income.price;
         } else {
-          incomeMap[day] = price + income.price;
+          incomeMap[earnedAt.day] = price + income.price;
+        }
+        if (earnedAt.day == day) {
+          incomesOfDay.add(income);
+        }
+      }
+    }
+  }
+
+  /// カレンダー下部に表示する指定された日付の支出のリストを更新する
+  void aggregateExpensesOfDay() {
+    expensesOfDay.clear();
+    for (final expense in expenses) {
+      final paidAt = expense.paidAt;
+      if (paidAt != null) {
+        if (paidAt.day == day) {
+          expensesOfDay.add(expense);
+        }
+      }
+    }
+  }
+
+  /// カレンダー下部に表示する指定された日付の収入のリストを更新する
+  void aggregateIncomesOfDay() {
+    incomesOfDay.clear();
+    for (final income in incomes) {
+      final earnedAt = income.earnedAt;
+      if (earnedAt != null) {
+        if (earnedAt.day == day) {
+          incomesOfDay.add(income);
         }
       }
     }
@@ -88,6 +124,8 @@ class CalendarViewModel extends ChangeNotifier {
 
   void onDateCellTapped(int number) {
     day = number;
+    aggregateExpensesOfDay();
+    aggregateIncomesOfDay();
     notifyListeners();
   }
 

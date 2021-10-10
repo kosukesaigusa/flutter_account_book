@@ -17,9 +17,6 @@ class HomePage extends StatelessWidget {
       builder: (context, store, child) {
         return Scaffold(
           drawer: drawer(context),
-          appBar: AppBar(
-            title: const Text('ホーム'),
-          ),
           body: MultiProvider(
             providers: [
               ChangeNotifierProvider<CalendarViewModel>.value(
