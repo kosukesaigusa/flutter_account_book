@@ -63,7 +63,7 @@ class CategoryAddPage extends StatelessWidget {
                           final expenseCategory =
                               ExpenseCategory(name: vm.name, budget: vm.budget!);
                           await setData(
-                            docRef: FirestorePath.cateogoryCollectionRef.doc(store.uuid),
+                            docRef: FirestorePath.expenseCateogoryCollectionRef.doc(store.uuid),
                             data: <String, dynamic>{
                               ...expenseCategory.toJson(),
                               'createdAt': FieldValue.serverTimestamp(),

@@ -3,8 +3,9 @@ import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
 import 'package:flutter_account_book/models/expense_category/expense_category.dart';
 import 'package:flutter_account_book/models/income/income.dart';
+import 'package:flutter_account_book/models/income_category/income_category.dart';
 
-/// 指定した月の支出一覧を取得する。デフォルトでキャッシュから取得する。
+/// 指定した月の支出一覧を取得する。
 Future<List<Expense>> fetchExpenses(
   int year,
   int month, {
@@ -24,7 +25,7 @@ Future<List<Expense>> fetchExpenses(
   return result;
 }
 
-/// 指定した月の収入一覧を取得する。デフォルトでキャッシュから取得する。
+/// 指定した月の収入一覧を取得する。
 Future<List<Income>> fetchIncomes(
   int year,
   int month, {
@@ -44,13 +45,29 @@ Future<List<Income>> fetchIncomes(
   return result;
 }
 
-/// 支出カテゴリー一覧を取得する。デフォルトでキャッシュから取得する。
+/// 支出カテゴリー一覧を取得する。
 Future<List<ExpenseCategory>> fetchExpenseCategories({
   Source source = Source.serverAndCache,
 }) async {
-  final qs = await FirestorePath.cateogoryCollectionRef
+  final qs = await FirestorePath.expenseCateogoryCollectionRef
       .withConverter<ExpenseCategory>(
         fromFirestore: (snapshot, _) => ExpenseCategory.fromDocumentSnapshot(snapshot),
+        toFirestore: (obj, _) => obj.toJson(),
+      )
+      .where('isDeleted', isEqualTo: false)
+      .orderBy('order')
+      .get(GetOptions(source: source));
+  final result = qs.docs.map((qds) => qds.data()).toList();
+  return result;
+}
+
+/// 収入カテゴリー一覧を取得する。
+Future<List<IncomeCategory>> fetchIncomeCategories({
+  Source source = Source.serverAndCache,
+}) async {
+  final qs = await FirestorePath.incomeCateogoryCollectionRef
+      .withConverter<IncomeCategory>(
+        fromFirestore: (snapshot, _) => IncomeCategory.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),
       )
       .where('isDeleted', isEqualTo: false)
@@ -69,7 +86,7 @@ Future<void> setData({
 }
 
 Stream<List<ExpenseCategory>> categorySteam() {
-  final qsStream = FirestorePath.cateogoryCollectionRef
+  final qsStream = FirestorePath.expenseCateogoryCollectionRef
       .withConverter<ExpenseCategory>(
         fromFirestore: (snapshot, _) => ExpenseCategory.fromDocumentSnapshot(snapshot),
         toFirestore: (obj, _) => obj.toJson(),

@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                   page: ExpenseAddPage(),
                   fullscreenDialog: true,
                 );
-                await CalendarViewModel().fetchExpensesAndIncomes(source: Source.server);
+                await CalendarViewModel().fetchExpensesAndIncomes();
                 return;
               }
               if (store.tabIndex == 1) {
