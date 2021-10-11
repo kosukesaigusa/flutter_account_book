@@ -24,7 +24,10 @@ class ExpensesOfDaySliverList extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return Padding(
-                  padding: EdgeInsets.only(top: index == 0 ? 16 : 0),
+                  padding: EdgeInsets.only(
+                    top: index == 0 ? 16 : 0,
+                    bottom: index == count - 1 ? 80 : 0,
+                  ),
                   child: InkWell(
                     onTap: () {
                       showFloatingSnackBar(context, 'まだ何も起こりません。');
