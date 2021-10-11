@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
@@ -45,10 +46,10 @@ class CalendarViewModel extends ChangeNotifier {
   /// 表示中の月の固定費の合計金額
 
   /// 表示中の月の支出・収入を取得する
-  Future<void> fetchExpensesAndIncomes() async {
+  Future<void> fetchExpensesAndIncomes({Source source = Source.serverAndCache}) async {
     getReady();
-    expenses = await fetchExpenses(year, month);
-    incomes = await fetchIncomes(year, month);
+    expenses = await fetchExpenses(year, month, source: source);
+    incomes = await fetchIncomes(year, month, source: source);
     aggregateExpenses();
     aggregateIncomes();
     gotReady();

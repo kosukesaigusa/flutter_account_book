@@ -16,7 +16,7 @@ class ExpenseAddPageViewModel extends ChangeNotifier {
   int selectedCategoryIndex = 0;
 
   Future<void> init() async {
-    categories = await fetchCategories();
+    categories = await fetchExpenseCategories();
     notifyListeners();
   }
 

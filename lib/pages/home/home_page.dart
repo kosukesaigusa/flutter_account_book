@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/pages/calendar/calendar_page.dart';
 import 'package:flutter_account_book/pages/category/category_page.dart';
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
           body: MultiProvider(
             providers: [
               ChangeNotifierProvider<CalendarViewModel>.value(
-                value: CalendarViewModel()..fetchExpensesAndIncomes(),
+                value: CalendarViewModel()..fetchExpensesAndIncomes(source: Source.cache),
               ),
               ChangeNotifierProvider<CategoryViewModel>.value(
                 value: CategoryViewModel(),
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
                   page: ExpenseAddPage(),
                   fullscreenDialog: true,
                 );
-                await CalendarViewModel().fetchExpensesAndIncomes();
+                await CalendarViewModel().fetchExpensesAndIncomes(source: Source.server);
                 return;
               }
               if (store.tabIndex == 1) {
