@@ -77,6 +77,7 @@ Future<List<IncomeCategory>> fetchIncomeCategories({
   return result;
 }
 
+/// 指定したレファレンスのドキュメントをセットする。
 Future<void> setData({
   required DocumentReference docRef,
   required Map<String, dynamic> data,
