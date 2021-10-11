@@ -18,7 +18,6 @@ class CalendarMonthHandlingWidget extends StatelessWidget {
           child: const Icon(
             Icons.arrow_back_ios_outlined,
             size: arrowIconSize,
-            color: Colors.white,
           ),
         ),
         const Gap(16),
@@ -29,7 +28,6 @@ class CalendarMonthHandlingWidget extends StatelessWidget {
           child: const Icon(
             Icons.arrow_forward_ios_outlined,
             size: arrowIconSize,
-            color: Colors.white,
           ),
         ),
       ],
