@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/price/price_formatter.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -23,14 +23,22 @@ class ExpensesOfDaySliverList extends StatelessWidget {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
+                final expense = vm.expensesOfDay[index];
                 return Padding(
                   padding: EdgeInsets.only(
                     top: index == 0 ? 16 : 0,
                     bottom: index == count - 1 ? 80 : 0,
                   ),
                   child: InkWell(
-                    onTap: () {
-                      showFloatingSnackBar(context, 'まだ何も起こりません。');
+                    onTap: () async {
+                      await Navigator.of(context).push<void>(
+                        MaterialPageRoute(
+                          builder: (context) => ExpenseAddPage(expense: expense),
+                          fullscreenDialog: true,
+                        ),
+                      );
+                      await CalendarViewModel().fetchExpensesAndIncomes();
+                      return;
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -39,9 +47,9 @@ class ExpensesOfDaySliverList extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          Expanded(child: Text(vm.expensesOfDay[index].name)),
+                          Expanded(child: Text(expense.name)),
                           Text(
-                            '${priceFormatter.format(vm.expensesOfDay[index].price)} 円',
+                            '${priceFormatter.format(expense.price)} 円',
                             style: bold,
                           ),
                         ],

@@ -9,22 +9,45 @@ import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/datetime/datetime.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:flutter_account_book/view_models/expense_or_income_add/expense_add_page_view_model.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 class ExpenseAddPage extends StatelessWidget {
+  ExpenseAddPage({this.expense});
+  final Expense? expense;
   final store = Store();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('支出の登録')),
-      body: SafeArea(
-        child: ChangeNotifierProvider<ExpenseAddPageViewModel>(
-          create: (_) => ExpenseAddPageViewModel()..init(),
-          child: Consumer<ExpenseAddPageViewModel>(
-            builder: (context, vm, child) {
-              return Padding(
+    return ChangeNotifierProvider<ExpenseAddPageViewModel>(
+      create: (_) => ExpenseAddPageViewModel(expense: expense)..init(),
+      child: Consumer<ExpenseAddPageViewModel>(
+        builder: (context, vm, child) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('支出の登録'),
+              actions: [
+                vm.editingMode
+                    ? IconButton(
+                        onPressed: () async {
+                          final ref = expense?.reference;
+                          if (ref == null) {
+                            showFloatingSnackBar(context, 'エラーが発生しました。');
+                            return;
+                          }
+                          await deleteData(docRef: ref);
+                          Navigator.pop(context);
+                          await CalendarViewModel().fetchExpensesAndIncomes();
+                          showFloatingSnackBar(context, '支出を削除しました。');
+                        },
+                        icon: const Icon(Icons.delete),
+                      )
+                    : const SizedBox(),
+              ],
+            ),
+            body: SafeArea(
+              child: Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -80,13 +103,13 @@ class ExpenseAddPage extends StatelessWidget {
                           child: TextFormField(
                             minLines: 1,
                             maxLines: 1,
+                            initialValue: vm.name,
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               isDense: true,
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(),
                               ),
-                              hintText: 'メモ',
                             ),
                             onChanged: vm.changeName,
                           ),
@@ -107,6 +130,7 @@ class ExpenseAddPage extends StatelessWidget {
                           child: TextFormField(
                             minLines: 1,
                             maxLines: 1,
+                            initialValue: (vm.price ?? '').toString(),
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -198,17 +222,18 @@ class ExpenseAddPage extends StatelessWidget {
                                   },
                                 );
                                 Navigator.pop(context);
+                                showFloatingSnackBar(context, '支出を登録しました。');
                               }
                             : null,
-                        child: const Text('支出を登録する'),
+                        child: vm.isEditing ? const Text('支出を更新する') : const Text('支出を登録する'),
                       ),
                     ),
                   ],
                 ),
-              );
-            },
-          ),
-        ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

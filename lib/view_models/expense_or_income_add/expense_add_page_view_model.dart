@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
+import 'package:flutter_account_book/models/expense/expense.dart';
 import 'package:flutter_account_book/models/expense_category/expense_category.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 
 class ExpenseAddPageViewModel extends ChangeNotifier {
-  ExpenseAddPageViewModel();
+  ExpenseAddPageViewModel({required Expense? expense}) {
+    if (expense == null) {
+      return;
+    }
+    year = expense.paidAt?.year ?? CalendarViewModel().year;
+    month = expense.paidAt?.month ?? CalendarViewModel().month;
+    day = expense.paidAt?.day ?? CalendarViewModel().day;
+    name = expense.name;
+    price = expense.price;
+    isEditing = true;
+    editingMode = false;
+  }
   int year = CalendarViewModel().year;
   int month = CalendarViewModel().month;
   int day = CalendarViewModel().day;
@@ -14,6 +26,8 @@ class ExpenseAddPageViewModel extends ChangeNotifier {
   String? errorPrice;
   List<ExpenseCategory> categories = [];
   int selectedCategoryIndex = 0;
+  bool isEditing = false;
+  bool editingMode = false;
 
   Future<void> init() async {
     categories = await fetchExpenseCategories();

@@ -86,6 +86,13 @@ Future<void> setData({
   await docRef.set(data, SetOptions(merge: merge));
 }
 
+/// 指定したレファレンスのドキュメントを削除する。
+Future<void> deleteData({
+  required DocumentReference docRef,
+}) async {
+  await docRef.delete();
+}
+
 Stream<List<ExpenseCategory>> categorySteam() {
   final qsStream = FirestorePath.expenseCateogoryCollectionRef
       .withConverter<ExpenseCategory>(
