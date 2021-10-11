@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
                 value: CalendarViewModel()..fetchExpensesAndIncomes(source: Source.cache),
               ),
               ChangeNotifierProvider<CategoryViewModel>.value(
-                value: CategoryViewModel(),
+                value: CategoryViewModel()..fetchCategories(),
               ),
             ],
             child: Stack(
@@ -105,6 +105,8 @@ Drawer drawer(BuildContext context) => Drawer(
               children: [
                 drawerHeader(context),
                 signOutDrawerItem(context),
+                const Divider(),
+                adminActionDrawerItem(context),
               ],
             ),
           ),
@@ -138,6 +140,37 @@ ListTile signOutDrawerItem(BuildContext context) => ListTile(
                       '/sign-in/',
                       (route) => false,
                     );
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+
+ListTile adminActionDrawerItem(BuildContext context) => ListTile(
+      leading: const Icon(Icons.logout_outlined),
+      title: const Text('アドミン操作'),
+      onTap: () async {
+        await showDialog<void>(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              title: const Text('確認'),
+              content: const Text('実行しますか？'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    'キャンセル',
+                    style: TextStyle(color: Theme.of(context).disabledColor),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                TextButton(
+                  child: const Text('実行する'),
+                  onPressed: () async {
+                    showFloatingSnackBar(context, 'まだ何も起こりません。');
                   },
                 ),
               ],
