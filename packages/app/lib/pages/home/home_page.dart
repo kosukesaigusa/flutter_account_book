@@ -9,7 +9,6 @@ import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/enums.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:flutter_account_book/view_models/category/category_view_model.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
@@ -26,7 +25,7 @@ class HomePage extends StatelessWidget {
     return Consumer<Store>(
       builder: (context, store, child) {
         return Scaffold(
-          drawer: drawer(context),
+          drawer: _buildDrawer(context),
           body: MultiProvider(
             providers: [
               ChangeNotifierProvider<CalendarViewModel>.value(
@@ -50,21 +49,17 @@ class HomePage extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              if (store.tabIndex == 0) {
-                await pushPage(
-                  context: context,
-                  page: ExpenseAddPage(),
-                  fullscreenDialog: true,
-                );
+              final index = context.read<BottomNavigationBarState>().currentIndex;
+              if (index == 0) {
+                await Navigator.pushNamed<void>(
+                    context, '${ExpenseAddPage.path}?fullScreenDialog=1');
                 await CalendarViewModel().fetchExpensesAndIncomes();
                 return;
               }
-              if (store.tabIndex == 1) {
-                await pushPage(
-                  context: context,
-                  page: CategoryAddPage(),
-                  fullscreenDialog: true,
-                );
+              if (index == 1) {
+                await Navigator.pushNamed<void>(
+                    context, '${CategoryAddPage.path}?fullScreenDialog=1');
+                await CalendarViewModel().fetchExpensesAndIncomes();
                 return;
               }
             },
@@ -91,7 +86,7 @@ class HomePage extends StatelessWidget {
 }
 
 /// ドロワー
-Drawer drawer(BuildContext context) => Drawer(
+Drawer _buildDrawer(BuildContext context) => Drawer(
       child: Column(
         children: [
           Expanded(

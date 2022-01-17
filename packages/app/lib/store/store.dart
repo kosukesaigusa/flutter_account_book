@@ -15,13 +15,4 @@ class Store extends ChangeNotifier {
   /// 勘弁のため Non-null operator を使っているので、
   /// サインアウトしている可能性がある画面では使用しないように注意する。
   User get currentUser => FirebaseAuth.instance.currentUser!;
-
-  /// 現在開いている BottomNavigationBar のタブ番号
-  int tabIndex = 0;
-
-  /// BottomNavigationBar のタブの切り替え
-  void changeTab(int index) {
-    tabIndex = index;
-    notifyListeners();
-  }
 }

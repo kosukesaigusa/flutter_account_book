@@ -7,10 +7,17 @@ import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/category_add/category_add_page_view_model.dart';
 import 'package:gap/gap.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
+final store = Store();
+
 class CategoryAddPage extends StatelessWidget {
-  final store = Store();
+  const CategoryAddPage({Key? key}) : super(key: key);
+
+  static const path = '/category-add/';
+  static const name = 'CategoryAddPage';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

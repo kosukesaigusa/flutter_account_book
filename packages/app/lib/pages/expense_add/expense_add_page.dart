@@ -12,12 +12,22 @@ import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:flutter_account_book/view_models/expense_or_income_add/expense_add_page_view_model.dart';
 import 'package:gap/gap.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
+final store = Store();
+
 class ExpenseAddPage extends StatelessWidget {
-  ExpenseAddPage({this.expense});
+  const ExpenseAddPage({
+    Key? key,
+    this.expense,
+  }) : super(key: key);
+
+  static const path = '/expense-add/';
+  static const name = 'ExpenseAddPage';
+
   final Expense? expense;
-  final store = Store();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ExpenseAddPageViewModel>(
