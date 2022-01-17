@@ -4,7 +4,7 @@ import 'package:flutter_account_book/constatnts/calendar/calendar_constants.dart
 import 'package:flutter_account_book/constatnts/expense_add/constants.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
-import 'package:flutter_account_book/models/expense/expense.dart';
+import 'package:flutter_account_book/models/v1/expense/expense.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/datetime/datetime.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';

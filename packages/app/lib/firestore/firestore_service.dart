@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
-import 'package:flutter_account_book/models/expense/expense.dart';
-import 'package:flutter_account_book/models/expense_category/expense_category.dart';
-import 'package:flutter_account_book/models/income/income.dart';
-import 'package:flutter_account_book/models/income_category/income_category.dart';
+import 'package:flutter_account_book/models/v1/expense/expense.dart';
+import 'package:flutter_account_book/models/v1/expense_category/expense_category.dart';
+import 'package:flutter_account_book/models/v1/income/income.dart';
+import 'package:flutter_account_book/models/v1/income_category/income_category.dart';
 
 /// 指定した月の支出一覧を取得する。
 Future<List<Expense>> fetchExpenses(

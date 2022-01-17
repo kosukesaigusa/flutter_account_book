@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
-import 'package:flutter_account_book/models/expense/expense.dart';
-import 'package:flutter_account_book/models/income/income.dart';
+import 'package:flutter_account_book/models/v1/expense/expense.dart';
+import 'package:flutter_account_book/models/v1/income/income.dart';
 
 class CalendarViewModel extends ChangeNotifier {
   factory CalendarViewModel() => _instance;

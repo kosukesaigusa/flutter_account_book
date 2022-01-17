@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
-import 'package:flutter_account_book/models/expense/expense.dart';
-import 'package:flutter_account_book/models/expense_category/expense_category.dart';
+import 'package:flutter_account_book/models/v1/expense/expense.dart';
+import 'package:flutter_account_book/models/v1/expense_category/expense_category.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 
 class ExpenseAddPageViewModel extends ChangeNotifier {
