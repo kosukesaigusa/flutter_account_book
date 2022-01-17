@@ -16,40 +16,32 @@ scripts:
   clean:pub:get:
     run: melos exec -- "flutter clean && flutter pub get"
 
-  generate:mobile:
+  generate:
     run: melos exec --scope="flutter_account_book" \
       "flutter pub run build_runner build --delete-conflicting-outputs && exit"
 
-  generate:mobile:watch:
+  generate:watch:
     run: melos exec --scope="flutter_account_book" \
       "flutter pub run build_runner watch --delete-conflicting-outputs && exit"
 
-  generate:models:
-    run: melos exec --scope="zen_flutter_models" \
-      "flutter pub run build_runner build --delete-conflicting-outputs && exit"
+  # build:devios:
+  #   run: melos exec --scope="flutter_account_book" \
+  #     "fab devios && exit"
 
-  generate:models:watch:
-    run: melos exec --scope="zen_flutter_models" \
-      "flutter pub run build_runner watch --delete-conflicting-outputs && exit"
+  # build:prodios:
+  #   run: melos exec --scope="flutter_account_book" \
+  #     "fab prodios && exit"
 
-  build:devios:
-    run: melos exec --scope="flutter_account_book" \
-      "fab devios && exit"
+  # build:devandroid:
+  #   run: melos exec --scope="flutter_account_book" \
+  #     "fab devandroid && exit"
 
-  build:prodios:
-    run: melos exec --scope="flutter_account_book" \
-      "fab prodios && exit"
+  # build:prodandroid:
+  #   run: melos exec --scope="mobile" \
+  #     "fab prodandroid && exit"
 
-  build:devandroid:
-    run: melos exec --scope="flutter_account_book" \
-      "fab devandroid && exit"
+  # build:dev:
+  #   run: melos run build:devios && melos run build:devandroid
 
-  build:prodandroid:
-    run: melos exec --scope="mobile" \
-      "fab prodandroid && exit"
-
-  build:dev:
-    run: melos run build:devios && melos run build:devandroid
-
-  build:prod:
-    run: melos run build:prodios && melos run build:prodandroid
+  # build:prod:
+  #   run: melos run build:prodios && melos run build:prodandroid
