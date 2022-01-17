@@ -2,7 +2,7 @@
 # platform がサポートすべき値の最小値を
 # ios/Loacal Podspecs > xxx.json から探して設定する
 # 参考：https://stackoverflow.com/questions/52398435/cocoapods-could-not-find-compatible-versions-for-pod-firebase-core-cloud-fir
-platform :ios, '10.0'
+platform :ios, '14.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -35,7 +35,7 @@ target 'Runner' do
   # tag で指定するバージョンは下記の 2 つのリンクも参照する
   # README.md: https://github.com/invertase/firestore-ios-sdk-frameworks
   # https://github.com/FirebaseExtended/flutterfire/blob/master/packages/firebase_core/firebase_core/ios/firebase_sdk_version.rb
-  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '8.7.0'
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '8.10.0'
   use_frameworks!
   use_modular_headers!
 
@@ -46,7 +46,7 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
     end
   end
 end
