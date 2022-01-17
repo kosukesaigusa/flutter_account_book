@@ -92,15 +92,6 @@ class HomePage extends StatelessWidget {
   ];
 }
 
-Widget drawerHeader(BuildContext context) {
-  return DrawerHeader(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [],
-    ),
-  );
-}
-
 /// ドロワー
 Drawer drawer(BuildContext context) => Drawer(
       child: Column(
@@ -109,10 +100,8 @@ Drawer drawer(BuildContext context) => Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                drawerHeader(context),
-                signOutDrawerItem(context),
-                const Divider(),
-                adminActionDrawerItem(context),
+                _buildDrawerHeader(context),
+                _buildSignOutDrawerItem(context),
               ],
             ),
           ),
@@ -120,7 +109,17 @@ Drawer drawer(BuildContext context) => Drawer(
       ),
     );
 
-ListTile signOutDrawerItem(BuildContext context) => ListTile(
+/// ドロワーヘッダー
+Widget _buildDrawerHeader(BuildContext context) {
+  return DrawerHeader(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [],
+    ),
+  );
+}
+
+ListTile _buildSignOutDrawerItem(BuildContext context) => ListTile(
       leading: const Icon(Icons.logout_outlined),
       title: const Text('サインアウト'),
       onTap: () async {
@@ -143,37 +142,6 @@ ListTile signOutDrawerItem(BuildContext context) => ListTile(
                   onPressed: () async {
                     await AuthRepository.signOut();
                     RootWidget.restart(context);
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-
-ListTile adminActionDrawerItem(BuildContext context) => ListTile(
-      leading: const Icon(Icons.logout_outlined),
-      title: const Text('アドミン操作'),
-      onTap: () async {
-        await showDialog<void>(
-          context: context,
-          builder: (_) {
-            return AlertDialog(
-              title: const Text('確認'),
-              content: const Text('実行しますか？'),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    'キャンセル',
-                    style: TextStyle(color: Theme.of(context).disabledColor),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                TextButton(
-                  child: const Text('実行する'),
-                  onPressed: () async {
-                    showFloatingSnackBar(context, 'まだ何も起こりません。');
                   },
                 ),
               ],
