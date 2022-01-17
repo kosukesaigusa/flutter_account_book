@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/price/price_formatter.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
@@ -8,7 +7,11 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 class CategoryPage extends StatelessWidget {
-  final store = Store();
+  const CategoryPage({Key? key}) : super(key: key);
+
+  static const path = '/category/';
+  static const name = 'CategoryPage';
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(),
@@ -43,7 +46,7 @@ class CategoryPage extends StatelessWidget {
                 },
                 itemCount: vm.expenseCategories.length,
                 onReorder: (oldIndex, newIndex) async {
-                  final batch = store.db.batch();
+                  final batch = db.batch();
                   if (oldIndex < newIndex) {
                     newIndex -= 1;
                   }

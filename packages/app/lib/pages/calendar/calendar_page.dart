@@ -6,6 +6,11 @@ import 'package:flutter_account_book/componentns/calendar/header_month_handler.d
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 
 class CalendarPage extends StatelessWidget {
+  const CalendarPage({Key? key}) : super(key: key);
+
+  static const path = '/calendar/';
+  static const name = 'CalendarPage';
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(

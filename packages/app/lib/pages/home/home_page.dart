@@ -7,7 +7,6 @@ import 'package:flutter_account_book/pages/category/category_page.dart';
 import 'package:flutter_account_book/pages/category_add/category_add_page.dart';
 import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/repository/auth/auth_repository.dart';
-import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/enums.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:flutter_account_book/view_models/category/category_view_model.dart';
@@ -22,65 +21,59 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Store>(
-      builder: (context, store, child) {
-        return Scaffold(
-          drawer: _buildDrawer(context),
-          body: MultiProvider(
-            providers: [
-              ChangeNotifierProvider<CalendarViewModel>.value(
-                value: CalendarViewModel()..fetchExpensesAndIncomes(source: Source.cache),
-              ),
-              ChangeNotifierProvider<CategoryViewModel>.value(
-                value: CategoryViewModel()..fetchCategories(),
-              ),
-            ],
-            child: Stack(
-              children: <Widget>[
-                IndexedStack(
-                  index: context.watch<BottomNavigationBarState>().currentIndex,
-                  children: <Widget>[
-                    CalendarPage(),
-                    CategoryPage(),
-                  ],
-                ),
+    return Scaffold(
+      drawer: _buildDrawer(context),
+      body: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<CalendarViewModel>.value(
+            value: CalendarViewModel()..fetchExpensesAndIncomes(source: Source.cache),
+          ),
+          ChangeNotifierProvider<CategoryViewModel>.value(
+            value: CategoryViewModel()..fetchCategories(),
+          ),
+        ],
+        child: Stack(
+          children: <Widget>[
+            IndexedStack(
+              index: context.watch<BottomNavigationBarState>().currentIndex,
+              children: const <Widget>[
+                CalendarPage(),
+                CategoryPage(),
               ],
             ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final index = context.read<BottomNavigationBarState>().currentIndex;
+          if (index == 0) {
+            await Navigator.pushNamed<void>(context, '${ExpenseAddPage.path}?fullScreenDialog=1');
+            await CalendarViewModel().fetchExpensesAndIncomes();
+            return;
+          }
+          if (index == 1) {
+            await Navigator.pushNamed<void>(context, '${CategoryAddPage.path}?fullScreenDialog=1');
+            await CalendarViewModel().fetchExpensesAndIncomes();
+            return;
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: BottomNavigationBarItemEnum.home.icon,
+            label: BottomNavigationBarItemEnum.home.label,
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              final index = context.read<BottomNavigationBarState>().currentIndex;
-              if (index == 0) {
-                await Navigator.pushNamed<void>(
-                    context, '${ExpenseAddPage.path}?fullScreenDialog=1');
-                await CalendarViewModel().fetchExpensesAndIncomes();
-                return;
-              }
-              if (index == 1) {
-                await Navigator.pushNamed<void>(
-                    context, '${CategoryAddPage.path}?fullScreenDialog=1');
-                await CalendarViewModel().fetchExpensesAndIncomes();
-                return;
-              }
-            },
-            child: const Icon(Icons.add),
+          BottomNavigationBarItem(
+            icon: BottomNavigationBarItemEnum.category.icon,
+            label: BottomNavigationBarItemEnum.category.label,
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: BottomNavigationBarItemEnum.home.icon,
-                label: BottomNavigationBarItemEnum.home.label,
-              ),
-              BottomNavigationBarItem(
-                icon: BottomNavigationBarItemEnum.category.icon,
-                label: BottomNavigationBarItemEnum.category.label,
-              ),
-            ],
-            currentIndex: context.watch<BottomNavigationBarState>().currentIndex,
-            onTap: context.read<BottomNavigationBarController>().changeTab,
-          ),
-        );
-      },
+        ],
+        currentIndex: context.watch<BottomNavigationBarState>().currentIndex,
+        onTap: context.read<BottomNavigationBarController>().changeTab,
+      ),
     );
   }
 }

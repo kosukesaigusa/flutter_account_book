@@ -5,7 +5,6 @@ import 'package:flutter_account_book/constatnts/expense_add/constants.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
-import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/datetime/datetime.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
@@ -14,8 +13,6 @@ import 'package:flutter_account_book/view_models/expense_or_income_add/expense_a
 import 'package:gap/gap.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
-
-final store = Store();
 
 class ExpenseAddPage extends StatelessWidget {
   const ExpenseAddPage({
@@ -223,7 +220,7 @@ class ExpenseAddPage extends StatelessWidget {
                                   expenseCategoryRef: ref,
                                 );
                                 await setData(
-                                  docRef: FirestorePath.expenseCollectionRef.doc(store.uuid),
+                                  docRef: FirestorePath.expenseCollectionRef.doc(uuid),
                                   data: <String, dynamic>{
                                     ...expense.toJson(),
                                     'paidAt': DateTime(vm.year, vm.month, vm.day),

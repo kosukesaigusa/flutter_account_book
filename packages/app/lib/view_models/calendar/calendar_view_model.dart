@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
 import 'package:flutter_account_book/models/expense/expense.dart';
 import 'package:flutter_account_book/models/income/income.dart';
-import 'package:flutter_account_book/store/store.dart';
 
 class CalendarViewModel extends ChangeNotifier {
   factory CalendarViewModel() => _instance;
   CalendarViewModel._internal();
   static final CalendarViewModel _instance = CalendarViewModel._internal();
-
-  final store = Store();
 
   /// カレンダーに表示するデータを準備中かどうか
   bool ready = false;

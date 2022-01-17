@@ -6,7 +6,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthRepository {
   AuthRepository();
 
-  final auth = FirebaseAuth.instance;
+  static final auth = FirebaseAuth.instance;
+
+  /// Firebase Authentication が管理する現在のユーザー。
+  /// 勘弁のため Non-null operator を使っているので、
+  /// サインアウトしている可能性がある画面では使用しないように注意する。
+  static User get nonNullUser => FirebaseAuth.instance.currentUser!;
 
   /// Google サインイン
   static Future<FirebaseTaskResult<UserCredential>> signInWithGoogle() async {

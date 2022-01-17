@@ -1,24 +1,23 @@
+// ignore_for_file: avoid_classes_with_only_static_members
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_account_book/store/store.dart';
+import 'package:flutter_account_book/repository/auth/auth_repository.dart';
+import 'package:flutter_account_book/utils/utility_methods.dart';
 
 class FirestorePath {
-  final store = Store();
-
   static CollectionReference<Map<String, dynamic>> get expenseCollectionRef =>
-      Store().db.collection('expenseV1').doc(Store().currentUser.uid).collection('expenses');
+      db.collection('expenseV1').doc(AuthRepository.nonNullUser.uid).collection('expenses');
 
   static CollectionReference<Map<String, dynamic>> get incomeCollectionRef =>
-      Store().db.collection('incomeV1').doc(Store().currentUser.uid).collection('incomes');
+      db.collection('incomeV1').doc(AuthRepository.nonNullUser.uid).collection('incomes');
 
-  static CollectionReference<Map<String, dynamic>> get expenseCateogoryCollectionRef => Store()
-      .db
+  static CollectionReference<Map<String, dynamic>> get expenseCateogoryCollectionRef => db
       .collection('expenseCategoryV1')
-      .doc(Store().currentUser.uid)
+      .doc(AuthRepository.nonNullUser.uid)
       .collection('expenseCategories');
 
-  static CollectionReference<Map<String, dynamic>> get incomeCateogoryCollectionRef => Store()
-      .db
+  static CollectionReference<Map<String, dynamic>> get incomeCateogoryCollectionRef => db
       .collection('incomeCategoryV1')
-      .doc(Store().currentUser.uid)
+      .doc(AuthRepository.nonNullUser.uid)
       .collection('incomeCategories');
 }
