@@ -6,14 +6,14 @@
   "configurations": [
     {
       "name": "Debug",
-      "program": "lib/packages/app/main.dart",
+      "program": "packages/app/lib/main.dart",
       "request": "launch",
       "type": "dart",
       "args": ["--debug"]
     },
     {
       "name": "Release",
-      "program": "lib/packages/app/main.dart",
+      "program": "packages/app/lib/main.dart",
       "request": "launch",
       "type": "dart",
       "args": ["--release"]
