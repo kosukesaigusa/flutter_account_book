@@ -1,32 +1,23 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_account_book/pages/home/home_page.dart';
-import 'package:flutter_account_book/pages/sign_in/sign_in_page.dart';
+import 'package:flutter_account_book/constatnts/localization/localization.dart';
+import 'package:flutter_account_book/scaffold_messenger_navigator.dart';
 
+/// MaterialApp を返すウィジェット。
+/// ここではルートは制御せず、home プロパティに
+/// ScaffoldMessengerNavigator を指定するだけとする。
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Account Book app',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SizedBox();
-          }
-          if (snapshot.hasData) {
-            return HomePage();
-          }
-          return const SignInPage();
-        },
-      ),
-      routes: {
-        '/sign-in/': (context) => const SignInPage(),
-      },
+      key: UniqueKey(),
+      debugShowCheckedModeBanner: false,
+      locale: locale,
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: const [locale],
+      title: 'NPO MOTTAI:',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const ScaffoldMessengerNavigator(),
     );
   }
 }

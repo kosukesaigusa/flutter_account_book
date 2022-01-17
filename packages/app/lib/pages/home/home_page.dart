@@ -13,7 +13,11 @@ import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  final store = Store();
+  HomePage({Key? key}) : super(key: key);
+
+  static const path = '/home/';
+  static const name = 'HomePage';
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Store>(
@@ -33,7 +37,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 IndexedStack(
                   index: store.tabIndex,
-                  children: stackedPages,
+                  children: _stackedPages,
                 ),
               ],
             ),
@@ -71,7 +75,7 @@ class HomePage extends StatelessWidget {
   }
 
   /// ホーム・シェア・マイページの 3 画面
-  final stackedPages = <Widget>[
+  final _stackedPages = <Widget>[
     CalendarPage(),
     CategoryPage(),
   ];
