@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'expense.dart';
 
@@ -48,7 +49,7 @@ class _$ExpenseTearOff {
     );
   }
 
-  Expense fromJson(Map<String, Object> json) {
+  Expense fromJson(Map<String, Object?> json) {
     return Expense.fromJson(json);
   }
 }
@@ -261,7 +262,7 @@ class _$_Expense implements _Expense {
       @DocumentReferenceConverter() required this.expenseCategoryRef});
 
   factory _$_Expense.fromJson(Map<String, dynamic> json) =>
-      _$_$_ExpenseFromJson(json);
+      _$$_ExpenseFromJson(json);
 
   @override
   @DocumentReferenceNullableConverter()
@@ -275,14 +276,14 @@ class _$_Expense implements _Expense {
   @override
   @TimestampConverter()
   final DateTime? updatedAt;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isDeleted;
   @override
   final String name;
   @override
   final int price;
-  @JsonKey(defaultValue: 3)
+  @JsonKey()
   @override
   final int satisfaction;
   @override
@@ -297,45 +298,33 @@ class _$_Expense implements _Expense {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Expense &&
-            (identical(other.reference, reference) ||
-                const DeepCollectionEquality()
-                    .equals(other.reference, reference)) &&
-            (identical(other.paidAt, paidAt) ||
-                const DeepCollectionEquality().equals(other.paidAt, paidAt)) &&
-            (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)) &&
-            (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)) &&
-            (identical(other.isDeleted, isDeleted) ||
-                const DeepCollectionEquality()
-                    .equals(other.isDeleted, isDeleted)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.price, price) ||
-                const DeepCollectionEquality().equals(other.price, price)) &&
-            (identical(other.satisfaction, satisfaction) ||
-                const DeepCollectionEquality()
-                    .equals(other.satisfaction, satisfaction)) &&
-            (identical(other.expenseCategoryRef, expenseCategoryRef) ||
-                const DeepCollectionEquality()
-                    .equals(other.expenseCategoryRef, expenseCategoryRef)));
+        (other.runtimeType == runtimeType &&
+            other is _Expense &&
+            const DeepCollectionEquality().equals(other.reference, reference) &&
+            const DeepCollectionEquality().equals(other.paidAt, paidAt) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.isDeleted, isDeleted) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.price, price) &&
+            const DeepCollectionEquality()
+                .equals(other.satisfaction, satisfaction) &&
+            const DeepCollectionEquality()
+                .equals(other.expenseCategoryRef, expenseCategoryRef));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(reference) ^
-      const DeepCollectionEquality().hash(paidAt) ^
-      const DeepCollectionEquality().hash(createdAt) ^
-      const DeepCollectionEquality().hash(updatedAt) ^
-      const DeepCollectionEquality().hash(isDeleted) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(price) ^
-      const DeepCollectionEquality().hash(satisfaction) ^
-      const DeepCollectionEquality().hash(expenseCategoryRef);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(reference),
+      const DeepCollectionEquality().hash(paidAt),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(isDeleted),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(price),
+      const DeepCollectionEquality().hash(satisfaction),
+      const DeepCollectionEquality().hash(expenseCategoryRef));
 
   @JsonKey(ignore: true)
   @override
@@ -344,7 +333,7 @@ class _$_Expense implements _Expense {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ExpenseToJson(this);
+    return _$$_ExpenseToJson(this);
   }
 }
 
@@ -369,29 +358,27 @@ abstract class _Expense implements Expense {
 
   @override
   @DocumentReferenceNullableConverter()
-  DocumentReference<Object?>? get reference =>
-      throw _privateConstructorUsedError;
+  DocumentReference<Object?>? get reference;
   @override
   @TimestampConverter()
-  DateTime? get paidAt => throw _privateConstructorUsedError;
+  DateTime? get paidAt;
   @override
   @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt;
   @override
   @TimestampConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt;
   @override
-  bool get isDeleted => throw _privateConstructorUsedError;
+  bool get isDeleted;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  int get price => throw _privateConstructorUsedError;
+  int get price;
   @override
-  int get satisfaction => throw _privateConstructorUsedError;
+  int get satisfaction;
   @override
   @DocumentReferenceConverter()
-  DocumentReference<Object?> get expenseCategoryRef =>
-      throw _privateConstructorUsedError;
+  DocumentReference<Object?> get expenseCategoryRef;
   @override
   @JsonKey(ignore: true)
   _$ExpenseCopyWith<_Expense> get copyWith =>

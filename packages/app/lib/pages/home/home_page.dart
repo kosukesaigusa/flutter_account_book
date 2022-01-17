@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  static const path = '/home/';
+  static const path = '/';
   static const name = 'HomePage';
 
   @override

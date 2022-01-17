@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'income_category.dart';
 
@@ -40,7 +41,7 @@ class _$IncomeCategoryTearOff {
     );
   }
 
-  IncomeCategory fromJson(Map<String, Object> json) {
+  IncomeCategory fromJson(Map<String, Object?> json) {
     return IncomeCategory.fromJson(json);
   }
 }
@@ -211,7 +212,7 @@ class _$_IncomeCategory implements _IncomeCategory {
       this.order = 0});
 
   factory _$_IncomeCategory.fromJson(Map<String, dynamic> json) =>
-      _$_$_IncomeCategoryFromJson(json);
+      _$$_IncomeCategoryFromJson(json);
 
   @override
   @DocumentReferenceNullableConverter()
@@ -222,12 +223,12 @@ class _$_IncomeCategory implements _IncomeCategory {
   @override
   @TimestampConverter()
   final DateTime? updatedAt;
-  @JsonKey(defaultValue: false)
+  @JsonKey()
   @override
   final bool isDeleted;
   @override
   final String name;
-  @JsonKey(defaultValue: 0)
+  @JsonKey()
   @override
   final int order;
 
@@ -239,34 +240,25 @@ class _$_IncomeCategory implements _IncomeCategory {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _IncomeCategory &&
-            (identical(other.reference, reference) ||
-                const DeepCollectionEquality()
-                    .equals(other.reference, reference)) &&
-            (identical(other.createdAt, createdAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.createdAt, createdAt)) &&
-            (identical(other.updatedAt, updatedAt) ||
-                const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)) &&
-            (identical(other.isDeleted, isDeleted) ||
-                const DeepCollectionEquality()
-                    .equals(other.isDeleted, isDeleted)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.order, order) ||
-                const DeepCollectionEquality().equals(other.order, order)));
+        (other.runtimeType == runtimeType &&
+            other is _IncomeCategory &&
+            const DeepCollectionEquality().equals(other.reference, reference) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.isDeleted, isDeleted) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.order, order));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(reference) ^
-      const DeepCollectionEquality().hash(createdAt) ^
-      const DeepCollectionEquality().hash(updatedAt) ^
-      const DeepCollectionEquality().hash(isDeleted) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(order);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(reference),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(isDeleted),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(order));
 
   @JsonKey(ignore: true)
   @override
@@ -275,7 +267,7 @@ class _$_IncomeCategory implements _IncomeCategory {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_IncomeCategoryToJson(this);
+    return _$$_IncomeCategoryToJson(this);
   }
 }
 
@@ -296,20 +288,19 @@ abstract class _IncomeCategory implements IncomeCategory {
 
   @override
   @DocumentReferenceNullableConverter()
-  DocumentReference<Object?>? get reference =>
-      throw _privateConstructorUsedError;
+  DocumentReference<Object?>? get reference;
   @override
   @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt;
   @override
   @TimestampConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt;
   @override
-  bool get isDeleted => throw _privateConstructorUsedError;
+  bool get isDeleted;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  int get order => throw _privateConstructorUsedError;
+  int get order;
   @override
   @JsonKey(ignore: true)
   _$IncomeCategoryCopyWith<_IncomeCategory> get copyWith =>
