@@ -21,11 +21,11 @@ class App extends StatelessWidget {
           if (snapshot.hasData) {
             return HomePage();
           }
-          return SignInPage();
+          return const SignInPage();
         },
       ),
       routes: {
-        '/sign-in/': (context) => SignInPage(),
+        '/sign-in/': (context) => const SignInPage(),
       },
     );
   }

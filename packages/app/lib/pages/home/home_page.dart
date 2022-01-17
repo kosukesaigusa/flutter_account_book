@@ -4,10 +4,12 @@ import 'package:flutter_account_book/pages/calendar/calendar_page.dart';
 import 'package:flutter_account_book/pages/category/category_page.dart';
 import 'package:flutter_account_book/pages/category_add/category_add_page.dart';
 import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
+import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/store/store.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:flutter_account_book/view_models/category/category_view_model.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -135,11 +137,8 @@ ListTile signOutDrawerItem(BuildContext context) => ListTile(
                 TextButton(
                   child: const Text('サインアウトする'),
                   onPressed: () async {
-                    await Store().signOut();
-                    await Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/sign-in/',
-                      (route) => false,
-                    );
+                    await AuthRepository.signOut();
+                    RootWidget.restart(context);
                   },
                 ),
               ],

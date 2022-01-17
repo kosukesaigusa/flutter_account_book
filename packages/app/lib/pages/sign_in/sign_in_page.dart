@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_account_book/pages/home/home_page.dart';
-import 'package:flutter_account_book/store/store.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/controllers/sign_in/sign_in_page_controller.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
+import 'package:provider/provider.dart';
 import 'package:sign_button/sign_button.dart';
 
 class SignInPage extends StatelessWidget {
-  final store = Store();
+  const SignInPage({Key? key}) : super(key: key);
+
+  static const path = '/sign-in/';
+  static const name = 'SignInPage';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,24 +23,11 @@ class SignInPage extends StatelessWidget {
             SignInButton(
               buttonType: ButtonType.google,
               onPressed: () async {
-                if (!await networkConnected) {
-                  showFloatingSnackBar(context, 'ネットワーク接続がありません。');
+                final result = await context.read<SignInPageController>().submit();
+                if (!result) {
                   return;
                 }
-                final result = await store.signInWithGoogle();
-                if (result == null) {
-                  showFloatingSnackBar(context, 'サインインに失敗しました。');
-                  return;
-                }
-                final user = result.user;
-                if (user == null) {
-                  showFloatingSnackBar(context, 'サインインに失敗しました。');
-                  return;
-                }
-                await pushPageAndReoveAll(
-                  context: context,
-                  page: HomePage(),
-                );
+                RootWidget.restart(context);
               },
             ),
           ],
