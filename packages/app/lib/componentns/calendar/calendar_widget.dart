@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_account_book/constatnts/calendar/calendar_constants.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/datetime/datetime.dart';
-import 'package:flutter_account_book/utils/price/price_formatter.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 class CalendarWidget extends StatelessWidget {
@@ -106,7 +106,7 @@ class CalendarDateCell extends StatelessWidget {
       children.add(
         Flexible(
           child: Text(
-            vm.expenseMap[number] == null ? '' : '${priceFormatter.format(vm.expenseMap[number])}',
+            vm.expenseMap[number] == null ? '' : '${addComma(vm.expenseMap[number]!)}',
             style: red12,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,

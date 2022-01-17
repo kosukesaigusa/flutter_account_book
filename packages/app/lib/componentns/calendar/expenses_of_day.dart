@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/price/price_formatter.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 class ExpensesOfDaySliverList extends StatelessWidget {
@@ -49,7 +49,7 @@ class ExpensesOfDaySliverList extends StatelessWidget {
                         children: [
                           Expanded(child: Text(expense.name)),
                           Text(
-                            '${priceFormatter.format(expense.price)} 円',
+                            '${toJpy(expense.price)}',
                             style: bold,
                           ),
                         ],

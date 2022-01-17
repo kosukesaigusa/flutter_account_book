@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/price/price_formatter.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 class ExpenseIncomeTotalWidget extends StatelessWidget {
@@ -16,7 +16,7 @@ class ExpenseIncomeTotalWidget extends StatelessWidget {
               Column(
                 children: [
                   Text('固定費', style: grey12),
-                  Text(vm.ready ? '${priceFormatter.format(vm.totalFixedFeePrice)} 円' : '-'),
+                  Text(vm.ready ? '${toJpy(vm.totalFixedFeePrice)}' : '-'),
                 ],
               ),
               const Spacer(),
@@ -24,7 +24,7 @@ class ExpenseIncomeTotalWidget extends StatelessWidget {
                 children: [
                   Text('変動費', style: grey12),
                   Text(
-                    vm.ready ? '${priceFormatter.format(vm.totalExpensePrice)} 円' : '-',
+                    vm.ready ? '${toJpy(vm.totalExpensePrice)}' : '-',
                   ),
                 ],
               ),
@@ -33,9 +33,7 @@ class ExpenseIncomeTotalWidget extends StatelessWidget {
                 children: [
                   Text('支出計', style: grey12),
                   Text(
-                    vm.ready
-                        ? '${priceFormatter.format(vm.totalFixedFeePrice + vm.totalExpensePrice)} 円'
-                        : '-',
+                    vm.ready ? '${toJpy(vm.totalFixedFeePrice + vm.totalExpensePrice)}' : '-',
                   ),
                 ],
               ),
@@ -44,7 +42,7 @@ class ExpenseIncomeTotalWidget extends StatelessWidget {
                 children: [
                   Text('収入計', style: grey12),
                   Text(
-                    vm.ready ? '${priceFormatter.format(vm.totalIncomePrice)} 円' : '',
+                    vm.ready ? '${toJpy(vm.totalIncomePrice)}' : '',
                   ),
                 ],
               ),

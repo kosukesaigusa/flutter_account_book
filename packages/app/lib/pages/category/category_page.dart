@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/price/price_formatter.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/category/category_view_model.dart';
 import 'package:gap/gap.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -36,7 +36,7 @@ class CategoryPage extends StatelessWidget {
                         ),
                         const Gap(32),
                         Text(
-                          '${priceFormatter.format(expenseCategory.budget)} 円',
+                          '${toJpy(expenseCategory.budget)}',
                           style: bold,
                         ),
                       ],
