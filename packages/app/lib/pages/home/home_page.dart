@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_account_book/controllers/bottom_navigation_bar/bottom_navigation_bar_controller.dart';
+import 'package:flutter_account_book/controllers/bottom_navigation_bar/bottom_navigation_bar_state.dart';
 import 'package:flutter_account_book/pages/calendar/calendar_page.dart';
 import 'package:flutter_account_book/pages/category/category_page.dart';
 import 'package:flutter_account_book/pages/category_add/category_add_page.dart';
 import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/store/store.dart';
+import 'package:flutter_account_book/utils/enums.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:flutter_account_book/view_models/category/category_view_model.dart';
@@ -13,7 +16,7 @@ import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   static const path = '/';
   static const name = 'HomePage';
@@ -36,8 +39,11 @@ class HomePage extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 IndexedStack(
-                  index: store.tabIndex,
-                  children: _stackedPages,
+                  index: context.watch<BottomNavigationBarState>().currentIndex,
+                  children: <Widget>[
+                    CalendarPage(),
+                    CategoryPage(),
+                  ],
                 ),
               ],
             ),
@@ -65,31 +71,23 @@ class HomePage extends StatelessWidget {
             child: const Icon(Icons.add),
           ),
           bottomNavigationBar: BottomNavigationBar(
-            items: bottomNavBarItems,
-            currentIndex: store.tabIndex,
-            onTap: store.changeTab,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: BottomNavigationBarItemEnum.home.icon,
+                label: BottomNavigationBarItemEnum.home.label,
+              ),
+              BottomNavigationBarItem(
+                icon: BottomNavigationBarItemEnum.category.icon,
+                label: BottomNavigationBarItemEnum.category.label,
+              ),
+            ],
+            currentIndex: context.watch<BottomNavigationBarState>().currentIndex,
+            onTap: context.read<BottomNavigationBarController>().changeTab,
           ),
         );
       },
     );
   }
-
-  /// ホーム・シェア・マイページの 3 画面
-  final _stackedPages = <Widget>[
-    CalendarPage(),
-    CategoryPage(),
-  ];
-
-  final List<BottomNavigationBarItem> bottomNavBarItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: 'カレンダー',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.share),
-      label: 'カテゴリー',
-    ),
-  ];
 }
 
 /// ドロワー
