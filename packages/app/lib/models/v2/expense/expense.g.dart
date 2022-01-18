@@ -437,7 +437,7 @@ abstract class ExpenseDocumentReference
     String? createdAt,
     String? updatedAt,
     bool? isDeleted,
-    bool? satisfaction,
+    int? satisfaction,
   });
 
   Future<void> set(Expense value);
@@ -509,7 +509,7 @@ class _$ExpenseDocumentReference
       if (createdAt != _sentinel) "createdAt": createdAt as String?,
       if (updatedAt != _sentinel) "updatedAt": updatedAt as String?,
       if (isDeleted != _sentinel) "isDeleted": isDeleted as bool?,
-      if (satisfaction != _sentinel) "satisfaction": satisfaction as bool?,
+      if (satisfaction != _sentinel) "satisfaction": satisfaction as int?,
     };
 
     return reference.update(json);
@@ -658,15 +658,15 @@ abstract class ExpenseQuery implements QueryReference<ExpenseQuerySnapshot> {
     List<bool?>? whereNotIn,
   });
   ExpenseQuery whereSatisfaction({
-    bool? isEqualTo,
-    bool? isNotEqualTo,
-    bool? isLessThan,
-    bool? isLessThanOrEqualTo,
-    bool? isGreaterThan,
-    bool? isGreaterThanOrEqualTo,
+    int? isEqualTo,
+    int? isNotEqualTo,
+    int? isLessThan,
+    int? isLessThanOrEqualTo,
+    int? isGreaterThan,
+    int? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<bool?>? whereIn,
-    List<bool?>? whereNotIn,
+    List<int?>? whereIn,
+    List<int?>? whereNotIn,
   });
 
   ExpenseQuery orderByUserId({
@@ -779,10 +779,10 @@ abstract class ExpenseQuery implements QueryReference<ExpenseQuerySnapshot> {
 
   ExpenseQuery orderBySatisfaction({
     bool descending = false,
-    bool? startAt,
-    bool? startAfter,
-    bool? endAt,
-    bool? endBefore,
+    int? startAt,
+    int? startAfter,
+    int? endAt,
+    int? endBefore,
     ExpenseDocumentSnapshot? startAtDocument,
     ExpenseDocumentSnapshot? endAtDocument,
     ExpenseDocumentSnapshot? endBeforeDocument,
@@ -1104,15 +1104,15 @@ class _$ExpenseQuery extends QueryReference<ExpenseQuerySnapshot>
   }
 
   ExpenseQuery whereSatisfaction({
-    bool? isEqualTo,
-    bool? isNotEqualTo,
-    bool? isLessThan,
-    bool? isLessThanOrEqualTo,
-    bool? isGreaterThan,
-    bool? isGreaterThanOrEqualTo,
+    int? isEqualTo,
+    int? isNotEqualTo,
+    int? isLessThan,
+    int? isLessThanOrEqualTo,
+    int? isGreaterThan,
+    int? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<bool?>? whereIn,
-    List<bool?>? whereNotIn,
+    List<int?>? whereIn,
+    List<int?>? whereNotIn,
   }) {
     return _$ExpenseQuery(
       reference.where(
@@ -1616,7 +1616,7 @@ Expense _$ExpenseFromJson(Map<String, dynamic> json) => Expense(
       updatedAt:
           const AutoDateTimeStringConverter().fromJson(json['updatedAt']),
       isDeleted: json['isDeleted'] as bool? ?? false,
-      satisfaction: json['satisfaction'] as bool? ?? 3,
+      satisfaction: json['satisfaction'] as int? ?? 3,
     );
 
 Map<String, dynamic> _$ExpenseToJson(Expense instance) => <String, dynamic>{

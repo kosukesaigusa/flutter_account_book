@@ -152,7 +152,7 @@ class CalendarDateText extends StatelessWidget {
         ),
       );
     }
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(4),
       child: Center(
         child: Text('$number', style: regular12),

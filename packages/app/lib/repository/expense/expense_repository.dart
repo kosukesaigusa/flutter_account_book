@@ -27,7 +27,6 @@ class ExpenseRepository {
   static Future<List<Expense>> fetchExpenses({
     required String userId,
     Source source = Source.serverAndCache,
-    List<ExpenseQuery> queries = const <ExpenseQuery>[],
     ExpenseQuery? Function(ExpenseQuery expenseQuery)? queryBuilder,
     int Function(Expense lhs, Expense rhs)? sort,
   }) async {
@@ -47,7 +46,6 @@ class ExpenseRepository {
   static Stream<List<Expense>> subscribeExpenses({
     required String userId,
     Source source = Source.serverAndCache,
-    List<ExpenseQuery> queries = const <ExpenseQuery>[],
     ExpenseQuery? Function(ExpenseQuery expenseQuery)? queryBuilder,
     int Function(Expense lhs, Expense rhs)? sort,
   }) {

@@ -45,7 +45,7 @@ class Expense {
   @JsonKey(defaultValue: false)
   bool? isDeleted;
   @JsonKey(defaultValue: 3)
-  bool? satisfaction;
+  int? satisfaction;
 
   factory Expense.fromJson(Map<String, dynamic> json) => _$ExpenseFromJson(json);
 
