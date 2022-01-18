@@ -6,6 +6,7 @@ import 'package:flutter_account_book/pages/sign_in/sign_in_page.dart';
 import 'package:flutter_account_book/route/app_router.dart';
 import 'package:flutter_account_book/route/routes.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
 final appRouter = AppRouter.create(routeDict);
@@ -21,18 +22,13 @@ class ScaffoldMessengerNavigator extends StatelessWidget {
     return ScaffoldMessenger(
       key: context.select<SnackBarController, Key>((c) => c.scaffoldMessengerKey),
       child: Scaffold(
-        body: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return SpinKitCircle(
-                size: 48,
-                color: Theme.of(context).colorScheme.primary,
-              );
-            }
-            if (!snapshot.hasData) {
-              return const SignInPage();
-            }
+        body: AuthStateStreamBuilder(
+          waitingWidget: SpinKitCircle(
+            size: 48,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          notSignedInWidget: const SignInPage(),
+          builder: (context) {
             return Navigator(
               key: context.watch<GlobalKey<NavigatorState>>(),
               initialRoute: AppRouter.initialRoute,
