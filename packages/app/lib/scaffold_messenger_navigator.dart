@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/controllers/snack_bar/snack_bar_controller.dart';
 import 'package:flutter_account_book/pages/not_found/not_found_page.dart';
