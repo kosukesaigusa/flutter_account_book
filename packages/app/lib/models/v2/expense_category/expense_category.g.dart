@@ -446,7 +446,8 @@ abstract class ExpenseCategoryDocumentReference
     String name,
     int budget,
     bool? isDeleted,
-    int order,
+    int? order,
+    String? iconName,
   });
 
   Future<void> set(ExpenseCategory value);
@@ -503,6 +504,7 @@ class _$ExpenseCategoryDocumentReference
     Object? budget = _sentinel,
     Object? isDeleted = _sentinel,
     Object? order = _sentinel,
+    Object? iconName = _sentinel,
   }) async {
     final json = {
       if (expenseCategoryId != _sentinel)
@@ -512,7 +514,8 @@ class _$ExpenseCategoryDocumentReference
       if (name != _sentinel) "name": name as String,
       if (budget != _sentinel) "budget": budget as int,
       if (isDeleted != _sentinel) "isDeleted": isDeleted as bool?,
-      if (order != _sentinel) "order": order as int,
+      if (order != _sentinel) "order": order as int?,
+      if (iconName != _sentinel) "iconName": iconName as String?,
     };
 
     return reference.update(json);
@@ -636,8 +639,19 @@ abstract class ExpenseCategoryQuery
     int? isGreaterThan,
     int? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<int>? whereIn,
-    List<int>? whereNotIn,
+    List<int?>? whereIn,
+    List<int?>? whereNotIn,
+  });
+  ExpenseCategoryQuery whereIconName({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
   });
 
   ExpenseCategoryQuery orderByExpenseCategoryId({
@@ -714,10 +728,22 @@ abstract class ExpenseCategoryQuery
 
   ExpenseCategoryQuery orderByOrder({
     bool descending = false,
-    int startAt,
-    int startAfter,
-    int endAt,
-    int endBefore,
+    int? startAt,
+    int? startAfter,
+    int? endAt,
+    int? endBefore,
+    ExpenseCategoryDocumentSnapshot? startAtDocument,
+    ExpenseCategoryDocumentSnapshot? endAtDocument,
+    ExpenseCategoryDocumentSnapshot? endBeforeDocument,
+    ExpenseCategoryDocumentSnapshot? startAfterDocument,
+  });
+
+  ExpenseCategoryQuery orderByIconName({
+    bool descending = false,
+    String? startAt,
+    String? startAfter,
+    String? endAt,
+    String? endBefore,
     ExpenseCategoryDocumentSnapshot? startAtDocument,
     ExpenseCategoryDocumentSnapshot? endAtDocument,
     ExpenseCategoryDocumentSnapshot? endBeforeDocument,
@@ -963,12 +989,40 @@ class _$ExpenseCategoryQuery
     int? isGreaterThan,
     int? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<int>? whereIn,
-    List<int>? whereNotIn,
+    List<int?>? whereIn,
+    List<int?>? whereNotIn,
   }) {
     return _$ExpenseCategoryQuery(
       reference.where(
         'order',
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      _collection,
+    );
+  }
+
+  ExpenseCategoryQuery whereIconName({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
+  }) {
+    return _$ExpenseCategoryQuery(
+      reference.where(
+        'iconName',
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -1277,6 +1331,48 @@ class _$ExpenseCategoryQuery
     return _$ExpenseCategoryQuery(query, _collection);
   }
 
+  ExpenseCategoryQuery orderByIconName({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ExpenseCategoryDocumentSnapshot? startAtDocument,
+    ExpenseCategoryDocumentSnapshot? endAtDocument,
+    ExpenseCategoryDocumentSnapshot? endBeforeDocument,
+    ExpenseCategoryDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy('iconName', descending: false);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ExpenseCategoryQuery(query, _collection);
+  }
+
   @override
   bool operator ==(Object other) {
     return other is _$ExpenseCategoryQuery &&
@@ -1343,7 +1439,9 @@ ExpenseCategory _$ExpenseCategoryFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       budget: json['budget'] as int,
       isDeleted: json['isDeleted'] as bool? ?? false,
-      order: json['order'] as int,
+      order:
+          const AutoSecondsSinceEpochConverter().fromJson(json['order'] as int),
+      iconName: json['iconName'] as String?,
     );
 
 Map<String, dynamic> _$ExpenseCategoryToJson(ExpenseCategory instance) =>
@@ -1356,5 +1454,6 @@ Map<String, dynamic> _$ExpenseCategoryToJson(ExpenseCategory instance) =>
       'name': instance.name,
       'budget': instance.budget,
       'isDeleted': instance.isDeleted,
-      'order': instance.order,
+      'order': const AutoSecondsSinceEpochConverter().toJson(instance.order),
+      'iconName': instance.iconName,
     };

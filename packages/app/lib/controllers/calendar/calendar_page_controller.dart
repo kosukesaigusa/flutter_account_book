@@ -12,11 +12,7 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
   @override
   void initState() {
     final now = DateTime.now();
-    state = state.copyWith(
-      year: now.year,
-      month: now.month,
-      day: now.day,
-    );
+    state = state.copyWith(year: now.year, month: now.month, day: now.day);
     super.initState();
   }
 
@@ -32,14 +28,13 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
       state.month ?? now.month + 1,
     ).toIso8601String();
     final expenses = await ExpenseRepository.fetchExpenses(
-        userId: AuthRepository.nonNullUser.uid,
-        queryBuilder: (expenseQuery) {
-          return expenseQuery
-              .wherePaidAt(isGreaterThanOrEqualTo: thisMonthString)
-              .wherePaidAt(isLessThan: nextMonthString)
-              .orderByPaidAt()
-              .orderByCreatedAt();
-        });
+      userId: AuthRepository.nonNullUser.uid,
+      queryBuilder: (q) => q
+          .wherePaidAt(isGreaterThanOrEqualTo: thisMonthString)
+          .wherePaidAt(isLessThan: nextMonthString)
+          .orderByPaidAt()
+          .orderByCreatedAt(),
+    );
   }
 
   /// 指定した月の収入を取得して...

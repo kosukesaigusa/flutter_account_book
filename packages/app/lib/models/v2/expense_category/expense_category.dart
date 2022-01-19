@@ -25,7 +25,8 @@ class ExpenseCategory {
     required this.name,
     required this.budget,
     this.isDeleted,
-    required this.order,
+    this.order,
+    this.iconName,
   });
 
   final String expenseCategoryId;
@@ -38,7 +39,8 @@ class ExpenseCategory {
   @JsonKey(defaultValue: false)
   bool? isDeleted;
   @AutoSecondsSinceEpochConverter()
-  int order;
+  int? order;
+  String? iconName;
 
   factory ExpenseCategory.fromJson(Map<String, dynamic> json) => _$ExpenseCategoryFromJson(json);
 

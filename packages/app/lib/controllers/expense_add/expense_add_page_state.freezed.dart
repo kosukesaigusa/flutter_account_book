@@ -19,18 +19,24 @@ class _$ExpenseAddPageStateTearOff {
 
   _ExpenseAddPageState call(
       {bool loading = true,
+      bool sending = false,
       int year = 1970,
       int month = 1,
       int day = 1,
       String? name,
-      int? price}) {
+      int? price,
+      List<ExpenseCategory> expenseCategories = const <ExpenseCategory>[],
+      ExpenseCategory? selectedExpenseCategory}) {
     return _ExpenseAddPageState(
       loading: loading,
+      sending: sending,
       year: year,
       month: month,
       day: day,
       name: name,
       price: price,
+      expenseCategories: expenseCategories,
+      selectedExpenseCategory: selectedExpenseCategory,
     );
   }
 }
@@ -41,11 +47,16 @@ const $ExpenseAddPageState = _$ExpenseAddPageStateTearOff();
 /// @nodoc
 mixin _$ExpenseAddPageState {
   bool get loading => throw _privateConstructorUsedError;
+  bool get sending => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
   int get month => throw _privateConstructorUsedError;
   int get day => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
+  List<ExpenseCategory> get expenseCategories =>
+      throw _privateConstructorUsedError;
+  ExpenseCategory? get selectedExpenseCategory =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExpenseAddPageStateCopyWith<ExpenseAddPageState> get copyWith =>
@@ -58,7 +69,15 @@ abstract class $ExpenseAddPageStateCopyWith<$Res> {
           ExpenseAddPageState value, $Res Function(ExpenseAddPageState) then) =
       _$ExpenseAddPageStateCopyWithImpl<$Res>;
   $Res call(
-      {bool loading, int year, int month, int day, String? name, int? price});
+      {bool loading,
+      bool sending,
+      int year,
+      int month,
+      int day,
+      String? name,
+      int? price,
+      List<ExpenseCategory> expenseCategories,
+      ExpenseCategory? selectedExpenseCategory});
 }
 
 /// @nodoc
@@ -73,16 +92,23 @@ class _$ExpenseAddPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = freezed,
+    Object? sending = freezed,
     Object? year = freezed,
     Object? month = freezed,
     Object? day = freezed,
     Object? name = freezed,
     Object? price = freezed,
+    Object? expenseCategories = freezed,
+    Object? selectedExpenseCategory = freezed,
   }) {
     return _then(_value.copyWith(
       loading: loading == freezed
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sending: sending == freezed
+          ? _value.sending
+          : sending // ignore: cast_nullable_to_non_nullable
               as bool,
       year: year == freezed
           ? _value.year
@@ -104,6 +130,14 @@ class _$ExpenseAddPageStateCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int?,
+      expenseCategories: expenseCategories == freezed
+          ? _value.expenseCategories
+          : expenseCategories // ignore: cast_nullable_to_non_nullable
+              as List<ExpenseCategory>,
+      selectedExpenseCategory: selectedExpenseCategory == freezed
+          ? _value.selectedExpenseCategory
+          : selectedExpenseCategory // ignore: cast_nullable_to_non_nullable
+              as ExpenseCategory?,
     ));
   }
 }
@@ -116,7 +150,15 @@ abstract class _$ExpenseAddPageStateCopyWith<$Res>
       __$ExpenseAddPageStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {bool loading, int year, int month, int day, String? name, int? price});
+      {bool loading,
+      bool sending,
+      int year,
+      int month,
+      int day,
+      String? name,
+      int? price,
+      List<ExpenseCategory> expenseCategories,
+      ExpenseCategory? selectedExpenseCategory});
 }
 
 /// @nodoc
@@ -133,16 +175,23 @@ class __$ExpenseAddPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = freezed,
+    Object? sending = freezed,
     Object? year = freezed,
     Object? month = freezed,
     Object? day = freezed,
     Object? name = freezed,
     Object? price = freezed,
+    Object? expenseCategories = freezed,
+    Object? selectedExpenseCategory = freezed,
   }) {
     return _then(_ExpenseAddPageState(
       loading: loading == freezed
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sending: sending == freezed
+          ? _value.sending
+          : sending // ignore: cast_nullable_to_non_nullable
               as bool,
       year: year == freezed
           ? _value.year
@@ -164,6 +213,14 @@ class __$ExpenseAddPageStateCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int?,
+      expenseCategories: expenseCategories == freezed
+          ? _value.expenseCategories
+          : expenseCategories // ignore: cast_nullable_to_non_nullable
+              as List<ExpenseCategory>,
+      selectedExpenseCategory: selectedExpenseCategory == freezed
+          ? _value.selectedExpenseCategory
+          : selectedExpenseCategory // ignore: cast_nullable_to_non_nullable
+              as ExpenseCategory?,
     ));
   }
 }
@@ -173,15 +230,21 @@ class __$ExpenseAddPageStateCopyWithImpl<$Res>
 class _$_ExpenseAddPageState implements _ExpenseAddPageState {
   const _$_ExpenseAddPageState(
       {this.loading = true,
+      this.sending = false,
       this.year = 1970,
       this.month = 1,
       this.day = 1,
       this.name,
-      this.price});
+      this.price,
+      this.expenseCategories = const <ExpenseCategory>[],
+      this.selectedExpenseCategory});
 
   @JsonKey()
   @override
   final bool loading;
+  @JsonKey()
+  @override
+  final bool sending;
   @JsonKey()
   @override
   final int year;
@@ -195,10 +258,15 @@ class _$_ExpenseAddPageState implements _ExpenseAddPageState {
   final String? name;
   @override
   final int? price;
+  @JsonKey()
+  @override
+  final List<ExpenseCategory> expenseCategories;
+  @override
+  final ExpenseCategory? selectedExpenseCategory;
 
   @override
   String toString() {
-    return 'ExpenseAddPageState(loading: $loading, year: $year, month: $month, day: $day, name: $name, price: $price)';
+    return 'ExpenseAddPageState(loading: $loading, sending: $sending, year: $year, month: $month, day: $day, name: $name, price: $price, expenseCategories: $expenseCategories, selectedExpenseCategory: $selectedExpenseCategory)';
   }
 
   @override
@@ -207,22 +275,30 @@ class _$_ExpenseAddPageState implements _ExpenseAddPageState {
         (other.runtimeType == runtimeType &&
             other is _ExpenseAddPageState &&
             const DeepCollectionEquality().equals(other.loading, loading) &&
+            const DeepCollectionEquality().equals(other.sending, sending) &&
             const DeepCollectionEquality().equals(other.year, year) &&
             const DeepCollectionEquality().equals(other.month, month) &&
             const DeepCollectionEquality().equals(other.day, day) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.price, price));
+            const DeepCollectionEquality().equals(other.price, price) &&
+            const DeepCollectionEquality()
+                .equals(other.expenseCategories, expenseCategories) &&
+            const DeepCollectionEquality().equals(
+                other.selectedExpenseCategory, selectedExpenseCategory));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(loading),
+      const DeepCollectionEquality().hash(sending),
       const DeepCollectionEquality().hash(year),
       const DeepCollectionEquality().hash(month),
       const DeepCollectionEquality().hash(day),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(price));
+      const DeepCollectionEquality().hash(price),
+      const DeepCollectionEquality().hash(expenseCategories),
+      const DeepCollectionEquality().hash(selectedExpenseCategory));
 
   @JsonKey(ignore: true)
   @override
@@ -234,14 +310,19 @@ class _$_ExpenseAddPageState implements _ExpenseAddPageState {
 abstract class _ExpenseAddPageState implements ExpenseAddPageState {
   const factory _ExpenseAddPageState(
       {bool loading,
+      bool sending,
       int year,
       int month,
       int day,
       String? name,
-      int? price}) = _$_ExpenseAddPageState;
+      int? price,
+      List<ExpenseCategory> expenseCategories,
+      ExpenseCategory? selectedExpenseCategory}) = _$_ExpenseAddPageState;
 
   @override
   bool get loading;
+  @override
+  bool get sending;
   @override
   int get year;
   @override
@@ -252,6 +333,10 @@ abstract class _ExpenseAddPageState implements ExpenseAddPageState {
   String? get name;
   @override
   int? get price;
+  @override
+  List<ExpenseCategory> get expenseCategories;
+  @override
+  ExpenseCategory? get selectedExpenseCategory;
   @override
   @JsonKey(ignore: true)
   _$ExpenseAddPageStateCopyWith<_ExpenseAddPageState> get copyWith =>
