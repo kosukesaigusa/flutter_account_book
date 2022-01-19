@@ -19,7 +19,6 @@ class V2Expense {}
 @JsonSerializable()
 class Expense {
   Expense({
-    required this.userId,
     required this.expenseId,
     required this.name,
     required this.price,
@@ -31,16 +30,15 @@ class Expense {
     this.satisfaction,
   });
 
-  final String userId;
   final String expenseId;
   final String name;
   final int price;
   final String expenseCategoryId;
-  @AutoDateTimeStringConverter()
+  @AutoTimestampIso8601StringConverter()
   String? paidAt;
-  @AutoDateTimeStringConverter()
+  @AutoTimestampIso8601StringConverter()
   String? createdAt;
-  @AutoDateTimeStringConverter()
+  @AutoTimestampIso8601StringConverter()
   String? updatedAt;
   @JsonKey(defaultValue: false)
   bool? isDeleted;

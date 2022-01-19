@@ -428,7 +428,6 @@ abstract class ExpenseDocumentReference
   Future<void> delete();
 
   Future<void> update({
-    String userId,
     String expenseId,
     String name,
     int price,
@@ -487,7 +486,6 @@ class _$ExpenseDocumentReference
   }
 
   Future<void> update({
-    Object? userId = _sentinel,
     Object? expenseId = _sentinel,
     Object? name = _sentinel,
     Object? price = _sentinel,
@@ -499,7 +497,6 @@ class _$ExpenseDocumentReference
     Object? satisfaction = _sentinel,
   }) async {
     final json = {
-      if (userId != _sentinel) "userId": userId as String,
       if (expenseId != _sentinel) "expenseId": expenseId as String,
       if (name != _sentinel) "name": name as String,
       if (price != _sentinel) "price": price as int,
@@ -558,17 +555,6 @@ abstract class ExpenseQuery implements QueryReference<ExpenseQuerySnapshot> {
   @override
   ExpenseQuery limitToLast(int limit);
 
-  ExpenseQuery whereUserId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-  });
   ExpenseQuery whereExpenseId({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -667,18 +653,6 @@ abstract class ExpenseQuery implements QueryReference<ExpenseQuerySnapshot> {
     bool? isNull,
     List<int?>? whereIn,
     List<int?>? whereNotIn,
-  });
-
-  ExpenseQuery orderByUserId({
-    bool descending = false,
-    String startAt,
-    String startAfter,
-    String endAt,
-    String endBefore,
-    ExpenseDocumentSnapshot? startAtDocument,
-    ExpenseDocumentSnapshot? endAtDocument,
-    ExpenseDocumentSnapshot? endBeforeDocument,
-    ExpenseDocumentSnapshot? startAfterDocument,
   });
 
   ExpenseQuery orderByExpenseId({
@@ -847,34 +821,6 @@ class _$ExpenseQuery extends QueryReference<ExpenseQuerySnapshot>
   ExpenseQuery limitToLast(int limit) {
     return _$ExpenseQuery(
       reference.limitToLast(limit),
-      _collection,
-    );
-  }
-
-  ExpenseQuery whereUserId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-  }) {
-    return _$ExpenseQuery(
-      reference.where(
-        'userId',
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
       _collection,
     );
   }
@@ -1129,48 +1075,6 @@ class _$ExpenseQuery extends QueryReference<ExpenseQuerySnapshot>
       ),
       _collection,
     );
-  }
-
-  ExpenseQuery orderByUserId({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    ExpenseDocumentSnapshot? startAtDocument,
-    ExpenseDocumentSnapshot? endAtDocument,
-    ExpenseDocumentSnapshot? endBeforeDocument,
-    ExpenseDocumentSnapshot? startAfterDocument,
-  }) {
-    var query = reference.orderBy('userId', descending: false);
-
-    if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
-    }
-    if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
-    }
-    if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
-    }
-    if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
-    }
-
-    if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
-    }
-    if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
-    }
-    if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
-    }
-    if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
-    }
-
-    return _$ExpenseQuery(query, _collection);
   }
 
   ExpenseQuery orderByExpenseId({
@@ -1605,31 +1509,31 @@ Map<String, dynamic> _$V2ExpenseToJson(V2Expense instance) =>
     <String, dynamic>{};
 
 Expense _$ExpenseFromJson(Map<String, dynamic> json) => Expense(
-      userId: json['userId'] as String,
       expenseId: json['expenseId'] as String,
       name: json['name'] as String,
       price: json['price'] as int,
       expenseCategoryId: json['expenseCategoryId'] as String,
-      paidAt: const AutoDateTimeStringConverter().fromJson(json['paidAt']),
-      createdAt:
-          const AutoDateTimeStringConverter().fromJson(json['createdAt']),
-      updatedAt:
-          const AutoDateTimeStringConverter().fromJson(json['updatedAt']),
+      paidAt:
+          const AutoTimestampIso8601StringConverter().fromJson(json['paidAt']),
+      createdAt: const AutoTimestampIso8601StringConverter()
+          .fromJson(json['createdAt']),
+      updatedAt: const AutoTimestampIso8601StringConverter()
+          .fromJson(json['updatedAt']),
       isDeleted: json['isDeleted'] as bool? ?? false,
       satisfaction: json['satisfaction'] as int? ?? 3,
     );
 
 Map<String, dynamic> _$ExpenseToJson(Expense instance) => <String, dynamic>{
-      'userId': instance.userId,
       'expenseId': instance.expenseId,
       'name': instance.name,
       'price': instance.price,
       'expenseCategoryId': instance.expenseCategoryId,
-      'paidAt': const AutoDateTimeStringConverter().toJson(instance.paidAt),
-      'createdAt':
-          const AutoDateTimeStringConverter().toJson(instance.createdAt),
-      'updatedAt':
-          const AutoDateTimeStringConverter().toJson(instance.updatedAt),
+      'paidAt':
+          const AutoTimestampIso8601StringConverter().toJson(instance.paidAt),
+      'createdAt': const AutoTimestampIso8601StringConverter()
+          .toJson(instance.createdAt),
+      'updatedAt': const AutoTimestampIso8601StringConverter()
+          .toJson(instance.updatedAt),
       'isDeleted': instance.isDeleted,
       'satisfaction': instance.satisfaction,
     };
