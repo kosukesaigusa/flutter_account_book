@@ -6,6 +6,7 @@ import 'package:flutter_account_book/utils/utils.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
+/// カレンダー下部のその日の支出一覧
 class ExpensesOfDaySliverList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

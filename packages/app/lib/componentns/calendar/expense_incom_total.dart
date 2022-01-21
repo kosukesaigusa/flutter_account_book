@@ -5,6 +5,7 @@ import 'package:flutter_account_book/themes/theme.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
+/// カレンダー上部のその月の支出や収入のサマリー
 class ExpenseIncomeTotalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
