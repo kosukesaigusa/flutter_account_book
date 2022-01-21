@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_account_book/repository/auth/auth_repository.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/utils/utils.dart';
 
 class FirestorePath {
   static CollectionReference<Map<String, dynamic>> get expenseCollectionRef =>

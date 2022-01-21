@@ -23,7 +23,8 @@ class _$CalendarPageStateTearOff {
       int month = 1,
       int day = 1,
       List<DailySummary> dailySummaries = const <DailySummary>[],
-      MonthlyExpense monthlyExpense = const MonthlyExpense(year: 1970, month: 1)}) {
+      MonthlyExpense monthlyExpense =
+          const MonthlyExpense(year: 1970, month: 1)}) {
     return _CalendarPageState(
       loading: loading,
       year: year,
@@ -48,7 +49,8 @@ mixin _$CalendarPageState {
   MonthlyExpense get monthlyExpense => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CalendarPageStateCopyWith<CalendarPageState> get copyWith => throw _privateConstructorUsedError;
+  $CalendarPageStateCopyWith<CalendarPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -66,7 +68,8 @@ abstract class $CalendarPageStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CalendarPageStateCopyWithImpl<$Res> implements $CalendarPageStateCopyWith<$Res> {
+class _$CalendarPageStateCopyWithImpl<$Res>
+    implements $CalendarPageStateCopyWith<$Res> {
   _$CalendarPageStateCopyWithImpl(this._value, this._then);
 
   final CalendarPageState _value;
@@ -112,7 +115,8 @@ class _$CalendarPageStateCopyWithImpl<$Res> implements $CalendarPageStateCopyWit
 }
 
 /// @nodoc
-abstract class _$CalendarPageStateCopyWith<$Res> implements $CalendarPageStateCopyWith<$Res> {
+abstract class _$CalendarPageStateCopyWith<$Res>
+    implements $CalendarPageStateCopyWith<$Res> {
   factory _$CalendarPageStateCopyWith(
           _CalendarPageState value, $Res Function(_CalendarPageState) then) =
       __$CalendarPageStateCopyWithImpl<$Res>;
@@ -127,7 +131,8 @@ abstract class _$CalendarPageStateCopyWith<$Res> implements $CalendarPageStateCo
 }
 
 /// @nodoc
-class __$CalendarPageStateCopyWithImpl<$Res> extends _$CalendarPageStateCopyWithImpl<$Res>
+class __$CalendarPageStateCopyWithImpl<$Res>
+    extends _$CalendarPageStateCopyWithImpl<$Res>
     implements _$CalendarPageStateCopyWith<$Res> {
   __$CalendarPageStateCopyWithImpl(
       _CalendarPageState _value, $Res Function(_CalendarPageState) _then)
@@ -218,8 +223,10 @@ class _$_CalendarPageState implements _CalendarPageState {
             const DeepCollectionEquality().equals(other.year, year) &&
             const DeepCollectionEquality().equals(other.month, month) &&
             const DeepCollectionEquality().equals(other.day, day) &&
-            const DeepCollectionEquality().equals(other.dailySummaries, dailySummaries) &&
-            const DeepCollectionEquality().equals(other.monthlyExpense, monthlyExpense));
+            const DeepCollectionEquality()
+                .equals(other.dailySummaries, dailySummaries) &&
+            const DeepCollectionEquality()
+                .equals(other.monthlyExpense, monthlyExpense));
   }
 
   @override

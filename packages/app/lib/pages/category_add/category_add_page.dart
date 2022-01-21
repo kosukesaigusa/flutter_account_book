@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_account_book/firestore/firestore_path.dart';
 import 'package:flutter_account_book/firestore/firestore_service.dart';
 import 'package:flutter_account_book/models/v1/expense_category/expense_category.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/utils/utils.dart';
 import 'package:flutter_account_book/view_models/category_add/category_add_page_view_model.dart';
 import 'package:gap/gap.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';

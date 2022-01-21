@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/utils/utils.dart';
 import 'package:flutter_account_book/view_models/category/category_view_model.dart';
 import 'package:gap/gap.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';

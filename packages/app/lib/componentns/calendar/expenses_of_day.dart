@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_account_book/controllers/calendar/calendar_page_controller.dart';
 import 'package:flutter_account_book/controllers/calendar/calendar_page_state.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/utils/utils.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 

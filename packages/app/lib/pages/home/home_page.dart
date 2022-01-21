@@ -11,7 +11,7 @@ import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
 import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/repository/expense/expense_repository.dart';
 import 'package:flutter_account_book/utils/enums.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/utils/utils.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 

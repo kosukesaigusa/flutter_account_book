@@ -7,7 +7,7 @@ import 'package:flutter_account_book/models/v2/expense_category/expense_category
 import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/repository/expense/expense_repository.dart';
 import 'package:flutter_account_book/repository/expense_category/expense_category_repository.dart';
-import 'package:flutter_account_book/utils/utility_methods.dart';
+import 'package:flutter_account_book/utils/utils.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with LocatorMixin {
