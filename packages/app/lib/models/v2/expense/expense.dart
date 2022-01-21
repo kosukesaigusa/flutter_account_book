@@ -34,13 +34,13 @@ class Expense {
   final String name;
   final int price;
   final String expenseCategoryId;
-  @AutoTimestampIso8601StringConverter()
+  @AutoDateTimeIso8601StringConverter()
   String? paidAt;
-  @AutoTimestampIso8601StringConverter()
-  String? createdAt;
-  @AutoTimestampIso8601StringConverter()
-  String? updatedAt;
-  @JsonKey(defaultValue: false)
+  @AutoTimestampConverter()
+  DateTime? createdAt;
+  @AutoTimestampConverter()
+  DateTime? updatedAt;
+  @DefaultFalseConverter()
   bool? isDeleted;
   @JsonKey(defaultValue: 3)
   int? satisfaction;

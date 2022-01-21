@@ -441,8 +441,6 @@ abstract class ExpenseCategoryDocumentReference
 
   Future<void> update({
     String expenseCategoryId,
-    String? createdAt,
-    String? updatedAt,
     String name,
     int budget,
     bool? isDeleted,
@@ -498,8 +496,6 @@ class _$ExpenseCategoryDocumentReference
 
   Future<void> update({
     Object? expenseCategoryId = _sentinel,
-    Object? createdAt = _sentinel,
-    Object? updatedAt = _sentinel,
     Object? name = _sentinel,
     Object? budget = _sentinel,
     Object? isDeleted = _sentinel,
@@ -509,8 +505,6 @@ class _$ExpenseCategoryDocumentReference
     final json = {
       if (expenseCategoryId != _sentinel)
         "expenseCategoryId": expenseCategoryId as String,
-      if (createdAt != _sentinel) "createdAt": createdAt as String?,
-      if (updatedAt != _sentinel) "updatedAt": updatedAt as String?,
       if (name != _sentinel) "name": name as String,
       if (budget != _sentinel) "budget": budget as int,
       if (isDeleted != _sentinel) "isDeleted": isDeleted as bool?,
@@ -576,28 +570,6 @@ abstract class ExpenseCategoryQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ExpenseCategoryQuery whereCreatedAt({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  });
-  ExpenseCategoryQuery whereUpdatedAt({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  });
   ExpenseCategoryQuery whereName({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -660,30 +632,6 @@ abstract class ExpenseCategoryQuery
     String startAfter,
     String endAt,
     String endBefore,
-    ExpenseCategoryDocumentSnapshot? startAtDocument,
-    ExpenseCategoryDocumentSnapshot? endAtDocument,
-    ExpenseCategoryDocumentSnapshot? endBeforeDocument,
-    ExpenseCategoryDocumentSnapshot? startAfterDocument,
-  });
-
-  ExpenseCategoryQuery orderByCreatedAt({
-    bool descending = false,
-    String? startAt,
-    String? startAfter,
-    String? endAt,
-    String? endBefore,
-    ExpenseCategoryDocumentSnapshot? startAtDocument,
-    ExpenseCategoryDocumentSnapshot? endAtDocument,
-    ExpenseCategoryDocumentSnapshot? endBeforeDocument,
-    ExpenseCategoryDocumentSnapshot? startAfterDocument,
-  });
-
-  ExpenseCategoryQuery orderByUpdatedAt({
-    bool descending = false,
-    String? startAt,
-    String? startAfter,
-    String? endAt,
-    String? endBefore,
     ExpenseCategoryDocumentSnapshot? startAtDocument,
     ExpenseCategoryDocumentSnapshot? endAtDocument,
     ExpenseCategoryDocumentSnapshot? endBeforeDocument,
@@ -827,62 +775,6 @@ class _$ExpenseCategoryQuery
     return _$ExpenseCategoryQuery(
       reference.where(
         'expenseCategoryId',
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
-      _collection,
-    );
-  }
-
-  ExpenseCategoryQuery whereCreatedAt({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  }) {
-    return _$ExpenseCategoryQuery(
-      reference.where(
-        'createdAt',
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
-      _collection,
-    );
-  }
-
-  ExpenseCategoryQuery whereUpdatedAt({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  }) {
-    return _$ExpenseCategoryQuery(
-      reference.where(
-        'updatedAt',
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -1049,90 +941,6 @@ class _$ExpenseCategoryQuery
     ExpenseCategoryDocumentSnapshot? startAfterDocument,
   }) {
     var query = reference.orderBy('expenseCategoryId', descending: false);
-
-    if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
-    }
-    if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
-    }
-    if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
-    }
-    if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
-    }
-
-    if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
-    }
-    if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
-    }
-    if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
-    }
-    if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
-    }
-
-    return _$ExpenseCategoryQuery(query, _collection);
-  }
-
-  ExpenseCategoryQuery orderByCreatedAt({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    ExpenseCategoryDocumentSnapshot? startAtDocument,
-    ExpenseCategoryDocumentSnapshot? endAtDocument,
-    ExpenseCategoryDocumentSnapshot? endBeforeDocument,
-    ExpenseCategoryDocumentSnapshot? startAfterDocument,
-  }) {
-    var query = reference.orderBy('createdAt', descending: false);
-
-    if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
-    }
-    if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
-    }
-    if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
-    }
-    if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
-    }
-
-    if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
-    }
-    if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
-    }
-    if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
-    }
-    if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
-    }
-
-    return _$ExpenseCategoryQuery(query, _collection);
-  }
-
-  ExpenseCategoryQuery orderByUpdatedAt({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    ExpenseCategoryDocumentSnapshot? startAtDocument,
-    ExpenseCategoryDocumentSnapshot? endAtDocument,
-    ExpenseCategoryDocumentSnapshot? endBeforeDocument,
-    ExpenseCategoryDocumentSnapshot? startAfterDocument,
-  }) {
-    var query = reference.orderBy('updatedAt', descending: false);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -1432,13 +1240,11 @@ Map<String, dynamic> _$V2ExpenseCategoryToJson(V2ExpenseCategory instance) =>
 ExpenseCategory _$ExpenseCategoryFromJson(Map<String, dynamic> json) =>
     ExpenseCategory(
       expenseCategoryId: json['expenseCategoryId'] as String,
-      createdAt: const AutoTimestampIso8601StringConverter()
-          .fromJson(json['createdAt']),
-      updatedAt: const AutoTimestampIso8601StringConverter()
-          .fromJson(json['updatedAt']),
+      createdAt: const AutoTimestampConverter().fromJson(json['createdAt']),
+      updatedAt: const AutoTimestampConverter().fromJson(json['updatedAt']),
       name: json['name'] as String,
       budget: json['budget'] as int,
-      isDeleted: json['isDeleted'] as bool? ?? false,
+      isDeleted: const DefaultFalseConverter().fromJson(json['isDeleted']),
       order:
           const AutoSecondsSinceEpochConverter().fromJson(json['order'] as int),
       iconName: json['iconName'] as String?,
@@ -1447,13 +1253,11 @@ ExpenseCategory _$ExpenseCategoryFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ExpenseCategoryToJson(ExpenseCategory instance) =>
     <String, dynamic>{
       'expenseCategoryId': instance.expenseCategoryId,
-      'createdAt': const AutoTimestampIso8601StringConverter()
-          .toJson(instance.createdAt),
-      'updatedAt': const AutoTimestampIso8601StringConverter()
-          .toJson(instance.updatedAt),
+      'createdAt': const AutoTimestampConverter().toJson(instance.createdAt),
+      'updatedAt': const AutoTimestampConverter().toJson(instance.updatedAt),
       'name': instance.name,
       'budget': instance.budget,
-      'isDeleted': instance.isDeleted,
+      'isDeleted': const DefaultFalseConverter().toJson(instance.isDeleted),
       'order': const AutoSecondsSinceEpochConverter().toJson(instance.order),
       'iconName': instance.iconName,
     };

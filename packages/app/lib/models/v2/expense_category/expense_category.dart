@@ -30,13 +30,13 @@ class ExpenseCategory {
   });
 
   final String expenseCategoryId;
-  @AutoTimestampIso8601StringConverter()
-  String? createdAt;
-  @AutoTimestampIso8601StringConverter()
-  String? updatedAt;
+  @AutoTimestampConverter()
+  DateTime? createdAt;
+  @AutoTimestampConverter()
+  DateTime? updatedAt;
   final String name;
   final int budget;
-  @JsonKey(defaultValue: false)
+  @DefaultFalseConverter()
   bool? isDeleted;
   @AutoSecondsSinceEpochConverter()
   int? order;
