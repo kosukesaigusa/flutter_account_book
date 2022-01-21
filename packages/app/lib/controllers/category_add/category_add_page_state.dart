@@ -6,5 +6,6 @@ part 'category_add_page_state.freezed.dart';
 class CategoryAddPageState with _$CategoryAddPageState {
   const factory CategoryAddPageState({
     @Default(true) bool loading,
+    @Default(false) bool sending,
   }) = _CategoryAddPageState;
 }

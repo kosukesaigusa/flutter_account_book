@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_account_book/controllers/bottom_navigation_bar/bottom_navigation_bar_controller.dart';
 import 'package:flutter_account_book/controllers/bottom_navigation_bar/bottom_navigation_bar_state.dart';
 import 'package:flutter_account_book/controllers/calendar/calendar_page_controller.dart';
+import 'package:flutter_account_book/controllers/category/category_page_controller.dart';
 import 'package:flutter_account_book/models/v2/expense/expense.dart';
 import 'package:flutter_account_book/pages/calendar/calendar_page.dart';
 import 'package:flutter_account_book/pages/category/category_page.dart';
@@ -46,7 +47,7 @@ class HomePage extends StatelessWidget {
           }
           if (index == 1) {
             await Navigator.pushNamed<void>(context, '${CategoryAddPage.path}?fullScreenDialog=1');
-            await context.read<CalendarPageController>().fetch();
+            await context.read<CategoryPageController>().fetch();
             return;
           }
         },

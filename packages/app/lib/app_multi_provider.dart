@@ -5,6 +5,8 @@ import 'package:flutter_account_book/controllers/bottom_navigation_bar/bottom_na
 import 'package:flutter_account_book/controllers/bottom_navigation_bar/bottom_navigation_bar_state.dart';
 import 'package:flutter_account_book/controllers/calendar/calendar_page_controller.dart';
 import 'package:flutter_account_book/controllers/calendar/calendar_page_state.dart';
+import 'package:flutter_account_book/controllers/category/category_page_controller.dart';
+import 'package:flutter_account_book/controllers/category/category_page_state.dart';
 import 'package:flutter_account_book/controllers/sign_in/sign_in_page_controller.dart';
 import 'package:flutter_account_book/controllers/sign_in/sign_in_page_state.dart';
 import 'package:flutter_account_book/controllers/snack_bar/snack_bar_controller.dart';
@@ -46,6 +48,9 @@ class AppMultiProvider extends StatelessWidget {
             ),
             StateNotifierProvider<CalendarPageController, CalendarPageState>(
               create: (_) => CalendarPageController(),
+            ),
+            StateNotifierProvider<CategoryPageController, CategoryPageState>(
+              create: (_) => CategoryPageController(),
             ),
           ],
           child: child,

@@ -17,9 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CategoryAddPageStateTearOff {
   const _$CategoryAddPageStateTearOff();
 
-  _CategoryAddPageState call({bool loading = true}) {
+  _CategoryAddPageState call({bool loading = true, bool sending = false}) {
     return _CategoryAddPageState(
       loading: loading,
+      sending: sending,
     );
   }
 }
@@ -30,6 +31,7 @@ const $CategoryAddPageState = _$CategoryAddPageStateTearOff();
 /// @nodoc
 mixin _$CategoryAddPageState {
   bool get loading => throw _privateConstructorUsedError;
+  bool get sending => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoryAddPageStateCopyWith<CategoryAddPageState> get copyWith =>
@@ -41,7 +43,7 @@ abstract class $CategoryAddPageStateCopyWith<$Res> {
   factory $CategoryAddPageStateCopyWith(CategoryAddPageState value,
           $Res Function(CategoryAddPageState) then) =
       _$CategoryAddPageStateCopyWithImpl<$Res>;
-  $Res call({bool loading});
+  $Res call({bool loading, bool sending});
 }
 
 /// @nodoc
@@ -56,11 +58,16 @@ class _$CategoryAddPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = freezed,
+    Object? sending = freezed,
   }) {
     return _then(_value.copyWith(
       loading: loading == freezed
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sending: sending == freezed
+          ? _value.sending
+          : sending // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -73,7 +80,7 @@ abstract class _$CategoryAddPageStateCopyWith<$Res>
           $Res Function(_CategoryAddPageState) then) =
       __$CategoryAddPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool loading});
+  $Res call({bool loading, bool sending});
 }
 
 /// @nodoc
@@ -90,11 +97,16 @@ class __$CategoryAddPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = freezed,
+    Object? sending = freezed,
   }) {
     return _then(_CategoryAddPageState(
       loading: loading == freezed
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sending: sending == freezed
+          ? _value.sending
+          : sending // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -103,15 +115,18 @@ class __$CategoryAddPageStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CategoryAddPageState implements _CategoryAddPageState {
-  const _$_CategoryAddPageState({this.loading = true});
+  const _$_CategoryAddPageState({this.loading = true, this.sending = false});
 
   @JsonKey()
   @override
   final bool loading;
+  @JsonKey()
+  @override
+  final bool sending;
 
   @override
   String toString() {
-    return 'CategoryAddPageState(loading: $loading)';
+    return 'CategoryAddPageState(loading: $loading, sending: $sending)';
   }
 
   @override
@@ -119,12 +134,15 @@ class _$_CategoryAddPageState implements _CategoryAddPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CategoryAddPageState &&
-            const DeepCollectionEquality().equals(other.loading, loading));
+            const DeepCollectionEquality().equals(other.loading, loading) &&
+            const DeepCollectionEquality().equals(other.sending, sending));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(loading));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(loading),
+      const DeepCollectionEquality().hash(sending));
 
   @JsonKey(ignore: true)
   @override
@@ -134,10 +152,13 @@ class _$_CategoryAddPageState implements _CategoryAddPageState {
 }
 
 abstract class _CategoryAddPageState implements CategoryAddPageState {
-  const factory _CategoryAddPageState({bool loading}) = _$_CategoryAddPageState;
+  const factory _CategoryAddPageState({bool loading, bool sending}) =
+      _$_CategoryAddPageState;
 
   @override
   bool get loading;
+  @override
+  bool get sending;
   @override
   @JsonKey(ignore: true)
   _$CategoryAddPageStateCopyWith<_CategoryAddPageState> get copyWith =>

@@ -62,7 +62,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
     try {
       final price = int.parse(priceTextEditingController.value.text);
       if (!(price > 0)) {
-        snackBarController.show('金額は整数値で入力してください。');
+        snackBarController.show('金額は 0 以上の整数値で入力してください。');
         return false;
       }
       final expense = Expense(
