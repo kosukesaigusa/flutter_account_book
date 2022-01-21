@@ -5,6 +5,9 @@ import 'package:flutter_account_book/themes/theme.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
+// TODO(kosukesaigusa): 固定費のモデリングを考える
+const fixedFeeTotal = 106663;
+
 /// カレンダー上部のその月の支出や収入のサマリー
 class ExpenseIncomeTotalWidget extends StatelessWidget {
   @override
@@ -17,28 +20,28 @@ class ExpenseIncomeTotalWidget extends StatelessWidget {
           Column(
             children: [
               Text('固定費', style: grey12),
-              if (!state.loading) Text('${toJpy(106663)}'),
+              if (!state.loading) Text('${toJpy(fixedFeeTotal)}'),
             ],
           ),
           const Spacer(),
           Column(
             children: [
               Text('変動費', style: grey12),
-              if (!state.loading) Text('${toJpy(_monthlyExpenses(state.monthlyExpense))}'),
+              if (!state.loading) Text('${toJpy(_monthlyExpense(state.monthlyExpense))}'),
             ],
           ),
           const Spacer(),
           Column(
             children: [
               Text('支出計', style: grey12),
-              if (!state.loading) Text('${toJpy(_monthlyIncomes(state.monthlyExpense))}'),
+              if (!state.loading) Text('${toJpy(_monthlyTotalExpense(state.monthlyExpense))}'),
             ],
           ),
           const Spacer(),
           Column(
             children: [
               Text('収入計', style: grey12),
-              if (!state.loading) Text('${toJpy(_monthlyIncomes(state.monthlyExpense))}'),
+              if (!state.loading) Text('${toJpy(_monthlyIncome(state.monthlyExpense))}'),
             ],
           ),
         ],
@@ -46,11 +49,14 @@ class ExpenseIncomeTotalWidget extends StatelessWidget {
     );
   }
 
-  /// その月の総支出
-  int _monthlyExpenses(MonthlyExpense me) =>
+  /// その月の総支出（固定費と変動費の合計）
+  int _monthlyTotalExpense(MonthlyExpense me) => _monthlyExpense(me) + fixedFeeTotal;
+
+  /// その月の変動費の合計
+  int _monthlyExpense(MonthlyExpense me) =>
       me.dailySummaries.map((ds) => ds.totalExpense).toList().reduce((a, b) => a + b);
 
   /// その月の総収入
-  int _monthlyIncomes(MonthlyExpense me) =>
+  int _monthlyIncome(MonthlyExpense me) =>
       me.dailySummaries.map((ds) => ds.totalIncome).toList().reduce((a, b) => a + b);
 }

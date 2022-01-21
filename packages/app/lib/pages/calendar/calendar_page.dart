@@ -38,6 +38,7 @@ class CalendarPage extends StatelessWidget {
                   const CalendarWidget(),
                 ]),
               ),
+              // カレンダー下部のその日の支出・収入の一覧
               ExpensesOfDaySliverList(),
             ],
           ),

@@ -15,17 +15,17 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
   @override
   void initState() {
     final now = DateTime.now();
-    final dailySummaries = List.generate(
-      lastDayOfMonth(now.year, now.month),
-      (i) => DailySummary(day: i + 1, expenses: [], incomes: []),
-    );
+    state = state.copyWith(year: now.year, month: now.month, day: now.day);
     state = state.copyWith(
       year: now.year,
       month: now.month,
       day: now.day,
-      dailySummaries: dailySummaries,
-      monthlyExpense:
-          MonthlyExpense(year: now.year, month: now.month, dailySummaries: dailySummaries),
+      dailySummaries: _emptyDailySummaries,
+      monthlyExpense: MonthlyExpense(
+        year: now.year,
+        month: now.month,
+        dailySummaries: _emptyDailySummaries,
+      ),
     );
     fetch();
     super.initState();
@@ -34,6 +34,20 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
   Future<void> fetch() async {
     await Future.wait([fetchExpenses(), fetchIncomes()]);
     state = state.copyWith(loading: false);
+  }
+
+  /// 月を移動した時などにリセットする
+  Future<void> reset() async {
+    state = state.copyWith(
+      loading: true,
+      dailySummaries: _emptyDailySummaries,
+      monthlyExpense: MonthlyExpense(
+        year: state.year,
+        month: state.month,
+        dailySummaries: _emptyDailySummaries,
+      ),
+    );
+    await fetch();
   }
 
   /// 指定した月の支出を取得して集計する。
@@ -90,24 +104,33 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
 
   /// 前の月を選択する
   void showPreviousMonth() {
-    final dateTime = DateTime(state.year, (state.month) - 1);
+    final previousMonth = DateTime(state.year, (state.month) - 1, 1);
     state = state.copyWith(
-      year: dateTime.year,
-      month: dateTime.month,
+      year: previousMonth.year,
+      month: previousMonth.month,
+      day: previousMonth.day,
     );
+    reset();
   }
 
   /// 次の月を選択する
   void showNextMonth() {
-    final dateTime = DateTime(state.year, (state.month) + 1);
+    final nextMonth = DateTime(state.year, (state.month) + 1, 1);
     state = state.copyWith(
-      year: dateTime.year,
-      month: dateTime.month,
+      year: nextMonth.year,
+      month: nextMonth.month,
+      day: nextMonth.day,
     );
+    reset();
   }
 
   /// 日付を選択する
   void onCalendarCellTapped(int day) {
     state = state.copyWith(day: day);
   }
+
+  List<DailySummary> get _emptyDailySummaries => List.generate(
+        lastDayOfMonth(state.year, state.month),
+        (i) => DailySummary(day: i + 1, expenses: [], incomes: []),
+      );
 }

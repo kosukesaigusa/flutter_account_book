@@ -15,16 +15,16 @@ class SignInPageController extends StateNotifier<SignInPageState> with LocatorMi
     final result = await AuthRepository.signInWithGoogle();
     return result.when(
       success: (userCredential, message, success) {
-        state.copyWith(loading: false);
+        state = state.copyWith(loading: false);
         return true;
       },
       failure: (message, code) {
-        state.copyWith(loading: false);
+        state = state.copyWith(loading: false);
         snackBarController.showMessage(code == null ? message : '($code): $message');
         return false;
       },
       error: (err) {
-        state.copyWith(loading: false);
+        state = state.copyWith(loading: false);
         snackBarController.showMessage(err);
         return false;
       },

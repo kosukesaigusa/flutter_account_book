@@ -11,7 +11,7 @@ class ExpensesOfDaySliverList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<CalendarPageState>();
-    final expenses = state.dailySummaries[state.day].expenses;
+    final expenses = state.dailySummaries[state.day - 1].expenses;
     // final incomes = state.dailySummaries[state.day].incomes;
     if (expenses.isEmpty) {
       return SliverList(
@@ -28,7 +28,7 @@ class ExpensesOfDaySliverList extends StatelessWidget {
         (context, index) {
           final expense = expenses[index];
           return Padding(
-            padding: const EdgeInsets.all(0),
+            padding: EdgeInsets.only(bottom: index == expenses.length - 1 ? 60 : 4),
             child: InkWell(
               onTap: () async {
                 // await Navigator.of(context).push<void>(
