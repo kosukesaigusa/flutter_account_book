@@ -27,7 +27,7 @@ class CategoryPageController extends StateNotifier<CategoryPageState> with Locat
   Future<void> fetchExpenseCategories() async {
     final expenseCategories = await ExpenseCategoryRepository.fetchExpenseCategories(
       userId: AuthRepository.uid,
-      queryBuilder: (q) => q.whereIsDeleted(isNotEqualTo: true).orderByBudget()
+      queryBuilder: (q) => q.whereIsDeleted(isNotEqualTo: true).orderByIsDeleted().orderByOrder()
       //.orderByUpdatedAt()
       ,
     );
@@ -56,6 +56,7 @@ class CategoryPageController extends StateNotifier<CategoryPageState> with Locat
     }
     try {
       await batch.commit();
+      state = state.copyWith(expenseCategories: state.expenseCategories);
     } on FirebaseException catch (e) {
       snackBarController.showByFirebaseException(e);
       return;
