@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/constatnts/calendar/calendar_constants.dart';
+import 'package:flutter_account_book/controllers/calendar/calendar_page_controller.dart';
+import 'package:flutter_account_book/controllers/calendar/calendar_page_state.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
@@ -9,22 +10,23 @@ import 'package:provider/provider.dart';
 class CalendarMonthHandlingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<CalendarViewModel>(context);
+    final controller = context.read<CalendarPageController>();
+    final state = context.watch<CalendarPageState>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
-          onTap: vm.showPreviousMonth,
+          onTap: controller.showPreviousMonth,
           child: const Icon(
             Icons.arrow_back_ios_outlined,
             size: arrowIconSize,
           ),
         ),
         const Gap(16),
-        Text('${vm.year}年 ${vm.month}月', style: bold16),
+        Text('${state.year}年 ${state.month}月', style: bold16),
         const Gap(16),
         InkWell(
-          onTap: vm.showNextMonth,
+          onTap: controller.showNextMonth,
           child: const Icon(
             Icons.arrow_forward_ios_outlined,
             size: arrowIconSize,

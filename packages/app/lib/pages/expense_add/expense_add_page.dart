@@ -6,7 +6,6 @@ import 'package:flutter_account_book/controllers/expense_add/expense_add_page_co
 import 'package:flutter_account_book/controllers/expense_add/expense_add_page_state.dart';
 import 'package:flutter_account_book/models/v1/expense/expense.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/datetime/datetime.dart';
 import 'package:flutter_account_book/utils/utility_methods.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:gap/gap.dart';
@@ -241,6 +240,6 @@ class ExpenseAddPage extends StatelessWidget {
 
   /// 選択中の「年月日 (曜) 」の文字列
   String _selectedDateTimeString(int year, int month, int day) {
-    return '$year年$month月$day日 (${getJapaneseWeekday(year, month, day)})';
+    return '$year年$month月$day日 (${japaneseWeekDay(year, month, day)})';
   }
 }

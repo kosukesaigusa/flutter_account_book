@@ -38,7 +38,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
   Future<void> fetchExpenseCategories() async {
     state = state.copyWith(loading: true);
     final expenseCategories = await ExpenseCategoryRepository.fetchExpenseCategories(
-      userId: AuthRepository.nonNullUser.uid,
+      userId: AuthRepository.uid,
       queryBuilder: (q) => q.orderByOrder(),
     );
     state = state.copyWith(
@@ -72,7 +72,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
         expenseCategoryId: expenseCategory.expenseCategoryId,
       );
       await ExpenseRepository.expenseRef(
-        userId: AuthRepository.nonNullUser.uid,
+        userId: AuthRepository.uid,
         expenseId: expense.expenseId,
       ).set(expense);
     } on FirebaseException catch (e) {

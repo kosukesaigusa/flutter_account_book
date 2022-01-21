@@ -19,7 +19,8 @@ class CategoryPage extends StatelessWidget {
           builder: (context, vm, child) {
             return RefreshIndicator(
               onRefresh: () async {
-                await CategoryViewModel().fetchCategories();
+                // await CategoryViewModel().fetchCategories();
+                // await context.read<CategoryController>().fetch();
               },
               child: ReorderableListView.builder(
                 itemBuilder: (context, index) {

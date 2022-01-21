@@ -1,79 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/constatnts/calendar/calendar_constants.dart';
+import 'package:flutter_account_book/controllers/calendar/calendar_page_controller.dart';
+import 'package:flutter_account_book/controllers/calendar/calendar_page_state.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/datetime/datetime.dart';
-import 'package:flutter_account_book/view_models/calendar/calendar_view_model.dart';
+import 'package:gap/gap.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
+/// カレンダーの全体
 class CalendarWidget extends StatelessWidget {
-  CalendarWidget();
+  const CalendarWidget();
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<CalendarViewModel>(
-      builder: (context, vm, child) => Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: weekdayRow,
+    return Column(
+      children: [
+        // 冒頭のグレーの週部分
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List<Widget>.generate(
+            7,
+            (i) => Expanded(
+              child: Container(
+                color: grey200,
+                child: Center(child: Text('${japaneseWeekdays[i]}')),
+              ),
+            ),
           ),
-          CalendarBody(showEmptyCalendar: !vm.ready),
-        ],
-      ),
+        ),
+        // カレンダーの本体
+        const CalendarBody(),
+      ],
     );
   }
-
-  /// カレンダー上部の月〜日の曜日を表示するウィジェット
-  final weekdayRow = List<Widget>.generate(
-    7,
-    (i) => Expanded(
-      child: Container(
-        color: grey200,
-        child: Center(child: Text('${weekdays[i]}')),
-      ),
-    ),
-  );
 }
 
 /// カレンダーの本体
 class CalendarBody extends StatelessWidget {
-  const CalendarBody({this.showEmptyCalendar = false});
-  final bool showEmptyCalendar;
+  const CalendarBody();
+
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<CalendarViewModel>(context);
-    final weekDayOfFirstDay = DateTime(vm.year, vm.month, 1).weekday;
-    final lastDay = getLastDay(vm.year, vm.month);
-    final rowCount = ((weekDayOfFirstDay - 1 + lastDay) / 7).ceil();
-    final children = <Widget>[];
+    final state = context.watch<CalendarPageState>();
+    final intWeekDayOfFirstDay = DateTime(state.year, state.month, 1).weekday;
+    final rowCount =
+        ((intWeekDayOfFirstDay - 1 + lastDayOfMonth(state.year, state.month)) / 7).ceil();
+    // 行のリスト（最大 6 行）
+    final weekRows = <Widget>[];
     for (var i = 0; i < rowCount; i++) {
-      final weekRowChildren = <Widget>[];
+      // 1 週間分の各行を構成する DateCell のリスト
+      final dateCells = <Widget>[];
       for (var j = 0; j < 7; j++) {
-        final number = i * 7 + j + 1 - (weekDayOfFirstDay - 1);
-        weekRowChildren.add(CalendarDateCell(
-          number: number,
-          showEmptyCalendar: showEmptyCalendar,
-        ));
+        // 1 日以前 32 日以降も取りうるカレンダー上の広い意味での日付
+        final day = i * 7 + j + 1 - (intWeekDayOfFirstDay - 1);
+        dateCells.add(CalendarDateCell(day: day));
       }
-      children.add(Row(children: weekRowChildren));
+      weekRows.add(Row(children: dateCells));
     }
-    return Column(children: children);
+    return Column(children: weekRows);
   }
 }
 
+/// カレンダーの各日付のセル
 class CalendarDateCell extends StatelessWidget {
-  const CalendarDateCell({
-    required this.number,
-    required this.showEmptyCalendar,
-  });
-  final int number;
-  final bool showEmptyCalendar;
+  const CalendarDateCell({required this.day});
+  final int day;
+
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<CalendarViewModel>(context);
-    final lastDay = getLastDay(vm.year, vm.month);
-    final isEmptyCell = number < 1 || number > lastDay;
-    if (isEmptyCell) {
+    final state = context.watch<CalendarPageState>();
+    // 1 日以前 月の最終日以降では空っぽのセルを表示する
+    if (day < 1 || day > lastDayOfMonth(state.year, state.month)) {
       return Expanded(
         child: Container(
           decoration: BoxDecoration(
@@ -85,35 +82,17 @@ class CalendarDateCell extends StatelessWidget {
         ),
       );
     }
-    final children = <Widget>[];
-    children.add(
-      Padding(
-        padding: const EdgeInsets.only(bottom: 4),
-        child: CalendarDateText(number: number, selected: number == vm.day),
-      ),
-    );
-    if (!showEmptyCalendar) {
-      children.add(
-        const Flexible(
-          child: Text(
-            '収入',
-            style: blue12,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-        ),
-      );
-      children.add(
-        Flexible(
-          child: Text(
-            vm.expenseMap[number] == null ? '' : '${addComma(vm.expenseMap[number]!)}',
-            style: red12,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-        ),
-      );
-    }
+    return CalendarCellContent(day: day);
+  }
+}
+
+/// カレンダーの空でない日付の中身
+class CalendarCellContent extends StatelessWidget {
+  const CalendarCellContent({required this.day});
+  final int day;
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -122,40 +101,65 @@ class CalendarDateCell extends StatelessWidget {
         height: cellHeight,
         child: InkWell(
           onTap: () {
-            vm.onDateCellTapped(number);
+            context.read<CalendarPageController>().onCalendarCellTapped(day);
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: children,
+            children: <Widget>[
+              CalendarDateText(day: day),
+              const Gap(4),
+              if (!context.watch<CalendarPageState>().loading) Flexible(child: _buildIncomeText(0)),
+              if (!context.watch<CalendarPageState>().loading)
+                Flexible(
+                  child: _buildExpenseText(
+                      context.watch<CalendarPageState>().dailySummaries[day - 1].totalExpense),
+                ),
+            ],
           ),
         ),
       ),
     );
   }
+
+  /// その日の総収入の青文字
+  Widget _buildIncomeText(int number) {
+    return number > 0
+        ? Text(
+            '${addComma(number)}',
+            style: blue12,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          )
+        : const SizedBox();
+  }
+
+  /// その日の総支出の赤文字
+  Widget _buildExpenseText(int number) {
+    return Text(
+      number > 0 ? '${addComma(number)}' : '-',
+      style: red12,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
+    );
+  }
 }
 
+/// カレンダーの各セルの日付部分。
+/// 選択中のときは色付き丸枠で囲まれる。
 class CalendarDateText extends StatelessWidget {
-  const CalendarDateText({required this.number, required this.selected});
-  final int number;
-  final bool selected;
+  const CalendarDateText({required this.day});
+  final int day;
+
   @override
   Widget build(BuildContext context) {
-    if (selected) {
-      return Container(
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        child: Center(
-          child: Text('$number', style: whiteBold12),
-        ),
-      );
-    }
-    return Padding(
+    final selected = day == context.watch<CalendarPageState>().day;
+    return Container(
       padding: const EdgeInsets.all(4),
+      decoration: selected
+          ? BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.primary)
+          : null,
       child: Center(
-        child: Text('$number', style: regular12),
+        child: Text('$day', style: selected ? whiteBold12 : regular12),
       ),
     );
   }
