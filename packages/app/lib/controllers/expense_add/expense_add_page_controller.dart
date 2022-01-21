@@ -27,10 +27,10 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
 
   @override
   void initState() {
-    super.initState();
     final now = DateTime.now();
     state = state.copyWith(year: now.year, month: now.month, day: now.day);
     fetchExpenseCategories();
+    super.initState();
   }
 
   /// 支払いカテゴリーを取得する。

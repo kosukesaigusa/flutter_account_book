@@ -14,7 +14,6 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
 
   @override
   void initState() {
-    super.initState();
     final now = DateTime.now();
     final dailySummaries = List.generate(
       lastDayOfMonth(now.year, now.month),
@@ -29,6 +28,7 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
           MonthlyExpense(year: now.year, month: now.month, dailySummaries: dailySummaries),
     );
     fetch();
+    super.initState();
   }
 
   Future<void> fetch() async {
@@ -36,7 +36,7 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
     state = state.copyWith(loading: false);
   }
 
-  /// 指定した月の支出を取得して...
+  /// 指定した月の支出を取得して集計する。
   Future<void> fetchExpenses() async {
     final thisMonthString = DateTime(state.year, state.month).toIso8601String();
     final nextMonthString = DateTime(state.year, state.month + 1).toIso8601String();
@@ -62,7 +62,7 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
     }
   }
 
-  /// 指定した月の収入を取得して...
+  /// 指定した月の収入を取得して集計する。
   Future<void> fetchIncomes() async {
     final thisMonthString = DateTime(state.year, state.month).toIso8601String();
     final nextMonthString = DateTime(state.year, state.month + 1).toIso8601String();
