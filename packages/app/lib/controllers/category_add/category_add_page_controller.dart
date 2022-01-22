@@ -15,12 +15,6 @@ class CategoryAddPageController extends StateNotifier<CategoryAddPageState> with
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController budgetTextEditingController = TextEditingController();
 
-  @override
-  void initState() {
-    print('');
-    super.initState();
-  }
-
   /// 支出カテゴリーを登録する。
   Future<bool> setExpenseCategory() async {
     if (nameTextEditingController.value.text.isEmpty) {
