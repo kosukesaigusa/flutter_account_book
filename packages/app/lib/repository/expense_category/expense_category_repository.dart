@@ -82,10 +82,9 @@ class ExpenseCategoryRepository {
     required String userId,
     required String expenseCategoryId,
   }) {
-    final docStream = expenseCategoryRef(
+    return expenseCategoryRef(
       userId: userId,
       expenseCategoryId: expenseCategoryId,
-    ).snapshots();
-    return docStream.map((ds) => ds.data);
+    ).snapshots().map((ds) => ds.data);
   }
 }

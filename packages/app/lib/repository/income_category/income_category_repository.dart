@@ -82,10 +82,9 @@ class IncomeCategoryRepository {
     required String userId,
     required String incomeCategoryId,
   }) {
-    final docStream = incomeCategoryRef(
+    return incomeCategoryRef(
       userId: userId,
       incomeCategoryId: incomeCategoryId,
-    ).snapshots();
-    return docStream.map((ds) => ds.data);
+    ).snapshots().map((ds) => ds.data);
   }
 }
