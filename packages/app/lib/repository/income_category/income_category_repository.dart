@@ -29,7 +29,7 @@ class IncomeCategoryRepository {
     required String userId,
     Source source = Source.serverAndCache,
     IncomeCategoryQuery? Function(IncomeCategoryQuery incomeCategoryQuery)? queryBuilder,
-    int Function(IncomeCategory lhs, IncomeCategory rhs)? sort,
+    int Function(IncomeCategory lhs, IncomeCategory rhs)? compare,
   }) async {
     IncomeCategoryQuery query = incomeCategoriesRef(userId: userId);
     if (queryBuilder != null) {
@@ -37,8 +37,8 @@ class IncomeCategoryRepository {
     }
     final qs = await query.get();
     final result = qs.docs.map((qds) => qds.data).toList();
-    if (sort != null) {
-      result.sort(sort);
+    if (compare != null) {
+      result.sort(compare);
     }
     return result;
   }
@@ -48,7 +48,7 @@ class IncomeCategoryRepository {
     required String userId,
     Source source = Source.serverAndCache,
     IncomeCategoryQuery? Function(IncomeCategoryQuery incomeCategoryQuery)? queryBuilder,
-    int Function(IncomeCategory lhs, IncomeCategory rhs)? sort,
+    int Function(IncomeCategory lhs, IncomeCategory rhs)? compare,
   }) {
     IncomeCategoryQuery query = incomeCategoriesRef(userId: userId);
     if (queryBuilder != null) {
@@ -57,8 +57,8 @@ class IncomeCategoryRepository {
     final collectionStream = query.snapshots();
     return collectionStream.map((qs) {
       final result = qs.docs.map((qds) => qds.data).toList();
-      if (sort != null) {
-        result.sort(sort);
+      if (compare != null) {
+        result.sort(compare);
       }
       return result;
     });

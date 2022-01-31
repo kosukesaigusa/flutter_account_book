@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
           final index = context.read<BottomNavigationBarState>().currentIndex;
           if (index == 0) {
             await Navigator.pushNamed<void>(context, '${ExpenseAddPage.path}?fullScreenDialog=1');
-            await context.read<CalendarPageController>().fetch();
+            await context.read<CalendarPageController>().reset();
             return;
           }
           if (index == 1) {

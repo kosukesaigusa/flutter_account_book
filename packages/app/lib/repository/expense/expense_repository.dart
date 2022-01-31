@@ -28,7 +28,7 @@ class ExpenseRepository {
     required String userId,
     Source source = Source.serverAndCache,
     ExpenseQuery? Function(ExpenseQuery expenseQuery)? queryBuilder,
-    int Function(Expense lhs, Expense rhs)? sort,
+    int Function(Expense lhs, Expense rhs)? compare,
   }) async {
     ExpenseQuery query = expensesRef(userId: userId);
     if (queryBuilder != null) {
@@ -36,8 +36,8 @@ class ExpenseRepository {
     }
     final qs = await query.get();
     final result = qs.docs.map((qds) => qds.data).toList();
-    if (sort != null) {
-      result.sort(sort);
+    if (compare != null) {
+      result.sort(compare);
     }
     return result;
   }
@@ -47,7 +47,7 @@ class ExpenseRepository {
     required String userId,
     Source source = Source.serverAndCache,
     ExpenseQuery? Function(ExpenseQuery expenseQuery)? queryBuilder,
-    int Function(Expense lhs, Expense rhs)? sort,
+    int Function(Expense lhs, Expense rhs)? compare,
   }) {
     ExpenseQuery query = expensesRef(userId: userId);
     if (queryBuilder != null) {
@@ -56,8 +56,8 @@ class ExpenseRepository {
     final collectionStream = query.snapshots();
     return collectionStream.map((qs) {
       final result = qs.docs.map((qds) => qds.data).toList();
-      if (sort != null) {
-        result.sort(sort);
+      if (compare != null) {
+        result.sort(compare);
       }
       return result;
     });

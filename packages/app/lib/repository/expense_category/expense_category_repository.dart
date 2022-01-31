@@ -29,7 +29,7 @@ class ExpenseCategoryRepository {
     required String userId,
     Source source = Source.serverAndCache,
     ExpenseCategoryQuery? Function(ExpenseCategoryQuery expenseCategoryQuery)? queryBuilder,
-    int Function(ExpenseCategory lhs, ExpenseCategory rhs)? sort,
+    int Function(ExpenseCategory lhs, ExpenseCategory rhs)? compare,
   }) async {
     ExpenseCategoryQuery query = expenseCategoriesRef(userId: userId);
     if (queryBuilder != null) {
@@ -37,8 +37,8 @@ class ExpenseCategoryRepository {
     }
     final qs = await query.get();
     final result = qs.docs.map((qds) => qds.data).toList();
-    if (sort != null) {
-      result.sort(sort);
+    if (compare != null) {
+      result.sort(compare);
     }
     return result;
   }
@@ -48,7 +48,7 @@ class ExpenseCategoryRepository {
     required String userId,
     Source source = Source.serverAndCache,
     ExpenseCategoryQuery? Function(ExpenseCategoryQuery expenseCategoryQuery)? queryBuilder,
-    int Function(ExpenseCategory lhs, ExpenseCategory rhs)? sort,
+    int Function(ExpenseCategory lhs, ExpenseCategory rhs)? compare,
   }) {
     ExpenseCategoryQuery query = expenseCategoriesRef(userId: userId);
     if (queryBuilder != null) {
@@ -57,8 +57,8 @@ class ExpenseCategoryRepository {
     final collectionStream = query.snapshots();
     return collectionStream.map((qs) {
       final result = qs.docs.map((qds) => qds.data).toList();
-      if (sort != null) {
-        result.sort(sort);
+      if (compare != null) {
+        result.sort(compare);
       }
       return result;
     });

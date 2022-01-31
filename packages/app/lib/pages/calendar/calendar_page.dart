@@ -21,7 +21,7 @@ class CalendarPage extends StatelessWidget {
       builder: (context, _) {
         return RefreshIndicator(
           onRefresh: () async {
-            await context.read<CalendarPageController>().fetchExpenses();
+            await context.read<CalendarPageController>().reset();
           },
           child: CustomScrollView(
             slivers: <Widget>[
