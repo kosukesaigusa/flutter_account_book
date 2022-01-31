@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_account_book/controllers/calendar/calendar_page_controller.dart';
 import 'package:flutter_account_book/controllers/calendar/calendar_page_state.dart';
+import 'package:flutter_account_book/pages/expense_add/expense_add_page.dart';
+import 'package:flutter_account_book/route/utils.dart';
 import 'package:flutter_account_book/themes/theme.dart';
-import 'package:flutter_account_book/utils/utils.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
@@ -31,14 +32,12 @@ class ExpensesOfDaySliverList extends StatelessWidget {
             padding: EdgeInsets.only(bottom: index == expenses.length - 1 ? 60 : 4),
             child: InkWell(
               onTap: () async {
-                // await Navigator.of(context).push<void>(
-                //   MaterialPageRoute(
-                //     builder: (context) => ExpenseAddPage(expense: expense),
-                //     fullscreenDialog: true,
-                //   ),
-                // );
-                showFloatingSnackBar(context, 'まだ何も起こりません。');
-                await context.read<CalendarPageController>().fetch();
+                await Navigator.pushNamed<void>(
+                  context,
+                  '${ExpenseAddPage.path}?fullScreenDialog=1',
+                  arguments: RouteArgs(<String, dynamic>{'expense': expense}),
+                );
+                await context.read<CalendarPageController>().reset();
                 return;
               },
               child: Padding(

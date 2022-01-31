@@ -1,2 +1,2 @@
-double cellHeight = 100;
+double cellHeight = 80;
 const double arrowIconSize = 18;

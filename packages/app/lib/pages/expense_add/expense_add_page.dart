@@ -4,7 +4,8 @@ import 'package:flutter_account_book/constatnts/calendar/calendar_constants.dart
 import 'package:flutter_account_book/constatnts/expense_add/constants.dart';
 import 'package:flutter_account_book/controllers/expense_add/expense_add_page_controller.dart';
 import 'package:flutter_account_book/controllers/expense_add/expense_add_page_state.dart';
-import 'package:flutter_account_book/models/v1/expense/expense.dart';
+import 'package:flutter_account_book/models/v2/expense/expense.dart';
+import 'package:flutter_account_book/route/utils.dart';
 import 'package:flutter_account_book/themes/theme.dart';
 import 'package:flutter_account_book/utils/utils.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
@@ -12,42 +13,40 @@ import 'package:gap/gap.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:provider/provider.dart';
 
+/// 支出を登録する画面。
+/// Add と命名しているが、Expense インスタンスを引数に渡した場合は
+/// それをもとに編集する画面となる。
 class ExpenseAddPage extends StatelessWidget {
-  const ExpenseAddPage({
-    Key? key,
-    this.expense,
-  }) : super(key: key);
+  const ExpenseAddPage({Key? key}) : super(key: key);
 
   static const path = '/expense-add/';
   static const name = 'ExpenseAddPage';
 
-  final Expense? expense;
-
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as RouteArgs?;
+    final expense = (args?.data ?? <String, dynamic>{'expense': null})['expense'] as Expense?;
     return StateNotifierProvider<ExpenseAddPageController, ExpenseAddPageState>(
-      create: (_) => ExpenseAddPageController(year: 2022, month: 1, day: 18),
+      create: (_) => ExpenseAddPageController(originalExpense: expense),
       builder: (context, _) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('支出の登録'),
-            actions: const [
-              // vm.editingMode
-              //     ? IconButton(
-              //         onPressed: () async {
-              //           final ref = expense?.reference;
-              //           if (ref == null) {
-              //             showFloatingSnackBar(context, 'エラーが発生しました。');
-              //             return;
-              //           }
-              //           await deleteData(docRef: ref);
-              //           Navigator.pop(context);
-              //           await CalendarViewModel().fetchExpensesAndIncomes();
-              //           showFloatingSnackBar(context, '支出を削除しました。');
-              //         },
-              //         icon: const Icon(Icons.delete),
-              //       )
-              //     : const SizedBox(),
+            actions: [
+              expense == null
+                  ? const SizedBox()
+                  : IconButton(
+                      onPressed: () async {
+                        final result =
+                            await context.read<ExpenseAddPageController>().deleteExpense(expense);
+                        if (!result) {
+                          return;
+                        }
+                        Navigator.pop(context);
+                        showFloatingSnackBar(context, '支出を削除しました。');
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
             ],
           ),
           body: SafeArea(
@@ -218,13 +217,17 @@ class ExpenseAddPage extends StatelessWidget {
                                 showFloatingSnackBar(context, 'ネットワーク接続がありません。');
                                 return;
                               }
-                              final result =
-                                  await context.read<ExpenseAddPageController>().setExpense();
+                              final result = expense == null
+                                  ? await context.read<ExpenseAddPageController>().setExpense()
+                                  : await context.read<ExpenseAddPageController>().updateExpense();
                               if (!result) {
                                 return;
                               }
                               Navigator.pop(context);
-                              showFloatingSnackBar(context, '支出を登録しました。');
+                              showFloatingSnackBar(
+                                context,
+                                expense == null ? '支出を登録しました。' : '支出を更新しました。',
+                              );
                             },
                       child: const Text('保存する'),
                     ),

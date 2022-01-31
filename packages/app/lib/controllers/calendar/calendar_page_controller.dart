@@ -32,9 +32,7 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
   }
 
   Future<void> fetch() async {
-    // await Future.wait([fetchExpenses(), fetchIncomes()])
-    await fetchExpenses();
-    await fetchIncomes();
+    await Future.wait([fetchExpenses(), fetchIncomes()]);
     state = state.copyWith(loading: false);
   }
 
