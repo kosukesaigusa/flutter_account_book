@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_account_book/controllers/category_add/category_add_page_state.dart';
 import 'package:flutter_account_book/controllers/snack_bar/snack_bar_controller.dart';
 import 'package:flutter_account_book/models/v2/expense_category/expense_category.dart';
-import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/repository/expense_category/expense_category_repository.dart';
 import 'package:flutter_account_book/utils/utils.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -39,7 +38,7 @@ class CategoryAddPageController extends StateNotifier<CategoryAddPageState> with
         budget: budget,
       );
       await ExpenseCategoryRepository.expenseCategoryRef(
-        userId: AuthRepository.uid,
+        userId: nonNullUid,
         expenseCategoryId: expenseCategory.expenseCategoryId,
       ).set(expenseCategory);
     } on FirebaseException catch (e) {

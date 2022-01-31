@@ -1,9 +1,9 @@
 import 'package:flutter_account_book/controllers/calendar/calendar_page_state.dart';
 import 'package:flutter_account_book/controllers/snack_bar/snack_bar_controller.dart';
 import 'package:flutter_account_book/models/v2/daily_expense_summary/daily_expense_summary.dart';
-import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/repository/expense/expense_repository.dart';
 import 'package:flutter_account_book/repository/income/income_repository.dart';
+import 'package:flutter_account_book/utils/utils.dart';
 import 'package:ks_flutter_commons/ks_flutter_commons.dart';
 import 'package:state_notifier/state_notifier.dart';
 
@@ -55,7 +55,7 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
     final thisMonthString = DateTime(state.year, state.month).toIso8601String();
     final nextMonthString = DateTime(state.year, state.month + 1).toIso8601String();
     final expenses = await ExpenseRepository.fetchExpenses(
-      userId: AuthRepository.uid,
+      userId: nonNullUid,
       queryBuilder: (q) => q
           .wherePaidAt(isGreaterThanOrEqualTo: thisMonthString)
           .wherePaidAt(isLessThan: nextMonthString)
@@ -81,7 +81,7 @@ class CalendarPageController extends StateNotifier<CalendarPageState> with Locat
     final thisMonthString = DateTime(state.year, state.month).toIso8601String();
     final nextMonthString = DateTime(state.year, state.month + 1).toIso8601String();
     final incomes = await IncomeRepository.fetchIncomes(
-      userId: AuthRepository.uid,
+      userId: nonNullUid,
       queryBuilder: (q) => q
           .whereEarnedAt(isGreaterThanOrEqualTo: thisMonthString)
           .whereEarnedAt(isLessThan: nextMonthString)

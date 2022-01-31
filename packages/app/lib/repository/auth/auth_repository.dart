@@ -8,12 +8,6 @@ class AuthRepository {
 
   static final auth = FirebaseAuth.instance;
 
-  /// Firebase Authentication が管理する現在のユーザーと uid。
-  /// 簡便のため Non-null operator を使っているので、
-  /// サインアウトしている可能性がある画面では使用しないように注意する。
-  static User get nonNullUser => FirebaseAuth.instance.currentUser!;
-  static String get uid => FirebaseAuth.instance.currentUser!.uid;
-
   /// Google サインイン
   static Future<FirebaseTaskResult<UserCredential>> signInWithGoogle() async {
     try {

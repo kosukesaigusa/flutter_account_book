@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_account_book/controllers/category/category_page_state.dart';
 import 'package:flutter_account_book/controllers/snack_bar/snack_bar_controller.dart';
-import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/repository/expense_category/expense_category_repository.dart';
 import 'package:flutter_account_book/utils/utils.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -26,7 +25,7 @@ class CategoryPageController extends StateNotifier<CategoryPageState> with Locat
 
   Future<void> fetchExpenseCategories() async {
     final expenseCategories = await ExpenseCategoryRepository.fetchExpenseCategories(
-      userId: AuthRepository.uid,
+      userId: nonNullUid,
       queryBuilder: (q) => q.whereIsDeleted(isNotEqualTo: true).orderByIsDeleted().orderByOrder()
       //.orderByUpdatedAt()
       ,
@@ -48,7 +47,7 @@ class CategoryPageController extends StateNotifier<CategoryPageState> with Locat
       // 型安全ではないのは、いまは妥協する
       batch.update(
         ExpenseCategoryRepository.expenseCategoryRef(
-          userId: AuthRepository.uid,
+          userId: nonNullUid,
           expenseCategoryId: state.expenseCategories[i].expenseCategoryId,
         ).reference,
         <String, dynamic>{'order': i},

@@ -4,7 +4,6 @@ import 'package:flutter_account_book/controllers/expense_add/expense_add_page_st
 import 'package:flutter_account_book/controllers/snack_bar/snack_bar_controller.dart';
 import 'package:flutter_account_book/models/v2/expense/expense.dart';
 import 'package:flutter_account_book/models/v2/expense_category/expense_category.dart';
-import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:flutter_account_book/repository/expense/expense_repository.dart';
 import 'package:flutter_account_book/repository/expense_category/expense_category_repository.dart';
 import 'package:flutter_account_book/utils/utils.dart';
@@ -46,7 +45,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
         name: expense.name,
         price: expense.price,
         selectedExpenseCategory: await ExpenseCategoryRepository.fetchExpenseCategory(
-          userId: AuthRepository.uid,
+          userId: nonNullUid,
           expenseCategoryId: expense.expenseCategoryId,
         ));
   }
@@ -56,7 +55,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
   Future<void> fetchExpenseCategories() async {
     state = state.copyWith(loading: true);
     final expenseCategories = await ExpenseCategoryRepository.fetchExpenseCategories(
-      userId: AuthRepository.uid,
+      userId: nonNullUid,
       queryBuilder: (q) => q.orderByOrder(),
     );
     state = state.copyWith(
@@ -90,7 +89,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
         paidAt: DateTime(state.year, state.month, state.day).toIso8601String(),
       );
       await ExpenseRepository.expenseRef(
-        userId: AuthRepository.uid,
+        userId: nonNullUid,
         expenseId: expense.expenseId,
       ).set(expense);
     } on FirebaseException catch (e) {
@@ -127,7 +126,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
         return false;
       }
       await ExpenseRepository.expenseRef(
-        userId: AuthRepository.uid,
+        userId: nonNullUid,
         expenseId: originalExpense!.expenseId,
       ).update(
         name: nameTextEditingController.value.text,
@@ -152,7 +151,7 @@ class ExpenseAddPageController extends StateNotifier<ExpenseAddPageState> with L
   Future<bool> deleteExpense(Expense e) async {
     try {
       await ExpenseRepository.expenseRef(
-        userId: AuthRepository.uid,
+        userId: nonNullUid,
         expenseId: e.expenseId,
       ).delete();
     } on FirebaseException catch (e) {

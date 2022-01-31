@@ -114,8 +114,7 @@ ListTile _buildMigrateExpensesDrawerItem(BuildContext context) => ListTile(
       leading: const Icon(Icons.copy),
       title: const Text('V1 の支出を V2 にコピーする'),
       onTap: () async {
-        final qs =
-            await db.collection('expenseV1').doc(AuthRepository.uid).collection('expenses').get();
+        final qs = await db.collection('expenseV1').doc(nonNullUid).collection('expenses').get();
         for (final qds in qs.docs) {
           final data = qds.data();
           final expense = Expense(
@@ -128,7 +127,7 @@ ListTile _buildMigrateExpensesDrawerItem(BuildContext context) => ListTile(
             isDeleted: data['isDeleted'] as bool,
           );
           await ExpenseRepository.expenseRef(
-            userId: AuthRepository.uid,
+            userId: nonNullUid,
             expenseId: qds.id,
           ).set(expense);
         }
