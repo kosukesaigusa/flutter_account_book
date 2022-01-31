@@ -24,13 +24,13 @@ scripts:
     run: melos exec --scope="flutter_account_book" \
       "flutter pub run build_runner watch --delete-conflicting-outputs && exit"
 
-  # build:devios:
-  #   run: melos exec --scope="flutter_account_book" \
-  #     "fab devios && exit"
+  build:devios:
+    run: melos exec --scope="flutter_account_book" \
+      "fab devios && exit"
 
-  # build:prodios:
-  #   run: melos exec --scope="flutter_account_book" \
-  #     "fab prodios && exit"
+  build:prodios:
+    run: melos exec --scope="flutter_account_book" \
+      "fab prodios && exit"
 
   # build:devandroid:
   #   run: melos exec --scope="flutter_account_book" \
