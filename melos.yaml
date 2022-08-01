@@ -8,21 +8,21 @@ packages:
 
 scripts:
   clean:
-    run: melos exec -- "flutter clean"
+    run: melos exec -- "fvm flutter clean"
 
   pub:get:
-    run: melos exec -- "flutter pub get"
+    run: melos exec -- "fvm flutter pub get"
 
   clean:pub:get:
-    run: melos exec -- "flutter clean && flutter pub get"
+    run: melos exec -- "fvm flutter clean && fvm flutter pub get"
 
   generate:
     run: melos exec --scope="flutter_account_book" \
-      "flutter pub run build_runner build --delete-conflicting-outputs && exit"
+      "fvm flutter pub run build_runner build --delete-conflicting-outputs && exit"
 
   generate:watch:
     run: melos exec --scope="flutter_account_book" \
-      "flutter pub run build_runner watch --delete-conflicting-outputs && exit"
+      "fvm flutter pub run build_runner watch --delete-conflicting-outputs && exit"
 
   build:dev:ios:
     run: melos exec --scope="flutter_account_book" \

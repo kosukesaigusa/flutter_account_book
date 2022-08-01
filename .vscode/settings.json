@@ -1,4 +1,11 @@
 {
-  "dart.flutterSdkPath": "/Users/kosukesaigusa/.asdf/installs/flutter/2.10.5-stable",
+  "dart.flutterSdkPath": "/Users/kosukesaigusa/fvm/versions/2.10.5",
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
   "dart.runPubGetOnPubspecChanges": false
 }
