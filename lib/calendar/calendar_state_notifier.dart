@@ -47,7 +47,7 @@ class CalendarStateNotifier extends StateNotifier<CalendarState> {
   }
 
   /// 月を移動した時などにリセットする。
-  Future<void> _reset() async {
+  Future<void> reset() async {
     state = state.copyWith(
       dailySummaries: _generateEmptyDailySummaries(),
       monthlyExpense: MonthlyExpense(
@@ -87,7 +87,7 @@ class CalendarStateNotifier extends StateNotifier<CalendarState> {
       month: previousMonth.month,
       day: previousMonth.day,
     );
-    await _reset();
+    await reset();
   }
 
   /// 次の月を選択する。
@@ -98,7 +98,7 @@ class CalendarStateNotifier extends StateNotifier<CalendarState> {
       month: nextMonth.month,
       day: nextMonth.day,
     );
-    await _reset();
+    await reset();
   }
 
   /// 日付を選択する。

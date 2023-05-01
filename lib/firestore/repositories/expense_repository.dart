@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../expense/expense.dart';
-import '../../firestore_refs.dart';
+import '../firestore_refs.dart';
+import '../models/expense.dart';
 
 final expenseRepositoryProvider = Provider.autoDispose<ExpenseRepository>(
   (_) => ExpenseRepository(),
@@ -15,8 +15,24 @@ class ExpenseRepository {
   String get _userId => FirebaseAuth.instance.currentUser!.uid;
 
   /// [Expense] を登録する。
-  Future<void> saveExpense({required Expense expense}) =>
+  Future<void> addExpense({required Expense expense}) =>
       expensesRef(userId: _userId).add(expense);
+
+  /// [Expense] を更新する。
+  Future<void> updateExpense({
+    required String expenseId,
+    required String name,
+    required int price,
+    required String expenseCategoryId,
+    required DateTime paidAt,
+  }) =>
+      expenseRef(userId: _userId, expenseId: expenseId)
+          .update(<String, dynamic>{
+        'name': name,
+        'price': price,
+        'expenseCategoryId': expenseCategoryId,
+        'paidAt': paidAt,
+      });
 
   /// 指定した [Expense] を削除する。
   Future<void> deleteExpense({required String expenseId}) =>

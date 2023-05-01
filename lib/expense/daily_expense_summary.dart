@@ -1,4 +1,4 @@
-import 'expense.dart';
+import '../firestore/models/expense.dart';
 
 /// Expense といっているが、DailySummary を日付分だけ保持するクラス。
 class MonthlyExpense {

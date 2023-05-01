@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../auth/auth.dart';
+import '../../expense/ui/daily_expense.dart';
 import '../../router/router.dart';
 import '../../router/router.gr.dart';
+import '../calendar_state_notifier.dart';
 import 'calendar.dart';
 
 @RoutePage()
@@ -43,9 +45,17 @@ class CalendarPage extends ConsumerWidget {
               flexibleSpace: FlexibleSpaceBar(title: CalendarSelectedMonth()),
             ),
             SliverList(delegate: SliverChildListDelegate([const Calendar()])),
-            const ExpensesOfDaySliverList(),
+            const DailyExpenses(),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await ref.read(appRouterProvider).push(const ExpenseFormRoute());
+          await ref.read(calendarStateNotifierProvider.notifier).reset();
+          return;
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
