@@ -16,7 +16,6 @@ class CalendarPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -37,7 +36,17 @@ class CalendarPage extends ConsumerWidget {
           ],
         ),
       ),
-      body: const Calendar(),
+      body: Center(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            const SliverAppBar(
+              flexibleSpace: FlexibleSpaceBar(title: CalendarSelectedMonth()),
+            ),
+            SliverList(delegate: SliverChildListDelegate([const Calendar()])),
+            const ExpensesOfDaySliverList(),
+          ],
+        ),
+      ),
     );
   }
 }
