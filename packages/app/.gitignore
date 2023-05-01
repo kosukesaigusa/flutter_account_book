@@ -46,3 +46,6 @@ app.*.map.json
 
 # fabfile
 /fabfile
+
+# firebase
+.firebase/*.cache
