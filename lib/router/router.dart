@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../calendar/ui/calendar_page.dart';
+import '../expense/ui/expense_form.dart';
 import '../sign_in/ui/sign_in.dart';
 import 'router.gr.dart';
 
@@ -18,6 +19,12 @@ class AppRouter extends $AppRouter {
       path: CalendarPage.path,
       page: CalendarRoute.page,
       guards: [_AuthGuard()],
+    ),
+    AutoRoute(
+      path: ExpenseFormPage.path,
+      page: ExpenseFormRoute.page,
+      guards: [_AuthGuard()],
+      fullscreenDialog: true,
     ),
   ];
 }
