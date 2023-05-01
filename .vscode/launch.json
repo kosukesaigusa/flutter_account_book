@@ -3,25 +3,11 @@
   "configurations": [
     {
       "name": "Debug (Sidekick)",
-      "program": "packages/app/lib/main.dart",
+      "program": "lib/main.dart",
       "request": "launch",
       "type": "dart",
       "deviceId": "chrome",
       "args": ["--debug", "--web-renderer=canvaskit"]
-    },
-    {
-      "name": "Debug",
-      "program": "packages/app/lib/main.dart",
-      "request": "launch",
-      "type": "dart",
-      "args": ["--debug"]
-    },
-    {
-      "name": "Release",
-      "program": "packages/app/lib/main.dart",
-      "request": "launch",
-      "type": "dart",
-      "args": ["--release"]
     }
   ]
 }
