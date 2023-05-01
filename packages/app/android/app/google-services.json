@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1081643100584",
+    "project_id": "flutter-account-book",
+    "storage_bucket": "flutter-account-book.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081643100584:android:e1c2a02b5e5cce6aa9959d",
+        "android_client_info": {
+          "package_name": "com.kosukesaigusa.flutter_account_book"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081643100584-59r9mt3o20g681mltoeitnbhcrs2fsic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQeji967nADmg0U_EmKtWpc-Zv--kl4hk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081643100584-59r9mt3o20g681mltoeitnbhcrs2fsic.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1081643100584-mb66mgmecd7054ufps12mkakt30o8k4f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kosukesaigusa.flutterAccountBook"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
