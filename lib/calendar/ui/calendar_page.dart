@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../auth/auth.dart';
 import '../../expense/ui/daily_expense.dart';
+import '../../expense/ui/monthly_expense_summary.dart';
 import '../../router/router.dart';
 import '../../router/router.gr.dart';
 import '../calendar_state_notifier.dart';
@@ -44,7 +45,11 @@ class CalendarPage extends ConsumerWidget {
             const SliverAppBar(
               flexibleSpace: FlexibleSpaceBar(title: CalendarSelectedMonth()),
             ),
-            SliverList(delegate: SliverChildListDelegate([const Calendar()])),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [const MonthlyExpenseSummary(), const Calendar()],
+              ),
+            ),
             const DailyExpenses(),
           ],
         ),
