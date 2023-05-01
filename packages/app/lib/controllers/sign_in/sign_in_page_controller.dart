@@ -3,7 +3,8 @@ import 'package:flutter_account_book/controllers/snack_bar/snack_bar_controller.
 import 'package:flutter_account_book/repository/auth/auth_repository.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-class SignInPageController extends StateNotifier<SignInPageState> with LocatorMixin {
+class SignInPageController extends StateNotifier<SignInPageState>
+    with LocatorMixin {
   SignInPageController() : super(const SignInPageState());
 
   SnackBarController get snackBarController => read();
@@ -20,7 +21,8 @@ class SignInPageController extends StateNotifier<SignInPageState> with LocatorMi
       },
       failure: (message, code) {
         state = state.copyWith(loading: false);
-        snackBarController.showMessage(code == null ? message : '($code): $message');
+        snackBarController
+            .showMessage(code == null ? message : '($code): $message');
         return false;
       },
       error: (err) {

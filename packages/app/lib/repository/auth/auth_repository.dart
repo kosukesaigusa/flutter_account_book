@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_account_book/constatnts/string/string.dart';
 import 'package:flutter_account_book/controllers/common/firebase/firebase_task_result.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,16 +12,29 @@ class AuthRepository {
   /// Google サインイン
   static Future<FirebaseTaskResult<UserCredential>> signInWithGoogle() async {
     try {
+      if (kIsWeb) {
+        final googleProvider = GoogleAuthProvider();
+        googleProvider
+            .addScope('https://www.googleapis.com/auth/contacts.readonly');
+        final userCredential =
+            await FirebaseAuth.instance.signInWithPopup(googleProvider);
+        return FirebaseTaskResult<UserCredential>.success(
+          contents: userCredential,
+          message: 'サインインしました。',
+        );
+      }
       final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
-        return const FirebaseTaskResult<UserCredential>.failure(message: generalErrorMessage);
+        return const FirebaseTaskResult<UserCredential>.failure(
+            message: generalErrorMessage);
       }
       final googleAuth = await googleUser.authentication;
       final oAuthCredential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(oAuthCredential);
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(oAuthCredential);
       return FirebaseTaskResult<UserCredential>.success(
         contents: userCredential,
         message: 'サインインしました。',
