@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../calendar/ui/calendar.dart';
+import '../calendar/ui/calendar_page.dart';
 import '../sign_in/ui/sign_in.dart';
 import 'router.gr.dart';
 
