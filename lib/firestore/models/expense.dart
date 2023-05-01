@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../union_timestamp.dart';
+import '../../union_timestamp.dart';
 
 part 'expense.freezed.dart';
 part 'expense.g.dart';

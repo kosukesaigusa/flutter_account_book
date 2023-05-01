@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'expense/expense.dart';
-import 'expense_category/expense_category.dart';
+import 'models/expense.dart';
+import 'models/expense_category.dart';
 
 final _db = FirebaseFirestore.instance;
 
