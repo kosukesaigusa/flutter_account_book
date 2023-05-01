@@ -17,8 +17,6 @@ Future<void> main() async {
   runApp(const ProviderScope(child: App()));
 }
 
-final _appRouterProvider = Provider.autoDispose<AppRouter>((_) => AppRouter());
-
 class App extends ConsumerWidget {
   const App({super.key});
 
@@ -28,7 +26,7 @@ class App extends ConsumerWidget {
       title: '家計簿',
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: ref.watch(mainScaffoldMessengerKeyProvider),
-      routerConfig: ref.watch(_appRouterProvider).config(),
+      routerConfig: ref.watch(appRouterProvider).config(),
       builder: (context, child) {
         final isLoading = ref.watch(showOverlayLoadingStateProvider);
         return Navigator(
