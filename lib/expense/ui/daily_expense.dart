@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../calendar/calendar_state_notifier.dart';
+import '../../calendar/calendar.dart';
 import '../../int.dart';
 import '../../router/router.dart';
 import '../../router/router.gr.dart';
@@ -13,8 +13,10 @@ class DailyExpenses extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(calendarStateNotifierProvider);
-    final expenses = state.dailySummaries[state.day - 1].expenses;
+    final selectedDay = ref.watch(selectedDayStateProvider);
+    final monthlyExpensesByDay = ref.watch(monthlyExpensesByDayProvider);
+    final expenses =
+        monthlyExpensesByDay[DayEnum.fromDay(selectedDay.day)] ?? [];
     if (expenses.isEmpty) {
       return SliverList(
         delegate: SliverChildListDelegate([
@@ -43,7 +45,7 @@ class DailyExpenses extends ConsumerWidget {
                 ref
                     .read(originalExpenseStateProvider.notifier)
                     .update((s) => null);
-                await ref.read(calendarStateNotifierProvider.notifier).reset();
+                ref.invalidate(monthlyExpensesFutureProvider);
                 return;
               },
               child: Padding(

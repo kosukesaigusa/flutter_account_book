@@ -7,7 +7,7 @@ import '../../expense/ui/daily_expense.dart';
 import '../../expense/ui/monthly_expense_summary.dart';
 import '../../router/router.dart';
 import '../../router/router.gr.dart';
-import '../calendar_state_notifier.dart';
+import '../calendar.dart';
 import 'calendar.dart';
 
 @RoutePage()
@@ -39,7 +39,10 @@ class CalendarPage extends ConsumerWidget {
           ],
         ),
       ),
-      body: Center(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.invalidate(monthlyExpensesFutureProvider);
+        },
         child: CustomScrollView(
           slivers: <Widget>[
             const SliverAppBar(
@@ -57,7 +60,7 @@ class CalendarPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await ref.read(appRouterProvider).push(const ExpenseFormRoute());
-          await ref.read(calendarStateNotifierProvider.notifier).reset();
+          ref.invalidate(monthlyExpensesFutureProvider);
           return;
         },
         child: const Icon(Icons.add),
