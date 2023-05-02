@@ -46,7 +46,7 @@ class CalendarPage extends ConsumerWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             const SliverAppBar(
-              flexibleSpace: FlexibleSpaceBar(title: CalendarSelectedMonth()),
+              flexibleSpace: FlexibleSpaceBar(title: SelectedMonth()),
             ),
             SliverList(
               delegate: SliverChildListDelegate(

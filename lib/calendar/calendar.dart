@@ -7,11 +7,7 @@ import '../firestore/repositories/expense_repository.dart';
 /// カレンダー上で選択中の年・月・日を表すクラス。
 @immutable
 class SelectedDay {
-  const SelectedDay({
-    required this.year,
-    required this.month,
-    required this.day,
-  });
+  const SelectedDay(this.year, this.month, this.day);
 
   final int year;
   final int month;
@@ -21,7 +17,7 @@ class SelectedDay {
 /// カレンダー上で選択中の年・月・日を管理する。
 final selectedDayStateProvider = StateProvider<SelectedDay>((_) {
   final now = DateTime.now();
-  return SelectedDay(year: now.year, month: now.month, day: now.day);
+  return SelectedDay(now.year, now.month, now.day);
 });
 
 /// Firestore から取得される、選択中の支出一覧を取得・保持する。
