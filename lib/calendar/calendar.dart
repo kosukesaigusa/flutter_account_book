@@ -77,10 +77,15 @@ final monthlyExpensesByDayProvider =
 /// 選択中の月の支出（変動費）の合計金額。
 final monthlyTotalExpenseProvider = Provider.autoDispose<int>((ref) {
   final expenses = ref.watch(monthlyExpensesProvider);
-  return expenses
-      .map((expense) => expense.price)
-      .reduce((value, element) => value + element);
+  return expenses.fold(
+    0,
+    (previousValue, element) => previousValue + element.price,
+  );
 });
+
+/// 選択中の月の支出（固定費）の合計金額。
+// TODO: 固定費のモデリング・実装方法を考える
+final monthlyTotalFixedFeeProvider = Provider.autoDispose<int>((_) => 150000);
 
 enum DayEnum {
   first(1),
