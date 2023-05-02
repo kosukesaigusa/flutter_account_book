@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../date_time.dart';
 import '../../int.dart';
+import '../calendar.dart';
 import '../calendar_state_notifier.dart';
 
 ///
@@ -21,32 +22,35 @@ class CalendarSelectedMonth extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(calendarStateNotifierProvider);
+    final selectedDay = ref.watch(selectedDayStateProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        InkWell(
-          onTap: () => ref
-              .watch(calendarStateNotifierProvider.notifier)
-              .showPreviousMonth(),
-          child: const Icon(
-            Icons.arrow_back_ios_outlined,
-            size: 12,
-          ),
+        IconButton(
+          onPressed: () => ref.read(selectedDayStateProvider.notifier).update(
+                (state) => SelectedDate(
+                  year: state.year,
+                  month: state.month - 1,
+                  day: 1,
+                ),
+              ),
+          icon: const Icon(Icons.arrow_back_ios_outlined),
         ),
         const Gap(16),
         Text(
-          '${state.year}年 ${state.month}月',
+          '${selectedDay.year}年 ${selectedDay.month}月',
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const Gap(16),
-        InkWell(
-          onTap: () =>
-              ref.watch(calendarStateNotifierProvider.notifier).showNextMonth(),
-          child: const Icon(
-            Icons.arrow_forward_ios_outlined,
-            size: 12,
-          ),
+        IconButton(
+          onPressed: () => ref.read(selectedDayStateProvider.notifier).update(
+                (state) => SelectedDate(
+                  year: state.year,
+                  month: state.month + 1,
+                  day: 1,
+                ),
+              ),
+          icon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
       ],
     );
