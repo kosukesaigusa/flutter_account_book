@@ -22,8 +22,8 @@ class CalendarState with _$CalendarState {
 
 /// カレンダー上で選択中の年・月・日を表すクラス。
 @immutable
-class SelectedDate {
-  const SelectedDate({
+class SelectedDay {
+  const SelectedDay({
     required this.year,
     required this.month,
     required this.day,
@@ -35,9 +35,9 @@ class SelectedDate {
 }
 
 /// カレンダー上で選択中の年・月・日を管理する。
-final selectedDayStateProvider = StateProvider<SelectedDate>((_) {
+final selectedDayStateProvider = StateProvider<SelectedDay>((_) {
   final now = DateTime.now();
-  return SelectedDate(year: now.year, month: now.month, day: now.day);
+  return SelectedDay(year: now.year, month: now.month, day: now.day);
 });
 
 /// Firestore から取得される、選択中の支出一覧を取得・保持する。
@@ -58,7 +58,7 @@ final monthlyExpensesProvider = Provider.autoDispose<List<Expense>>((ref) {
   return ref.watch(monthlyExpensesFutureProvider).value ?? [];
 });
 
-/// 選択中の月の日毎の支出一覧。
+/// 選択中の月の日ごとの支出一覧。
 final monthlyExpensesByDayProvider =
     Provider.autoDispose<Map<DayEnum, List<Expense>>>((ref) {
   final expenses = ref.watch(monthlyExpensesProvider);

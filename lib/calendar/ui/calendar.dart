@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../date_time.dart';
 import '../../int.dart';
 import '../calendar.dart';
-import '../calendar_state_notifier.dart';
 
 /// カレンダー上部の年月を表示・操作するウィジェット。
 class CalendarSelectedMonth extends ConsumerWidget {
@@ -19,7 +18,7 @@ class CalendarSelectedMonth extends ConsumerWidget {
       children: [
         IconButton(
           onPressed: () => ref.read(selectedDayStateProvider.notifier).update(
-                (state) => SelectedDate(
+                (state) => SelectedDay(
                   year: state.year,
                   month: state.month - 1,
                   day: 1,
@@ -35,7 +34,7 @@ class CalendarSelectedMonth extends ConsumerWidget {
         const Gap(16),
         IconButton(
           onPressed: () => ref.read(selectedDayStateProvider.notifier).update(
-                (state) => SelectedDate(
+                (state) => SelectedDay(
                   year: state.year,
                   month: state.month + 1,
                   day: 1,
@@ -80,12 +79,14 @@ class CalendarBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(calendarStateNotifierProvider);
-    final intWeekDayOfFirstDay = DateTime(state.year, state.month).weekday;
-    final rowCount =
-        ((intWeekDayOfFirstDay - 1 + lastDayOfMonth(state.year, state.month)) /
-                7)
-            .ceil();
+    final selectedDay = ref.watch(selectedDayStateProvider);
+    final intWeekDayOfFirstDay =
+        DateTime(selectedDay.year, selectedDay.month).weekday;
+    final rowCount = ((intWeekDayOfFirstDay -
+                1 +
+                lastDayOfMonth(selectedDay.year, selectedDay.month)) /
+            7)
+        .ceil();
     // 行のリスト（最大 6 行）
     final weekRows = <Widget>[];
     for (var i = 0; i < rowCount; i++) {
@@ -109,9 +110,9 @@ class CalendarDateCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(calendarStateNotifierProvider);
+    final selectedDay = ref.watch(selectedDayStateProvider);
     // 1 日以前 月の最終日以降では空っぽのセルを表示する
-    if (day < 1 || day > lastDayOfMonth(state.year, state.month)) {
+    if (day < 1 || day > lastDayOfMonth(selectedDay.year, selectedDay.month)) {
       return Expanded(
         child: Container(
           decoration: BoxDecoration(
@@ -123,34 +124,42 @@ class CalendarDateCell extends ConsumerWidget {
         ),
       );
     }
-    return CalendarCellContent(day: day);
+    return CalendarCellContent(dayEnum: DayEnum.fromDay(day));
   }
 }
 
 /// カレンダーの空でない日付の中身
 class CalendarCellContent extends ConsumerWidget {
-  const CalendarCellContent({super.key, required this.day});
-  final int day;
+  const CalendarCellContent({super.key, required this.dayEnum});
+  final DayEnum dayEnum;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(calendarStateNotifierProvider);
-    final price = state.dailySummaries[day - 1].totalExpense;
+    final monthlyExpensesByDay = ref.watch(monthlyExpensesByDayProvider);
+    final expensesOfDay = monthlyExpensesByDay[dayEnum] ?? [];
+    final dailyTotal = expensesOfDay.fold(
+      0,
+      (previousValue, element) => previousValue + element.price,
+    );
     return Expanded(
       child: Container(
         decoration: BoxDecoration(border: Border.all(color: Colors.grey[200]!)),
         height: 80,
         child: InkWell(
-          onTap: () => ref
-              .read(calendarStateNotifierProvider.notifier)
-              .tapCalendarCell(day),
+          onTap: () => ref.read(selectedDayStateProvider.notifier).update(
+                (state) => SelectedDay(
+                  year: state.year,
+                  month: state.month,
+                  day: dayEnum.day,
+                ),
+              ),
           child: Column(
             children: <Widget>[
-              CalendarDateText(day: day),
+              CalendarDateText(day: dayEnum.day),
               const Gap(4),
               Flexible(
                 child: Text(
-                  price > 0 ? price.withComma : '-',
+                  dailyTotal > 0 ? dailyTotal.withComma : '-',
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.red,
@@ -175,8 +184,8 @@ class CalendarDateText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selected = day ==
-        ref.watch(calendarStateNotifierProvider.select((state) => state.day));
+    final selectedDay = ref.watch(selectedDayStateProvider);
+    final selected = day == selectedDay.day;
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: selected
