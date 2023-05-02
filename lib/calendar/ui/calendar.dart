@@ -7,15 +7,6 @@ import '../../int.dart';
 import '../calendar.dart';
 import '../calendar_state_notifier.dart';
 
-///
-final _grey200 = Colors.grey[200]!;
-
-///
-final _grey50 = Colors.grey[50]!;
-
-///
-double _cellHeight = 80;
-
 /// カレンダー上部の年月を表示・操作するウィジェット。
 class CalendarSelectedMonth extends ConsumerWidget {
   const CalendarSelectedMonth({super.key});
@@ -71,7 +62,7 @@ class Calendar extends StatelessWidget {
             7,
             (i) => Expanded(
               child: ColoredBox(
-                color: _grey200,
+                color: Colors.grey[200]!,
                 child: Center(child: Text(japaneseWeekdays[i])),
               ),
             ),
@@ -124,10 +115,10 @@ class CalendarDateCell extends ConsumerWidget {
       return Expanded(
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: _grey200),
-            color: _grey50,
+            border: Border.all(color: Colors.grey[200]!),
+            color: Colors.grey[50],
           ),
-          height: _cellHeight,
+          height: 80,
           child: const SizedBox(),
         ),
       );
@@ -147,10 +138,8 @@ class CalendarCellContent extends ConsumerWidget {
     final price = state.dailySummaries[day - 1].totalExpense;
     return Expanded(
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: _grey200),
-        ),
-        height: _cellHeight,
+        decoration: BoxDecoration(border: Border.all(color: Colors.grey[200]!)),
+        height: 80,
         child: InkWell(
           onTap: () => ref
               .read(calendarStateNotifierProvider.notifier)
