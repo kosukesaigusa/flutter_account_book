@@ -45,210 +45,197 @@ class ExpenseFormPage extends ConsumerWidget {
             ),
         ],
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () => ref
+                      .read(expenseFormStateNotifierProvider.notifier)
+                      .selectPreviousDay(),
+                  icon: const Icon(Icons.arrow_back_ios_outlined),
+                ),
+                const Gap(16),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.amber[200],
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    DateTime(
+                      state.year,
+                      state.month,
+                      state.day,
+                    ).toYYYYMMDD(),
+                  ),
+                ),
+                const Gap(16),
+                IconButton(
+                  onPressed: () => ref
+                      .read(expenseFormStateNotifierProvider.notifier)
+                      .selectNextDay(),
+                  icon: const Icon(Icons.arrow_forward_ios_outlined),
+                ),
+              ],
+            ),
+            const Gap(16),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 80,
+                  child: Text('メモ', overflow: TextOverflow.ellipsis),
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: ref.watch(
+                      expenseFormStateNotifierProvider.notifier.select(
+                        (notifier) => notifier.nameTextEditingController,
+                      ),
+                    ),
+                    minLines: 1,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      isDense: true,
+                      border: OutlineInputBorder(),
+                      hintText: '支出の内容',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Gap(16),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 80,
+                  child: Text(
+                    '値段（円）',
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: ref.watch(
+                      expenseFormStateNotifierProvider.notifier.select(
+                        (notifier) => notifier.priceTextEditingController,
+                      ),
+                    ),
+                    minLines: 1,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                    ],
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      isDense: true,
+                      border: OutlineInputBorder(),
+                      hintText: '支出（円）',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Gap(16),
+            const Text('カテゴリー'),
+            const Gap(8),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
                 children: [
-                  InkWell(
-                    onTap: () => ref
-                        .read(expenseFormStateNotifierProvider.notifier)
-                        .selectPreviousDay(),
-                    child: const Icon(
-                      Icons.arrow_back_ios_outlined,
-                      size: 12,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Gap(16),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.amber[200],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      DateTime(
-                        state.year,
-                        state.month,
-                        state.day,
-                      ).toYYYYMMDD(),
-                    ),
-                  ),
-                  const Gap(16),
-                  InkWell(
-                    onTap: () => ref
-                        .read(expenseFormStateNotifierProvider.notifier)
-                        .selectNextDay(),
-                    child: const Icon(
-                      Icons.arrow_forward_ios_outlined,
-                      size: 12,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-              const Gap(16),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 80,
-                    child: Text(
-                      'メモ',
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: ref.watch(
-                        expenseFormStateNotifierProvider.notifier.select(
-                          (notifier) => notifier.nameTextEditingController,
-                        ),
-                      ),
-                      minLines: 1,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        isDense: true,
-                        border: OutlineInputBorder(),
-                        hintText: '支出の内容',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const Gap(16),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 80,
-                    child: Text(
-                      '値段（円）',
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: ref.watch(
-                        expenseFormStateNotifierProvider.notifier.select(
-                          (notifier) => notifier.priceTextEditingController,
-                        ),
-                      ),
-                      minLines: 1,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                      ],
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        isDense: true,
-                        border: OutlineInputBorder(),
-                        hintText: '支出（円）',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const Gap(16),
-              const Text('カテゴリー'),
-              const Gap(8),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  children: [
-                    ...List.generate(
-                      state.expenseCategories.length,
-                      (index) => InkWell(
-                        onTap: () => ref
-                            .read(expenseFormStateNotifierProvider.notifier)
-                            .selectExpenseCategory(
-                              state.expenseCategories[index],
-                            ),
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: state.selectedExpenseCategory ==
-                                      state.expenseCategories[index]
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.grey[200]!,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
+                  ...List.generate(
+                    state.expenseCategories.length,
+                    (index) => InkWell(
+                      onTap: () => ref
+                          .read(expenseFormStateNotifierProvider.notifier)
+                          .selectExpenseCategory(
+                            state.expenseCategories[index],
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  state.expenseCategories[index].name,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: state.selectedExpenseCategory ==
+                                    state.expenseCategories[index]
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey[200]!,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                state.expenseCategories[index].name,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
                                 ),
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              const Gap(8),
-                              const Icon(Icons.restaurant),
-                            ],
-                          ),
+                            ),
+                            const Gap(8),
+                            const Icon(Icons.restaurant),
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const Gap(16),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: ElevatedButton(
-                  onPressed: state.sending
-                      ? null
-                      : () async {
-                          final navigator = Navigator.of(context);
-                          final result = originalExpense == null
-                              ? await ref
-                                  .read(
-                                    expenseFormStateNotifierProvider.notifier,
-                                  )
-                                  .addExpense()
-                              : await ref
-                                  .read(
-                                    expenseFormStateNotifierProvider.notifier,
-                                  )
-                                  .updateExpense();
-                          if (!result) {
-                            return;
-                          }
-                          navigator.pop();
-                          ref
-                              .read(mainScaffoldMessengerControllerProvider)
-                              .showSnackBar(
-                                originalExpense == null
-                                    ? '支出を登録しました。'
-                                    : '支出を更新しました。',
-                              );
-                        },
-                  child: const Text('保存する'),
-                ),
+            ),
+            const Gap(16),
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton(
+                onPressed: state.sending
+                    ? null
+                    : () async {
+                        final navigator = Navigator.of(context);
+                        final result = originalExpense == null
+                            ? await ref
+                                .read(
+                                  expenseFormStateNotifierProvider.notifier,
+                                )
+                                .addExpense()
+                            : await ref
+                                .read(
+                                  expenseFormStateNotifierProvider.notifier,
+                                )
+                                .updateExpense();
+                        if (!result) {
+                          return;
+                        }
+                        navigator.pop();
+                        ref
+                            .read(mainScaffoldMessengerControllerProvider)
+                            .showSnackBar(
+                              originalExpense == null
+                                  ? '支出を登録しました。'
+                                  : '支出を更新しました。',
+                            );
+                      },
+                child: const Text('保存する'),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

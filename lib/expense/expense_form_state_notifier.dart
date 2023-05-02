@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../calendar/calendar.dart';
 import '../firestore/models/expense.dart';
 import '../firestore/models/expense_category.dart';
 import '../firestore/repositories/expense_category_repository.dart';
@@ -10,6 +11,7 @@ import '../scaffold_messenger_controller.dart';
 import '../union_timestamp.dart';
 import 'expense_form.dart';
 
+// TODO: かっこわるいので auto_route の使い方との兼ね合いも含めて改善したい。
 final originalExpenseStateProvider = StateProvider<Expense?>((_) => null);
 
 final expenseFormStateNotifierProvider =
@@ -28,8 +30,12 @@ class ExpenseFormStateNotifier extends StateNotifier<ExpenseForm> {
   })  : _ref = ref,
         _originalExpense = originalExpense,
         super(const ExpenseForm()) {
-    final now = DateTime.now();
-    state = state.copyWith(year: now.year, month: now.month, day: now.day);
+    final selectedDay = ref.read(selectedDayStateProvider);
+    state = state.copyWith(
+      year: selectedDay.year,
+      month: selectedDay.month,
+      day: selectedDay.day,
+    );
     _init();
   }
 
@@ -110,9 +116,6 @@ class ExpenseFormStateNotifier extends StateNotifier<ExpenseForm> {
           DateTime(state.year, state.month, state.day),
         ),
       );
-      if (_originalExpense == null) {
-        await _ref.read(expenseRepositoryProvider).addExpense(expense: expense);
-      } else {}
       await _ref.read(expenseRepositoryProvider).addExpense(expense: expense);
     } on FirebaseException catch (e) {
       _ref
