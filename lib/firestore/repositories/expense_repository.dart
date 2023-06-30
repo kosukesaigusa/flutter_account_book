@@ -44,7 +44,7 @@ class ExpenseRepository {
     required int month,
   }) async {
     final firstTimestamp = Timestamp.fromDate(DateTime(year, month));
-    final lastTimestamp = Timestamp.fromDate(DateTime(year, month + 1, 0));
+    final lastTimestamp = Timestamp.fromDate(DateTime(year, month + 1));
     final qs = await expensesRef(userId: _userId)
         .where('paidAt', isGreaterThanOrEqualTo: firstTimestamp)
         .where('paidAt', isLessThanOrEqualTo: lastTimestamp)
