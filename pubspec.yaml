@@ -7,32 +7,32 @@ environment:
   sdk: '>=2.18.7 <3.0.0'
 
 dependencies:
-  auto_route: ^6.4.0
-  cloud_firestore: ^4.5.3
-  cloud_functions: ^4.1.1
+  auto_route: ^7.5.0
+  cloud_firestore: ^4.8.2
+  cloud_functions: ^4.3.3
   cupertino_icons: ^1.0.5
-  firebase_auth: ^4.4.2
-  firebase_core:  ^2.10.0
+  firebase_auth: ^4.6.3
+  firebase_core:  ^2.14.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   freezed_annotation: ^2.2.0
-  gap: ^3.0.0
-  google_sign_in: ^6.1.0
+  gap: ^3.0.1
+  google_sign_in: ^6.1.4
   hooks_riverpod: ^2.3.6
-  intl: ^0.17.0
-  json_annotation: ^4.8.0
-  sign_button: ^2.0.3
+  intl: ^0.18.0
+  json_annotation: ^4.8.1
+  sign_button: ^2.0.4
   simple_logger: ^1.9.0+2
 
 dev_dependencies:
-  auto_route_generator: ^6.2.0
-  build_runner: ^2.3.3
+  auto_route_generator: ^7.1.1
+  build_runner: ^2.4.6
   flutter_test:
     sdk: flutter
-  freezed: ^2.3.2
-  json_serializable: ^6.6.1
+  freezed: ^2.3.5
+  json_serializable: ^6.7.0
 
 flutter:
   uses-material-design: true
