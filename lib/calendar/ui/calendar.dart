@@ -18,7 +18,7 @@ class SelectedMonth extends ConsumerWidget {
       children: [
         IconButton(
           onPressed: () => ref.read(selectedDayStateProvider.notifier).update(
-                (state) => SelectedDay(state.year, state.month - 1, 1),
+                (state) => DateTime(state.year, state.month - 1),
               ),
           icon: const Icon(
             Icons.arrow_back_ios_outlined,
@@ -33,7 +33,7 @@ class SelectedMonth extends ConsumerWidget {
         const Gap(16),
         IconButton(
           onPressed: () => ref.read(selectedDayStateProvider.notifier).update(
-                (state) => SelectedDay(state.year, state.month + 1, 1),
+                (state) => DateTime(state.year, state.month + 1),
               ),
           icon: const Icon(
             Icons.arrow_forward_ios_outlined,
@@ -152,7 +152,7 @@ class _DayCellContent extends ConsumerWidget {
         height: _dayCellHeight,
         child: InkWell(
           onTap: () => ref.read(selectedDayStateProvider.notifier).update(
-                (state) => SelectedDay(state.year, state.month, day),
+                (state) => DateTime(state.year, state.month, day),
               ),
           child: Column(
             children: <Widget>[
